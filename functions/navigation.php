@@ -48,7 +48,7 @@ function navigation_array($selected = false)
                             'title' => 'Roadview',
                         ],[
                             'icon' => 'bm-roadview',
-                            'url' => '/maps/places',
+                            'url' => '/places/dashboard',
                             'title' => 'Places',
                         ]
                     ],
@@ -61,7 +61,7 @@ function navigation_array($selected = false)
                             'url' => '/control-panel',
                             'title' => 'Control Panel',
                         ],[
-                            'icon' => 'bm-control-brix',
+                            'icon' => 'bm-control-clock',
                             'url' => '/clock/dashboard',
                             'title' => 'Clock',
                         ]

@@ -2,12 +2,12 @@
 
 /**
  * Load libraries through composer.
- */ 
+ */
 require __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Include database connecton, session initialiation, and function
- * files. 
+ * files.
  */
 include('../includes/connect.php');
 include('../includes/session.php');
@@ -22,6 +22,17 @@ else $_user = false;
 
 if(isset($_SESSION['city'])) $_city = city_fetch($_SESSION['city']['id']);
 else $_city = false;
+
+/**
+ * Get domain.
+ */
+if(strpos($_SERVER['HTTP_HOST'], 'account')) $domain = 'account';
+elseif(strpos($_SERVER['HTTP_HOST'], 'console')) $domain = 'console';
+else
+{
+    include('404.php');
+    exit;
+}
 
 /**
  * Convert standard format URL parameters to slashes.
@@ -92,7 +103,7 @@ else
 {
 
     define('PAGE_TYPE', 'web');
-    $folder = '';
+    $folder = $domain;
     
 }
 
@@ -108,7 +119,7 @@ foreach($parts as $part)
     $file = str_replace('php', '', $file);
     $file .= array_shift($parts).'.php';
 
-    if(file_exists($folder.$file)) 
+    if(file_exists('../'.$folder.'/'.$file)) 
     {
         $final_file = $file;
         $final_parts = $parts;
@@ -123,7 +134,7 @@ if($final_file) define('PAGE_FILE', $final_file);
  */
 if(!defined('PAGE_FILE'))
 {
-    include($folder.'404.php');
+    include('404.php');
     exit;
 }
 
@@ -154,7 +165,7 @@ for($i = 0; $i < count($final_parts); $i += 2)
 if(PAGE_TYPE == 'ajax') 
 {
     $_POST = json_decode(file_get_contents('php://input'), true);
-    include('ajax/'.PAGE_FILE);
+    include('../ajax/'.PAGE_FILE);
     echo json_encode($data);
     exit;
 }
@@ -164,7 +175,7 @@ if(PAGE_TYPE == 'ajax')
  */
 elseif(PAGE_TYPE == 'api') 
 {
-    include('api/'.PAGE_FILE);
+    include('../api/'.PAGE_FILE);
     echo json_encode($data);
     exit;
 }
@@ -174,7 +185,7 @@ elseif(PAGE_TYPE == 'api')
  */
 elseif(PAGE_TYPE == 'action') 
 {
-    include('action/'.PAGE_FILE);
+    include('../action/'.PAGE_FILE);
     exit;
 }
 
@@ -183,6 +194,6 @@ elseif(PAGE_TYPE == 'action')
  */
 else
 {
-    include(PAGE_FILE);
+    include('../'.$folder.'/'.PAGE_FILE);
 }
 
