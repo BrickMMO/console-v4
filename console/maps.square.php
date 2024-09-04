@@ -34,13 +34,13 @@ define('PAGE_TITLE', 'Modify Map Squares');
 define('PAGE_SELECTED_SECTION', 'geography');
 define('PAGE_SELECTED_SUB_PAGE', '/maps/squares');
 
-include('templates/html_header.php');
-include('templates/nav_header.php');
-include('templates/nav_slideout.php');
-include('templates/nav_sidebar.php');
-include('templates/main_header.php');
+include('../templates/html_header.php');
+include('../templates/nav_header.php');
+include('../templates/nav_slideout.php');
+include('../templates/nav_sidebar.php');
+include('../templates/main_header.php');
 
-include('templates/message.php');
+include('../templates/message.php');
 
 $square = square_fetch($_GET['key']);
 
@@ -109,8 +109,8 @@ $square = square_fetch($_GET['key']);
     
 <?php
 
-include('templates/modal_city.php');
+include('../templates/modal_city.php');
 
-include('templates/main_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

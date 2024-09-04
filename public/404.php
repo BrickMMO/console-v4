@@ -8,8 +8,8 @@ define('PAGE_TITLE', 'Page Not Found');
 define('PAGE_SELECTED_SECTION', '');
 define('PAGE_SELECTED_SUB_PAGE', '');
 
-include('templates/html_header.php');
-include('templates/login_header.php');  
+include('../templates/html_header.php');
+include('../templates/login_header.php');  
 
 ?>
 
@@ -17,7 +17,7 @@ include('templates/login_header.php');
 
     <h1>404 Error</h1>
 
-    <?php include('templates/message.php'); ?>
+    <?php include('../templates/message.php'); ?>
 
     <?php if($_user): ?>
         <a href="<?=ENV_ACCOUNT_DOMAIN?>/action/logout">Logout</a> | 
@@ -33,8 +33,8 @@ include('templates/login_header.php');
 
 <?php
 
-include('templates/modal_city.php');
+include('../templates/modal_city.php');
 
-include('templates/main_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

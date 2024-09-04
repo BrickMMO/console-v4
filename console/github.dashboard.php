@@ -9,13 +9,13 @@ define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-tools');
 define('PAGE_SELECTED_SUB_PAGE', '/github/dashboard');
 
-include('templates/html_header.php');
-include('templates/nav_header.php');
-include('templates/nav_slideout.php');
-include('templates/nav_sidebar.php');
-include('templates/main_header.php');
+include('../templates/html_header.php');
+include('../templates/nav_header.php');
+include('../templates/nav_slideout.php');
+include('../templates/nav_sidebar.php');
+include('../templates/main_header.php');
 
-include('templates/message.php');
+include('../templates/message.php');
 
 $github_accounts = setting_fetch('GITHUB_ACCOUNTS');
 $github_last_import = setting_fetch('GITHUB_LAST_IMPORT');
@@ -111,8 +111,8 @@ $result = mysqli_query($connect, $query);
 
 <?php
 
-include('templates/modal_city.php');
+include('../templates/modal_city.php');
 
-include('templates/main_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

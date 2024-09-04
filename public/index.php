@@ -3,16 +3,16 @@
 /**
  * Load libraries through composer.
  */ 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Include database connecton, session initialiation, and function
  * files. 
  */
-include('includes/connect.php');
-include('includes/session.php');
-include('includes/config.php');
-include('functions/functions.php');
+include('../includes/connect.php');
+include('../includes/session.php');
+include('../includes/config.php');
+include('../functions/functions.php');
 
 /**
  * Fetch city and user if applicable.

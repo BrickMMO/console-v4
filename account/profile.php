@@ -5,7 +5,7 @@ $user = user_fetch($_GET['key'], 'url');
 if(!$user)
 {
     message_set('Profile error', 'This profile does not exist.', 'red');
-    include('404.php');
+    include('../404.php');
     die();
 }
 
@@ -13,8 +13,8 @@ define('APP_NAME', 'Profile');
 
 define('PAGE_TITLE', $user['url']);
 
-include('templates/html_header.php');
-include('templates/login_header.php');
+include('../templates/html_header.php');
+include('../templates/login_header.php');
 
 ?>
 
@@ -35,6 +35,6 @@ include('templates/login_header.php');
 
 <?php
 
-include('templates/login_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/login_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

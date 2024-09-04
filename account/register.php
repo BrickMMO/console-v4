@@ -67,12 +67,12 @@ define('APP_NAME', 'My Account');
 
 define('PAGE_TITLE', 'Register');
 
-include('templates/html_header.php');
-include('templates/login_header.php');
+include('../templates/html_header.php');
+include('../templates/login_header.php');
 
 ?>
 
-<?php include('templates/message.php'); ?>
+<?php include('../templates/message.php'); ?>
 
 <div>
     <form
@@ -222,6 +222,6 @@ include('templates/login_header.php');
 
 <?php
 
-include('templates/login_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/login_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

@@ -9,14 +9,14 @@ define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', '');
 define('PAGE_SELECTED_SUB_PAGE', '');
 
-include('templates/html_header.php');
-include('templates/nav_header.php');
-include('templates/nav_slideout.php');
-include('templates/main_header.php');
+include('../templates/html_header.php');
+include('../templates/nav_header.php');
+include('../templates/nav_slideout.php');
+include('../templates/main_header.php');
 
 ?>
 
-<?php include('templates/message.php'); ?>
+<?php include('../templates/message.php'); ?>
 
 <div class="w3-center">
 
@@ -68,8 +68,8 @@ include('templates/main_header.php');
 
 <?php
 
-include('templates/modal_city.php');
+include('../templates/modal_city.php');
 
-include('templates/main_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');
