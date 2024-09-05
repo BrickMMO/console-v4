@@ -5,7 +5,7 @@ admin_check();
 
 $countries_last_import = setting_fetch('COUNTRIES_LAST_IMPORT');   
 
-if (isset($_GET['key']) && $_GET['key'] == 'import') 
+if (isset($_GET['key']) && $_GET['key'] == 'go') 
 {
 
     $response = json_decode(file_get_contents("http://country.io/names.json"), true);
@@ -36,10 +36,11 @@ if (isset($_GET['key']) && $_GET['key'] == 'import')
         mysqli_query($connect, $query);
     }
     
-    message_set('Import Success', 'Countries list has been imported from Country.IO.');
+    message_set('Import Success', 'Countries list has been imported from Country.io.');
     header_redirect('/stores/countries');
 
 }
+
 
 define('APP_NAME', 'Stores');
 
@@ -84,24 +85,24 @@ $result = mysqli_query($connect, $query);
 <p>
     There are currently 
     <span class="w3-tag w3-blue"><?=mysqli_num_rows($result)?></span> 
-    Countries imported from 
-    <a href="http://country.io/names.json">Country.IO</a>.
+    countries imported from 
+    <a href="http://country.io/">Country.io</a>.
 </p>
 
 <hr />
 
 <p>
     Re-importimg the Countries from 
-    <a href="http://country.io/names.json">Country.IO</a> will:
+    <a href="http://country.io/">Country.io</a> will:
 </p>
 
-<ul class="w3-ul w3-margin-bottom">
+<ul class="w3-margin-bottom">
     <li>Delete the current Countries data.</li>
-    <li>Re-import the Country data from <a href="http://country.io/names.json">Country.IO</a>.</li>
+    <li>Re-import the Country data from <a href="http://country.io/">Country.io</a>.</li>
 </ul>
             
 <a
-    href="/stores/countries/import"
+    href="/stores/countries/go"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-download"></i> Start Import

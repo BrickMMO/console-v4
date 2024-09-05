@@ -3,7 +3,17 @@
 security_check();
 admin_check();
 
-$stores_last_import = setting_fetch('STORES_LAST_IMPORT');   
+$query = 'SELECT * 
+    FROM countries 
+    ORDER BY long_name';
+$result = mysqli_query($connect, $query);
+
+if(!mysqli_num_rows($result))
+{
+
+    message_set('Import Error', 'Import countries before importing stores.', 'red');
+    header_redirect('/stores/dashboard');
+}
 
 define('APP_NAME', 'Stores');
 
@@ -19,8 +29,10 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'TRUNCATE TABLE stores';
+$query = 'TRUNCATE stores';
 mysqli_query($connect, $query);
+
+$stores_last_import = setting_fetch('STORES_LAST_IMPORT');   
 
 ?>
 
@@ -134,22 +146,20 @@ mysqli_query($connect, $query);
                 let h3Text = document.createTextNode(countCountry[i].stores[j].name);
                 h3.append(h3Text);
 
-                let country = document.createElement('p');
-                country.innerHTML = '<strong>Country: </strong>' + detailsStore.country;
-                div.append(country);
+                // let country = document.createElement('p');
+                // country.innerHTML = '<strong>Country: </strong>' + detailsStore.country;
+                // div.append(country);
 
-                let city = document.createElement('p');
-                city.innerHTML = '<strong>City: </strong>' + detailsStore.city;
-                div.append(city);
-
-                let phone = document.createElement('p');
-                phone.innerHTML = '<strong>Phone: </strong>' + detailsStore.phone;
-                div.append(phone);
+                // let city = document.createElement('p');
+                // city.innerHTML = '<strong>City: </strong>' + detailsStore.city;
+                // div.append(city);
 
                 let urlKey = document.createElement('p');
-                urlKey.innerHTML = '<strong>UrlKey: </strong>' + detailsStore.urlKey;
+                urlKey.innerHTML = '<a href="' + detailsStore.storeUrl + 
+                    '">' + detailsStore.storeUrl + '</a>';
                 div.append(urlKey);
 
+                console.log(detailsStore);
                 let hr = document.createElement('hr');
                 div.append(hr);
 

@@ -18,6 +18,13 @@ include('../templates/main_header.php');
 include('../templates/message.php');
 
 $query = 'SELECT * 
+    FROM countries 
+    ORDER BY id';    
+$result = mysqli_query($connect, $query);
+
+$countries_count = mysqli_num_rows($result);
+
+$query = 'SELECT * 
     FROM stores 
     ORDER BY id';    
 $result = mysqli_query($connect, $query);
@@ -41,42 +48,67 @@ $stores_last_import = setting_fetch('STORES_LAST_IMPORT');
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     Stores
-    </p>
+</p>
+
 <hr>
+
 <p>
     Number of stores imported: <span class="w3-tag w3-blue"><?=$stores_count?></span> 
+</p>
+<p>
     Last import: <span class="w3-tag w3-blue"><?=(new DateTime($stores_last_import))->format("D, M j g:i A")?></span>
 </p>
+
 <hr />
+
 <h2>Store List</h2>
 
-<?php if (mysqli_num_rows($result)): ?>
+<?php if(!$countries_count): ?>
 
-    <div class="w3-container w3-border w3-padding-16 w3-margin-bottom" style="max-height: 500px; overflow: scroll;">
+    <p>
+        Country data has not yet been imported, initiate country import from
+        <a href="http://country.io/names.json">Country.io</a>.
+    </p>
 
-        <?php while($store = mysqli_fetch_assoc($result)): ?>
-            <?php $json = json_decode($store['json'], true); ?>
+<?php elseif(!$stores_count): ?>
 
-            <div class="w3-container w3-padding w3-col l4 w3-border">
-                <div class="w3-border-bottom" style="background-image: url('<?=stores_image($store['id']);?>'); background-size: cover; background-position: center; height: 168px"></div>
-                <p><strong><?=$store['name']?></strong></p>
-                <p><strong>Store ID:</strong> <?=$store['store_id']?></p>
-                <p><strong>Phone:</strong> <?=$json['phone']?></p>
-                <p><strong>Certified:</strong> <?php if($json['certified'] == 1){ echo "Yes";} else {echo "No";}?></p>
-                <a href="<?=$json['storeUrl']?>" target="_blank">Visit Store Page</a>
-            </div>
-            
-
-        <?php endwhile; ?>
-
-    </div>
+    <p>
+        Store data has not yet been imported, initiate store import from the
+        <a href="https://www.lego.com/en-ca/stores">official LEGO® Store list</a>.
+    </p>
 
 <?php else: ?>
 
-    <p>
-        Stores data has not yet been imported from 
-        <a href="https://www.lego.com/en-ca/stores">LEGO® Store</a>.
-    </p>
+    <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
+        <tr>
+            <th>Name</th>
+            <th>URL</th>
+        </tr>
+
+        <?php while($record = mysqli_fetch_assoc($result)): ?>
+
+            <?php $json = json_decode($record['json'], true); ?>
+            
+            <tr>
+                <td>
+                    <?=$record['name']?>
+                    <small>
+                        <br>
+                        Country: <?=$json['country']?>
+                        <br>
+                        City: <?=$json['city']?>
+                    </small>
+                </td>
+                <td>
+                    <?php if($json['storeUrl'] != 'store.default.url'): ?>
+                        <a href="<?=$json['storeUrl']?>" target="_blank"><?=$json['storeUrl']?></a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+
+        <?php endwhile; ?>
+
+    </table>
 
 <?php endif; ?>
 
@@ -85,6 +117,13 @@ $stores_last_import = setting_fetch('STORES_LAST_IMPORT');
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-download"></i> Import Stores
+</a>
+
+<a
+    href="/stores/countries"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-download"></i> Import Countries
 </a>
 
 <hr />
