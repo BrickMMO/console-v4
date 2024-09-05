@@ -132,7 +132,7 @@ $result = mysqli_query($connect, $query);
 
 <p>
     There are currently 
-    <span><?=mysqli_num_rows($result)?> 
+    <span class="w3-tag w3-blue"><?=mysqli_num_rows($result)?></span>
     colours imported from 
     <a href="https://rebrickable.com/api/">Rebrickable</a>.
 </p>
@@ -144,7 +144,7 @@ $result = mysqli_query($connect, $query);
     <a href="https://rebrickable.com/api/">Rebrickable</a> will:
 </p>
 
-<ul class="w3-ul w3-margin-bottom">
+<ul class="w3-margin-bottom">
     <li>Delete the current colours data.</li>
     <li>Re-import the colour data from <a href="https://rebrickable.com/api/">Rebrickable</a>.</li>
 </ul>

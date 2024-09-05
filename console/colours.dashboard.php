@@ -41,13 +41,19 @@ $colours_last_import = setting_fetch('COLOURS_LAST_IMPORT');
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     Colours
-    </p>
+</p>
+
 <hr>
+
 <p>
     Number of colours imported: <span class="w3-tag w3-blue"><?=$colours_count?></span> 
+</p>
+<p>
     Last import: <span class="w3-tag w3-blue"><?=(new DateTime($colours_last_import))->format("D, M j g:i A")?></span>
 </p>
+
 <hr />
+
 <h2>Colour List</h2>
 
 <?php if (mysqli_num_rows($result)): ?>
