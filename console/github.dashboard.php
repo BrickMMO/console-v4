@@ -105,7 +105,7 @@ $result = mysqli_query($connect, $query);
             <div class="w3-container w3-padding">App Statistics Summary</div>
             <footer class="w3-container w3-border-top w3-padding">
                 <a
-                    href="/stats/colours"
+                    href="/stats/github"
                     class="w3-button w3-border w3-white"
                 >
                     <i class="fa-regular fa-chart-bar fa-padding-right"></i> Full Report

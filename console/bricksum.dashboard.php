@@ -39,10 +39,16 @@ $bricksum_words_generated = setting_fetch('BRICKSUM_WORDS_GENERATED');
     <a href="/city/dashboard">Dashboard</a> / 
     Bricksum
 </p>
+
 <hr>
+
 <p>
     Paragraphs Generated: <span class="w3-tag w3-blue"><?=$bricksum_paragraphs_generated?></span> 
+</p>
+<p>
     Sentences Generated: <span class="w3-tag w3-blue"><?=$bricksum_sentences_generated?></span> 
+</p>
+<p>
     Words Generated: <span class="w3-tag w3-blue"><?=$bricksum_words_generated?></span>
 </p>
 <hr />
