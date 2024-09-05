@@ -6,29 +6,12 @@ city_check();
 if (isset($_GET['uninvite'])) 
 {
 
-<<<<<<< HEAD
-    die();
-    
-    // Basic serverside validation
-    if (
-        !validate_blank($_POST['name']) || 
-        !validate_number($_POST['width']) || 
-        !validate_number($_POST['height']))
-=======
     if(!$user = user_fetch($_GET['uninvite']))
->>>>>>> d03d79dae1e8534c2a4716801758cb8fdf6c5a38
     {
         message_set('Delete Error', 'There was an error removing this member from the city.', 'red');
         header_redirect('/city/members');
     }
 
-<<<<<<< HEAD
-    $query = 'UPDATE cities SET
-        name = "'.addslashes($_POST['name']).'",
-        width = "'.addslashes($_POST['width']).'",
-        height = "'.addslashes($_POST['height']).'"
-        WHERE id = '.$_SESSION['city']['id'].'
-=======
     $query = 'DELETE FROM city_user 
         WHERE user_id = '.$user['id'].'
         AND city_id = '.$_city['id'].'
@@ -39,7 +22,6 @@ if (isset($_GET['uninvite']))
         city_id = NULL
         WHERE id = '.$user['id'].'
         AND city_id = '.$_city['id'].'
->>>>>>> d03d79dae1e8534c2a4716801758cb8fdf6c5a38
         LIMIT 1';
     mysqli_query($connect, $query);
 
@@ -56,12 +38,12 @@ define('PAGE_TITLE', 'Members');
 define('PAGE_SELECTED_SECTION', '');
 define('PAGE_SELECTED_SUB_PAGE', '');
 
-include('../templates/html_header.php');
-include('../templates/nav_header.php');
-include('../templates/nav_slideout.php');
-include('../templates/main_header.php');
+include('templates/html_header.php');
+include('templates/nav_header.php');
+include('templates/nav_slideout.php');
+include('templates/main_header.php');
 
-include('../templates/message.php');
+include('templates/message.php');
 
 $query = 'SELECT users.*,city_user.*
     FROM users
@@ -145,8 +127,8 @@ $result = mysqli_query($connect, $query);
     
 <?php
 
-include('../templates/modal_city.php');
+include('templates/modal_city.php');
 
-include('../templates/main_footer.php');
-include('../templates/debug.php');
-include('../templates/html_footer.php');
+include('templates/main_footer.php');
+include('templates/debug.php');
+include('templates/html_footer.php');
