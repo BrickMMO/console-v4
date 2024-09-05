@@ -165,7 +165,7 @@ mysqli_query($connect, $query);
 $user = user_fetch($emails[0]['email']);
 
 ob_start();
-include(__DIR__.'/templates/email_register.php');
+include(__DIR__.'/../templates/email_register.php');
 $message = ob_get_contents();
 ob_end_clean();
 

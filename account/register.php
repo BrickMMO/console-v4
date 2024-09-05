@@ -52,7 +52,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     mysqli_query($connect, $query);
 
     ob_start();
-    include(__DIR__.'/templates/email_register.php');
+    include(__DIR__.'/../templates/email_register.php');
     $message = ob_get_contents();
     ob_end_clean();
 

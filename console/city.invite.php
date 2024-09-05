@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     mysqli_query($connect, $query);
 
     ob_start();
-    include(__DIR__.'/templates/email_invite.php');
+    include(__DIR__.'/../templates/email_invite.php');
     $message = ob_get_contents();
     ob_end_clean();
 

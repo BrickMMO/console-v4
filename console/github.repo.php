@@ -79,24 +79,36 @@ include('../templates/message.php');
     <a href="/github/results">Scan Results</a> / 
     Repo Scan Details    
 </p>
+
 <hr />
+
 <h2>Repo Scan Details: <?=$record['name']?></h2>
 
 <a href="https://github.com/<?=$record['owner']?>/<?=$record['name']?>">
-    <i class="fa-brands fa-github" aria-hidden="true"></i> /<?=$record['owner']?>/<?=$record['name']?>
+    <i class="fa-brands fa-github" aria-hidden="true"></i> https://github.com/<?=$record['owner']?>/<?=$record['name']?>
 </a>
 
 <p>
     Pull requests: <span class="w3-tag w3-blue"><?=$record['pull_requests']?></span> 
+</p>
+<p>
     Errors found: <span class="w3-tag w3-blue"><?=$record['error_count']?></span> 
+</p>
+<p>
     Last scan: <span class="w3-tag w3-blue"><?=(new DateTime($record['updated_at']))->format("D, M j g:i A")?></span>
 </p>
 
-<ul class="w3-ul w3-margin-bottom">
+<hr />
+
+<h3>Repo Errors</h3>
+
+<ul class="w3-margin-bottom">
     <?php foreach(explode(chr(13), $record['error_comments']) as $error): ?>
         <li><?=$error?></li>
     <?php endforeach; ?>
 </ul>
+
+<hr />
 
 <a
     href="/github/repo/rescan/<?=$record['name']?>"

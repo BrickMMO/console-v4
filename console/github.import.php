@@ -8,7 +8,11 @@ if (!isset($_GET['key']) || !in_array($_GET['key'], explode(',', setting_fetch('
     message_set('Import Error', 'There was an error importing repos.', 'red');
     header_redirect('/github/dashboard');
 }
-
+elseif (!isset($_user['github_access_token']) or !$_user['github_access_token'])
+{
+    message_set('GitHub Error', 'Missing GitHub authentication tokens.', 'red');
+    header_redirect('/github/dashboard');
+}
 
 define('APP_NAME', 'GitHub Scanner');
 
@@ -51,6 +55,8 @@ mysqli_query($connect, $query);
 <p>
     Importing:
     <span class="w3-tag w3-blue" id="repo-count">0/0</span>
+</p>
+<p>
     Importing from: 
     <span class="w3-tag w3-blue"><?=$_GET['key']?></span>
 </p>
@@ -80,7 +86,6 @@ mysqli_query($connect, $query);
     }
     
     async function scanRepo(account,repo) {
-        
         return fetch('/ajax/github/scan/account/'+account+'/repo/'+repo,{
                 method: "POST",
                 headers: {
@@ -114,6 +119,8 @@ mysqli_query($connect, $query);
 
             const resultRepo = await scanRepo(account,resultAccount.repos[i].name);
 
+            console.log(resultRepo);
+
             if(i == 0) loading.innerHTML = '';
 
             let div = document.createElement('div');
@@ -134,6 +141,7 @@ mysqli_query($connect, $query);
             // p.append(pText);
 
             let ul = document.createElement('ul');
+            // ul.classList.add('w3-ul');
             div.append(ul);
 
             for(let i = 0; i < resultRepo.errors.length; i++)
@@ -143,7 +151,7 @@ mysqli_query($connect, $query);
 
             let a = document.createElement('a');
             a.href = '/github/repo/'+resultRepo.repo.name;
-            a.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i> /'+resultRepo.repo.full_name;
+            a.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i> /'+resultRepo.repo.name;
             div.append(a);
 
             // let aText = document.createTextNode(resultRepo.repo.html_url);

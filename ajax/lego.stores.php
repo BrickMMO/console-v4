@@ -7,6 +7,7 @@
 if(!security_is_logged_in())
 {
     $data = array('message' => 'Must be logged in to use this ajax call.', 'error' => false);
+    return;
 }
 
 $url = 'https://www.lego.com/api/graphql/StoresDirectory';

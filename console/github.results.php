@@ -43,7 +43,9 @@ $result = mysqli_query($connect, $query);
     <a href="/github/dashboard">GitHub Tools</a> / 
     Scan Results
 </p>
+
 <hr />
+
 <h2>Scan Results</h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
@@ -71,8 +73,7 @@ $result = mysqli_query($connect, $query);
 
 </table>
 
-
-<?php foreach(explode(',', $github_accounts) as $account): ?>
+<?php foreach(explode(', ', $github_accounts) as $account): ?>
 
 <a
     href="/github/import/<?=$account?>"
@@ -82,47 +83,6 @@ $result = mysqli_query($connect, $query);
 </a>
 
 <?php endforeach; ?>
-
-<hr />
-
-<div
-    class="w3-row-padding"
-    style="margin-left: -16px; margin-right: -16px"
->
-    <div class="w3-half">
-        <div class="w3-card">
-            <header class="w3-container w3-grey w3-padding w3-text-white">
-                <i class="bm-colours"></i> Uptime Status
-            </header>
-            <div class="w3-container w3-padding">Uptime Status Summary</div>
-            <footer class="w3-container w3-border-top w3-padding">
-                <a
-                    href="/uptime/colours"
-                    class="w3-button w3-border w3-white"
-                >
-                    <i class="fa-regular fa-file-lines fa-padding-right"></i>
-                    Full Report
-                </a>
-            </footer>
-        </div>
-    </div>
-    <div class="w3-half">
-        <div class="w3-card">
-            <header class="w3-container w3-grey w3-padding w3-text-white">
-                <i class="bm-colours"></i> Stat Summary
-            </header>
-            <div class="w3-container w3-padding">App Statistics Summary</div>
-            <footer class="w3-container w3-border-top w3-padding">
-                <a
-                    href="/stats/colours"
-                    class="w3-button w3-border w3-white"
-                >
-                    <i class="fa-regular fa-chart-bar fa-padding-right"></i> Full Report
-                </a>
-            </footer>
-        </div>
-    </div>
-</div>
 
 <?php
 

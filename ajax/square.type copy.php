@@ -6,7 +6,7 @@ if(
 {
     header_bad_request();
     $data = array('message'=>'Missing Paramater.', 'error' => true);
-    die(json_encode($data));
+    return;
 }
 
 $query = 'UPDATE squares SET

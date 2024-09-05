@@ -6,15 +6,19 @@
 
 if(!security_is_logged_in())
 {
-    $data = array('message' => 'Must be logged in to use this ajaz call.', 'error' => false);
+    $data = array('message' => 'Must be logged in to use this ajax call.', 'error' => false);
+    return;
 }
-
-$user = user_fetch($_SESSION['user']['id']);
+elseif(!isset($_user['github_access_token']))
+{
+    $data = array('message' => 'Admin user must approve BrickMMO GitHub app.', 'error' => false);
+    return;
+}
 
 $url = 'https://api.github.com/users/'.$_GET['key'];
 
 $headers[] = 'Content-type: application/json';
-$headers[] = 'Authorization: Bearer '.$user['github_access_token'];
+$headers[] = 'Authorization: Bearer '.$_user['github_access_token'];
 $headers[] = 'User-Agent: Awesome-Octocat-App';
 
 $ch = curl_init();
@@ -55,6 +59,6 @@ for($i = 0; $i < $user['public_repos'] / 100; $i ++)
 $data = array(
     'message' => 'GitHub account and repo list has been retrieved.',
     'error' => false, 
-    'user' => $user,
+    'user' => $_user,
     'repos' => $repos,
 );

@@ -50,7 +50,7 @@ if(isset($_GET['key']) && $_GET['key'] == 'verify')
     mysqli_query($connect, $query);
 
     ob_start();
-    include(__DIR__.'/templates/email_register.php');
+    include(__DIR__.'/../templates/email_register.php');
     $message = ob_get_contents();
     ob_end_clean(); 
 

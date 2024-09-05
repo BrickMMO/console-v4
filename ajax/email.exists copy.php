@@ -4,7 +4,7 @@ if(!isset($_POST['email']))
 {
     header_bad_request();
     $data = array('message'=>'Missing Paramater.', 'error' => true);
-    die(json_encode($data));
+    return;
 }
 
 $query = 'SELECT *

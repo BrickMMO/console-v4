@@ -7,6 +7,7 @@
 if(!security_is_logged_in())
 {
     $data = array('message' => 'Must be logged in to use this ajax call.', 'error' => false);
+    return;
 }
 
 $id = github_scan_repo($_GET['account'], $_GET['repo']);

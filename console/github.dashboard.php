@@ -43,15 +43,22 @@ $result = mysqli_query($connect, $query);
     <a href="/city/dashboard">Dashboard</a> / 
     GitHub Tools
 </p>
+
 <hr>
+
 <p>
-    Currently scanning: <span class="w3-tag w3-blue"><?=$github_accounts?></span> 
+    Currently scanning: <span class="w3-tag w3-blue"><?=$github_accounts?></span>
+</p>
+<p>
     Number of repos scanned: <span class="w3-tag w3-blue"><?=$github_repos_scanned?></span> 
+</p>
+<p>
     Last import: <span class="w3-tag w3-blue"><?=(new DateTime($github_last_import))->format("D, M j g:i A")?></span>
 </p>
-<hr />
-<h2>Next Six Repos</h2>
 
+<hr />
+
+<h2>Next Six Repos</h2>
 
 <div class="w3-row-padding" style="margin-left: -16px; margin-right: -16px">
 
@@ -73,8 +80,7 @@ $result = mysqli_query($connect, $query);
 
 </div>
 
-
-<?php foreach(explode(',', $github_accounts) as $account): ?>
+<?php foreach(explode(', ', $github_accounts) as $account): ?>
 
 <a
     href="/github/import/<?=$account?>"

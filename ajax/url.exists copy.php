@@ -4,13 +4,13 @@ if(!isset($_POST['url']))
 {
     header_bad_request();
     $data = array('message'=>'Missing Paramater.', 'error' => true);
-    die(json_encode($data));
+    return;
 }
 elseif(validate_reserved_urls($_POST['url']))
 {
     header_bad_request();
     $data = array('message'=>'URL is reserved.', 'error' => true);
-    die(json_encode($data));
+    return;
 }
 
 $query = 'SELECT *
