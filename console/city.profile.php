@@ -20,11 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         name = "'.addslashes($_POST['name']).'",
         width = "'.addslashes($_POST['width']).'",
         height = "'.addslashes($_POST['height']).'"
-<<<<<<< HEAD
-        WHERE id = '.$_SESSION['city']['id'].'
-=======
         WHERE id = '.$_city['id'].'
->>>>>>> d03d79dae1e8534c2a4716801758cb8fdf6c5a38
         LIMIT 1';
     mysqli_query($connect, $query);
 
