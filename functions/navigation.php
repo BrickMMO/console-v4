@@ -85,24 +85,6 @@ function navigation_array($selected = false)
                         ],
                     ],
                 ],[
-                    'title' => 'Students',
-                    'id' => 'students',
-                    'pages' => [
-                        [
-                            'icon' => 'bm-brick-overflow',
-                            'url' => '/brick-overflow/dashboard',
-                            'title' => 'Brick Overflow',
-                        ],[
-                            'icon' => 'bm-flow',
-                            'url' => '/flow/dashboard',
-                            'title' => 'Flow',
-                        ],[
-                            'icon' => 'bm-timesheets',
-                            'url' => '/timesheets/dashboard',
-                            'title' => 'Timesheets',
-                        ],
-                    ],
-                ],[
                     'title' => 'Community',
                     'id' => 'community',
                     'pages' => [
@@ -173,6 +155,51 @@ function navigation_array($selected = false)
                             'icon' => 'bm-crypto',
                             'url' => '/crypto/dashboard',
                             'title' => 'Crypto',
+                        ],
+                    ],
+                ],
+            ],
+        ],[
+            'title' => 'Student Portal',
+            'sections' => [
+                [
+                    'title' => 'Workflow',
+                    'id' => 'students',
+                    'pages' => [
+                        [
+                            'icon' => 'bm-bricksum',
+                            'url' => '/timesheets/dashboard',
+                            'title' => 'Timesheets',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/timesheets/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/timesheets',
+                                    'colour' => 'orange'
+                                ],
+                            ],
+                        ],[
+                            'icon' => 'bm-brickoverflow',
+                            'url' => '/brickoverflow/dashboard',
+                            'title' => 'BrickOverflow',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/brickoverflow/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/brickoverflow',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -322,9 +349,9 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/maps',
                                     'colour' => 'orange'
-                                ]
-                            ] 
-                        ]
+                                ],
+                            ] ,
+                        ],
                     ],
                 ],[
                     'title' => 'Finances',
@@ -368,6 +395,43 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Stats Report',
                                     'url' => '/stats/github',
+                                    'colour' => 'orange'
+                                ]
+                            ],[
+                                'icon' => 'bm-uptime',
+                                'url' => '/uptime/dashboard',
+                                'title' => 'Up Time',
+                            ],[
+                                'icon' => 'bm-stats',
+                                'url' => '/stats/dashboard',
+                                'title' => 'Stats',
+                            ],
+                        ],
+                    ],
+                ],[
+                    'title' => 'Settings',
+                    'id' => 'admin-settings',
+                    'pages' => [
+                        [
+                            'icon' => 'bm-github',
+                            'url' => '/projects/dashboard',
+                            'title' => 'Projects', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/projects/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Project Contributions',
+                                    'url' => 'https://projects.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/projects',
                                     'colour' => 'orange'
                                 ]
                             ],[
