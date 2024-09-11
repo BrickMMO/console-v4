@@ -7,6 +7,13 @@ Update your /etc/hosts file to include the following:
 127.0.0.1 local.account.brickmmo.com 
 127.0.0.1 local.console.brickmmo.com
 ```
+Add this to the `httpd.conf` file under `Listen 8888`:
+
+```
+Listen 7777
+```
+
+
 Add this to the `httpd.conf` Apache configuration file under VirtualHosts:
 
 ```
