@@ -13,7 +13,6 @@ Add this to the `httpd.conf` file under `Listen 8888`:
 Listen 7777
 ```
 
-
 Add this to the `httpd.conf` Apache configuration file under VirtualHosts:
 
 ```
@@ -31,3 +30,5 @@ ServerName local.console.brickmmo.com
 ```
 
 This is line 614 in my file.
+
+Change the Document Root to the `public` folder in the `console-v4` project.
