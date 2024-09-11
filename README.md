@@ -1,6 +1,8 @@
 # console-v4
 Code for the BrickMMO console.
 
+## Apache
+
 Update your /etc/hosts file to include the following:
 
 ```
@@ -32,3 +34,12 @@ ServerName local.console.brickmmo.com
 This is line 614 in my file.
 
 Change the Document Root to the `public` folder in the `console-v4` project.
+
+## ENV File
+
+
+## Composer
+
+
+
+
