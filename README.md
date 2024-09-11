@@ -37,9 +37,6 @@ Change the Document Root to the `public` folder in the `console-v4` project.
 
 ## ENV File
 
-
 ## Composer
 
-
-
-
+## Database
