@@ -40,3 +40,5 @@ Change the Document Root to the `public` folder in the `console-v4` project.
 ## Composer
 
 ## Database
+
+## PHP Version
