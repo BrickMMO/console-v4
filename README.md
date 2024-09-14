@@ -9,7 +9,8 @@ Before you install the database and console application you will need the follow
  - [Composer](https://getcomposer.org/)
  - [PHP](https://php.net)
 
-| Note: [Windows Installation](https://www.php.net/manual/en/install.windows.php)
+> [!NOTE]  
+> [Windows Installation](https://www.php.net/manual/en/install.windows.php)
 
 ## Database
 
