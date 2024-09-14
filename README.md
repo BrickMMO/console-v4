@@ -10,7 +10,7 @@ Before you install the database and console application you will need the follow
  - [PHP](https://php.net)
 
 > [!NOTE]  
-> [Windows Installation](https://www.php.net/manual/en/install.windows.php)
+> When installing PHP use the [Windows Installer](https://www.php.net/manual/en/install.windows.php) for a PC or [Brew](https://formulae.brew.sh/formula/php) for a Mac.
 
 ## Database
 
@@ -20,16 +20,32 @@ The database for the console will be used by multiple BrickMMO applications. The
 
 The following instructions will walk you through setting up the console using MAMP.
 
+### Console Code
 
+Clone this repo to your project folder:
 
-## Apache
+```
+git clone https://github.com/BrickMMO/console-v4.git
+```
 
-Update your /etc/hosts file to include the following:
+### Hosts
+
+We will install this application using MAMP in a method that does not prevent you from using MAMP for other projects. This applcation will require multiple domains and will not run properly by simply using `http://localhost:8888`. We are going to setup two testing domains `local.account.brickmmo.com` and `local.console.brickmmo.com`. Open up your `hosts` files and add the following lines:
 
 ```
 127.0.0.1 local.account.brickmmo.com 
 127.0.0.1 local.console.brickmmo.com
 ```
+
+> [!NOTE]
+> On a mac, your `hosts` file is located at `/etc/hosts`. You can edit it using the Terminal by running the `sudo nano /etc/hosts` command. On a PC, the `hosts` file is located at `C:\Windows\System32\Drivers\etc\hosts`. Open Notepad as administrator, open the `hosts` file and make the same changes.
+
+If you open a browser and test either of these domain names you should now see the defalt MAMP web page.
+
+
+
+### Apache
+
 Add this to the `httpd.conf` file under `Listen 8888`:
 
 ```
