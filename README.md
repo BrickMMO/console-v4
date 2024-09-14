@@ -1,6 +1,10 @@
 # console-v4
 Code for the BrickMMO console.
 
+## Installation
+
+The database for the console will be used by multiple BrickMMO applications. The database is maintained using a separate repo using Laravel. Before you start the installation of this application clone the [database-v1](https://github.com/BrickMMO/database-v1) repo and setup the database using a standard Blueprint and Laravel process.
+
 ## Apache
 
 Update your /etc/hosts file to include the following:
