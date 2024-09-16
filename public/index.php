@@ -26,8 +26,8 @@ else $_city = false;
 /**
  * Get domain.
  */
-if(strpos($_SERVER['HTTP_HOST'], 'account')) $domain = 'account';
-elseif(strpos($_SERVER['HTTP_HOST'], 'console')) $domain = 'console';
+if(is_numeric(strpos($_SERVER['HTTP_HOST'], 'account'))) $domain = 'account';
+elseif(is_numeric(strpos($_SERVER['HTTP_HOST'], 'console'))) $domain = 'console';
 else
 {
     include('404.php');

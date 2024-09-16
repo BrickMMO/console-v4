@@ -93,7 +93,7 @@
             <img
                 src="<?=user_avatar($_user['id']);?>"
                 style="height: 35px"
-                class="w3-circle"
+                class="w3-circle bm-pointer"
                 _onclick="return toggleAvatarOptions(event)"
                 onclick="open_modal('avatar-options');"
             />
