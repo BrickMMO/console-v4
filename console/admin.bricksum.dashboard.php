@@ -3,11 +3,11 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Media');
+define('APP_NAME', 'Bricksum');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/media/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/bricksum/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -17,21 +17,10 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'SELECT *
-    FROM media
-    WHERE image IS NOT NULL 
-    AND deleted_at IS NULL';
-$image_count = mysqli_num_rows(mysqli_query($connect, $query));
-
-$query = 'SELECT *
-    FROM media
-    WHERE video IS NOT NULL 
-    AND deleted_at IS NULL';
-$video_count = mysqli_num_rows(mysqli_query($connect, $query));
-
-$query = 'SELECT *
-    FROM media_downloads';
-$download_count = mysqli_num_rows(mysqli_query($connect, $query));
+$bricksum_wordlist = setting_fetch('BRICKSUM_WORDLIST', 'comma_2_array');
+$bricksum_paragraphs_generated = setting_fetch('BRICKSUM_PARAGRAPHS_GENERATED');
+$bricksum_sentences_generated = setting_fetch('BRICKSUM_SENTENCES_GENERATED');
+$bricksum_words_generated = setting_fetch('BRICKSUM_WORDS_GENERATED');
 
 ?>
 
@@ -44,25 +33,41 @@ $download_count = mysqli_num_rows(mysqli_query($connect, $query));
         height="50"
         style="vertical-align: top"
     />
-    Media
+    Bricksum
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Media
+    Bricksum
 </p>
+
 <hr>
+
 <p>
-    Total Images: <span class="w3-tag w3-blue"><?=$image_count?></span> 
-    Total Videos: <span class="w3-tag w3-blue"><?=$video_count?></span> 
-    Total Downloads: <span class="w3-tag w3-blue"><?=$download_count?></span>
+    Paragraphs Generated: <span class="w3-tag w3-blue"><?=$bricksum_paragraphs_generated?></span> 
+</p>
+<p>
+    Sentences Generated: <span class="w3-tag w3-blue"><?=$bricksum_sentences_generated?></span> 
+</p>
+<p>
+    Words Generated: <span class="w3-tag w3-blue"><?=$bricksum_words_generated?></span>
 </p>
 <hr />
+<h2>Bricksum Word List</h2>
+<div class="w3-container w3-border w3-padding-16 w3-margin-bottom">
 
-<h2>Popular Media</h2>
-
-<p>
-    Display the 8 most popular downloads...
-</p>
+    <?php foreach($bricksum_wordlist as $word): ?>
+        <span class="w3-tag w3-green w3-round w3-margin-bottom w3-padding">
+            <?=$word?>
+        </span>
+    <?php endforeach; ?>
+    
+</div>
+<a
+    href="/admin/bricksum/wordlist"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Modify Word List
+</a>
 
 <hr />
 

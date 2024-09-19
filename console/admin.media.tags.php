@@ -16,7 +16,7 @@ if (isset($_GET['delete']))
     mysqli_query($connect, $query);
 
     message_set('Delete Success', 'Tag has been deleted.');
-    header_redirect('/media/tags');
+    header_redirect('/admin/media/tags');
     
 }
 
@@ -24,7 +24,7 @@ define('APP_NAME', 'Media');
 
 define('PAGE_TITLE', 'Tags');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/media/tags');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/media/tags');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -65,7 +65,7 @@ $result = mysqli_query($connect, $query);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/media/dashboard">Media</a> / 
+    <a href="/admin/media/dashboard">Media</a> / 
     Tags
 </p>
 
@@ -94,12 +94,12 @@ $result = mysqli_query($connect, $query);
                 <?=$record['videos']?>
             </td>
             <td>
-                <a href="/media/tags/edit/<?=$record['id']?>">
+                <a href="/admin/media/tags/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the tag <?=$record['name']?>?', '/media/tags/delete/<?=$record['id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the tag <?=$record['name']?>?', '/admin/media/tags/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -109,7 +109,7 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/media/tags/add"
+    href="/admin/media/tags/add"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-tag fa-padding-right"></i> Add New Tag

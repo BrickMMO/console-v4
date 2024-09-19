@@ -37,7 +37,7 @@ if (isset($_GET['key']) && $_GET['key'] == 'go')
     }
     
     message_set('Import Success', 'Countries list has been imported from Country.io.');
-    header_redirect('/stores/countries');
+    header_redirect('/admin/stores/countries');
 
 }
 
@@ -46,7 +46,7 @@ define('APP_NAME', 'Stores');
 
 define('PAGE_TITLE', 'Import Countries');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/stores/countries');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/stores/countries');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -75,7 +75,7 @@ $result = mysqli_query($connect, $query);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/stores/dashboard">Stores</a> / 
+    <a href="/admin/stores/dashboard">Stores</a> / 
     Import Countries
 </p>
 <hr>
@@ -102,7 +102,7 @@ $result = mysqli_query($connect, $query);
 </ul>
             
 <a
-    href="/stores/countries/go"
+    href="/admin/stores/countries/go"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-download"></i> Start Import

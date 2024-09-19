@@ -7,7 +7,7 @@ define('APP_NAME', 'GitHub Scanner');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-tools');
-define('PAGE_SELECTED_SUB_PAGE', '/github/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/github/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -65,7 +65,7 @@ $result = mysqli_query($connect, $query);
     <?php while($record = mysqli_fetch_assoc($result)): ?>
         <div class="w3-third">
             <div class="w3-card w3-container w3-margin-bottom w3-padding-24">
-                <a href="/github/repo/<?=$record['name']?>">
+                <a href="/admin/github/repo/<?=$record['name']?>">
                     <i class="fa-brands fa-github" aria-hidden="true"></i> /<?=$record['owner']?>/<?=$record['name']?>
                 </a>
                 <div class="w3-margin-top">
@@ -83,7 +83,7 @@ $result = mysqli_query($connect, $query);
 <?php foreach(explode(', ', $github_accounts) as $account): ?>
 
 <a
-    href="/github/import/<?=$account?>"
+    href="/admin/github/import/<?=$account?>"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Import <?=$account?>

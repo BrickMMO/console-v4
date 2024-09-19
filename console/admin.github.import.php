@@ -6,19 +6,19 @@ admin_check();
 if (!isset($_GET['key']) || !in_array($_GET['key'], explode(',', setting_fetch('GITHUB_ACCOUNTS'))))
 {
     message_set('Import Error', 'There was an error importing repos.', 'red');
-    header_redirect('/github/dashboard');
+    header_redirect('admin/github/dashboard');
 }
 elseif (!isset($_user['github_access_token']) or !$_user['github_access_token'])
 {
     message_set('GitHub Error', 'Missing GitHub authentication tokens.', 'red');
-    header_redirect('/github/dashboard');
+    header_redirect('/admin/github/dashboard');
 }
 
 define('APP_NAME', 'GitHub Scanner');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-tools');
-define('PAGE_SELECTED_SUB_PAGE', '/github/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/github/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -46,7 +46,7 @@ mysqli_query($connect, $query);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/github/dashboard">GitHub Tools</a> / 
+    <a href="/admin/github/dashboard">GitHub Tools</a> / 
     Import <?=$_GET['key']?>
 </p>
 <hr>
@@ -150,7 +150,7 @@ mysqli_query($connect, $query);
             }
 
             let a = document.createElement('a');
-            a.href = '/github/repo/'+resultRepo.repo.name;
+            a.href = '/admin/github/repo/'+resultRepo.repo.name;
             a.innerHTML = '<i class="fa-brands fa-github" aria-hidden="true"></i> /'+resultRepo.repo.name;
             div.append(a);
 

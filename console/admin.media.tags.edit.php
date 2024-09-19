@@ -9,7 +9,7 @@ if(
     !tag_fetch($_GET['key']))
 {
     message_set('Tag Error', 'There was an error with the provided tag.');
-    header_redirect('/media/tags');
+    header_redirect('/admin/media/tags');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
@@ -19,7 +19,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
 
         message_set('Tag Error', 'There was an error with the provided tag.', 'red');
-        header_redirect('/media/tags');
+        header_redirect('/admin/media/tags');
     }
     
     $query = 'UPDATE tags SET
@@ -30,7 +30,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     mysqli_query($connect, $query);
 
     message_set('Tag Success', 'Your tag has been edited.');
-    header_redirect('/media/tags');
+    header_redirect('/admin/media/tags');
     
 }
 
@@ -38,7 +38,7 @@ define('APP_NAME', 'Media');
 
 define('PAGE_TITLE','Edit Tag');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/media/tags');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/media/tags');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -64,8 +64,8 @@ $tag = tag_fetch($_GET['key']);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/media/dashboard">Media</a> / 
-    <a href="/media/tags">Tags</a> / 
+    <a href="/admin/media/dashboard">Media</a> / 
+    <a href="/admin/media/tags">Tags</a> / 
     Edit Tag
 </p>
 

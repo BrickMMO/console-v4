@@ -12,14 +12,14 @@ if(!mysqli_num_rows($result))
 {
 
     message_set('Import Error', 'Import countries before importing stores.', 'red');
-    header_redirect('/stores/dashboard');
+    header_redirect('/admin/stores/dashboard');
 }
 
 define('APP_NAME', 'Stores');
 
 define('PAGE_TITLE', 'Import Stores');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/stores/import');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/stores/import');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -48,7 +48,7 @@ $stores_last_import = setting_fetch('STORES_LAST_IMPORT');
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/stores/dashboard">Stores</a> / 
+    <a href="/admin/stores/dashboard">Stores</a> / 
     Import Stores
 </p>
 <hr />

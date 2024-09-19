@@ -15,7 +15,7 @@ if(isset($_GET['key']))
     if(!mysqli_num_rows($result))
     {
         message_set('Repo Error', 'There was an error loading this repo.', 'red');
-        header_redirect('/github/dashboard');
+        header_redirect('/admin/github/dashboard');
     }
 
     $record = mysqli_fetch_assoc($result);
@@ -33,7 +33,7 @@ elseif(isset($_GET['rescan']))
     if(!mysqli_num_rows($result))
     {
         message_set('Repo Error', 'There was an error loading this repo.', 'red');
-        header_redirect('/github/dashboard');
+        header_redirect('/admin/github/dashboard');
     }
 
     $record = mysqli_fetch_assoc($result);
@@ -41,7 +41,7 @@ elseif(isset($_GET['rescan']))
     github_scan_repo($record['owner'], $record['name']);
 
     message_set('Repo Success', 'Repo has been rescanned.');
-    header_redirect('/github/repo/'.$record['name']);
+    header_redirect('/admin/github/repo/'.$record['name']);
     
 }
 
@@ -49,7 +49,7 @@ define('APP_NAME', 'GitHub Scanner');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-tools');
-define('PAGE_SELECTED_SUB_PAGE', '/github/results');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/github/results');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -75,8 +75,8 @@ include('../templates/message.php');
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/github/dashboard">GitHub Tools</a> / 
-    <a href="/github/results">Scan Results</a> / 
+    <a href="/admin/github/dashboard">GitHub Tools</a> / 
+    <a href="/admin/github/results">Scan Results</a> / 
     Repo Scan Details    
 </p>
 
@@ -111,7 +111,7 @@ include('../templates/message.php');
 <hr />
 
 <a
-    href="/github/repo/rescan/<?=$record['name']?>"
+    href="/admin/github/repo/rescan/<?=$record['name']?>"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Rescan Repo

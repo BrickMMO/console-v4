@@ -87,7 +87,7 @@ if (isset($_GET['key']) && $_GET['key'] == 'go')
     }
     
     message_set('Import Success', 'Colour list has been imported from Rebrickable.');
-    header_redirect('/colours/import');
+    header_redirect('/admin/colours/import');
 
 }
 
@@ -124,7 +124,7 @@ $result = mysqli_query($connect, $query);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/colours/dashboard">Colours</a> / 
+    <a href="/admin/colours/dashboard">Colours</a> / 
     Import Colours
 </p>
 <hr />
@@ -150,7 +150,7 @@ $result = mysqli_query($connect, $query);
 </ul>
             
 <a
-    href="/colours/import/go"
+    href="/admin/colours/import/go"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-download"></i> Start Import

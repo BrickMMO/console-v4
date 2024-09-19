@@ -213,12 +213,12 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-bricksum',
-                            'url' => '/bricksum/dashboard',
+                            'url' => '/admin/bricksum/dashboard',
                             'title' => 'Bricksum',
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/bricksum/dashboard',
+                                    'url' => '/admin/bricksum/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Modify Word List',
@@ -244,16 +244,16 @@ function navigation_array($selected = false)
                             ]
                         ],[
                             'icon' => 'bm-colours',
-                            'url' => '/colours/dashboard',
+                            'url' => '/admin/colours/dashboard',
                             'title' => 'Colours',
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/colours/dashboard',
+                                    'url' => '/admin/colours/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Import Colours',
-                                    'url' => '/colours/import',
+                                    'url' => '/admin/colours/import',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
@@ -275,24 +275,24 @@ function navigation_array($selected = false)
                             ]
                         ],[
                             'icon' => 'bm-parts',
-                            'url' => '/parts/dashboard',
+                            'url' => '/admin/parts/dashboard',
                             'title' => 'Parts',
                         ],[
                             'icon' => 'bm-stores',
-                            'url' => '/stores/dashboard',
+                            'url' => '/admin/stores/dashboard',
                             'title' => 'Stores',
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/stores/dashboard',
+                                    'url' => '/admin//stores/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Import Stores',
-                                    'url' => '/stores/import',
+                                    'url' => '/admin//stores/import',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Import Countries',
-                                    'url' => '/stores/countries',
+                                    'url' => '/admin//stores/countries',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
@@ -314,24 +314,24 @@ function navigation_array($selected = false)
                             ]
                         ],[
                             'icon' => 'bm-media',
-                            'url' => '/media/dashboard',
+                            'url' => '/admin/media/dashboard',
                             'title' => 'Media',
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/media/dashboard',
+                                    'url' => '/admin/media/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Images',
-                                    'url' => '/media/images',
+                                    'url' => '/admin/media/images',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Videos',
-                                    'url' => '/media/videos',
+                                    'url' => '/admin/media/videos',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Tags',
-                                    'url' => '/media/tags',
+                                    'url' => '/admin/media/tags',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
@@ -369,16 +369,16 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-github',
-                            'url' => '/github/dashboard',
+                            'url' => '/admin/github/dashboard',
                             'title' => 'GitHub Scanner', 
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/github/dashboard',
+                                    'url' => '/admin/github/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Scan Results',
-                                    'url' => '/github/results',
+                                    'url' => '/admin/github/results',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'

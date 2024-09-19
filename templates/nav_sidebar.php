@@ -20,7 +20,9 @@ $navigation = navigation_array(PAGE_SELECTED_SUB_PAGE);
     <div class="w3-padding-16 w3-border-bottom">
         <div class="w3-bar-item w3-text-gray bm-caps">
             <i class="<?=$navigation['icon']?> fa-padding-right"></i> 
-            <?=$navigation['title']?>
+            <?php if(isset($navigation['title'])): ?>
+                <?=$navigation['title']?>
+            <?php endif; ?>
         </div>
     </div>
 

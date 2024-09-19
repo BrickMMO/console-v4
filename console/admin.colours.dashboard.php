@@ -7,7 +7,7 @@ define('APP_NAME', 'Colours');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/colours/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/colours/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -81,7 +81,7 @@ $colours_last_import = setting_fetch('COLOURS_LAST_IMPORT');
 <?php endif; ?>
 
 <a
-    href="/colours/import"
+    href="/admin/colours/import"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-download"></i> Import Colours
@@ -101,7 +101,7 @@ $colours_last_import = setting_fetch('COLOURS_LAST_IMPORT');
             <div class="w3-container w3-padding">Uptime Status Summary</div>
             <footer class="w3-container w3-border-top w3-padding">
                 <a
-                    href="/uptime/colours"
+                    href="/admin/uptime/colours"
                     class="w3-button w3-border w3-white"
                 >
                     <i class="fa-regular fa-file-lines fa-padding-right"></i>
