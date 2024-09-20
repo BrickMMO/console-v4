@@ -1,6 +1,11 @@
 <?php
 
-function github_url($redirect_uri = '/action/github/token')
+function github_display_token($token)
+{
+    return 'gho_'.str_repeat('*', strlen($token) - 4);
+}
+
+function github_url($redirect_uri = '/action/github/user/token')
 {
 
     return 'https://github.com/login/oauth/authorize?scope=read:user,user:email,public_repo&client_id='.GITHUB_CLIENT_ID.
@@ -115,13 +120,14 @@ function github_scan_repo($account, $repo)
         AND name = "'.$repo.'"';
     mysqli_query($connect, $query);
 
+    $github = setting_fetch('GITHUB_ACCESS_TOKEN');
     $user = user_fetch($_SESSION['user']['id']);
 
     // Fetch repo information
     $url = 'https://api.github.com/repos/'.$account.'/'.$repo;
 
     $headers[] = 'Content-type: application/json';
-    $headers[] = 'Authorization: Bearer '.$user['github_access_token'];
+    $headers[] = 'Authorization: Bearer '.$github;
     $headers[] = 'User-Agent: Awesome-Octocat-App';
 
     $ch = curl_init();

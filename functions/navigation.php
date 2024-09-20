@@ -483,16 +483,8 @@ function navigation_array($selected = false)
                             'title' => 'Authentication', 
                             'sub-pages' => [
                                 [
-                                    'title' => 'Authorization',
+                                    'title' => 'Dashboard',
                                     'url' => '/admin/authentication/dashboard',
-                                    'colour' => 'red'
-                                ],[
-                                    'title' => 'GitHub Authorization',
-                                    'url' => '/admin/authentication/github',
-                                    'colour' => 'red'
-                                ],[
-                                    'title' => 'Gooel Authorization',
-                                    'url' => '/admin/authentication/google',
                                     'colour' => 'red'
                                 ],
                             ],

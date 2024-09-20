@@ -159,7 +159,6 @@ if(count($final_parts) == 1)
 }
 elseif(count($final_parts) % 2 == 1)
 {
-    echo count($final_parts);
     while($next = array_shift($final_parts))
     {
         if($next) $_GET['key'][] = $next;

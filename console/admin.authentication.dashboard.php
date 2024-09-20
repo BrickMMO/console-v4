@@ -40,23 +40,41 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 <hr>
 
-<h3>GitHub Authentication</h3>
-<p>
-    GitHub Access Token: <span class="w3-tag w3-blue">
-        <?php if($github): ?>
-            <?=$github?>
-        <?php else: ?>
-            not yet authenticated
-        <?php endif; ?>
-    </span> 
-</p>
+<h2>GitHub Authentication</h2>
 
-<a
-    href="/admin/authentication/github"
-    class="w3-button w3-white w3-border"
->
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Modify GitHub Authentication
-</a>
+<?php if($github): ?>
+
+    <p>
+        GitHub Access Token: 
+        <span class="w3-tag w3-blue">
+            <?=github_display_token($github)?>
+        </span>
+    </p>
+
+    <a 
+        href="/action/github/app/revoke"
+        class="w3-button w3-white w3-border"
+    >
+        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Revoke GitHub Authentication
+    </a>
+
+<?php else: ?>
+
+    <p>
+        GitHub Access Token: 
+        <span class="w3-tag w3-blue">
+            NOT YET AUTHENTICATED
+        </span> 
+    </p>
+
+    <a 
+        href="<?=github_url('/action/github/app/token')?>"
+        class="w3-button w3-white w3-border"
+    >
+        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Authenticate GitHub
+    </a>
+
+<?php endif; ?>
 
 <hr>
 

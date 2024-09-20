@@ -32,6 +32,7 @@ $avatar = image_to_bas64($github_user['avatar_url']);
 /*
  * Check if logged in user matches GitHub email
  */
+
 if($_user)
 {
 
