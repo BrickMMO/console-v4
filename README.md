@@ -74,6 +74,20 @@ Change the Document Root to the `public` folder in the `console-v4` project.
 
 ## ENV File
 
+```
+DB_HOST=localhost
+DB_DATABASE=brickmmo_console
+DB_USERNAME=root
+DB_PASSWORD=root
+
+ENV_ACCOUNT_DOMAIN=http://local.account.brickmmo.com:7777
+ENV_CONSOLE_DOMAIN=http://local.account.brickmmo.com:7777
+ENV_SALT=1234567890
+
+ENV_DEBUG=true
+ENV_REDIRECT=true
+```
+
 ## Composer
 
 ## Database
