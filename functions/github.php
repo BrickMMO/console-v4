@@ -408,6 +408,9 @@ function github_scan_repo($account, $repo)
         $error_comments[] = 'Repo has no topics';
     }
 
+    // error_notes: boolean default:0
+    // Use of old notes/warning syntax
+
     // pull_requests: integer
     $pull_requests = count($pulls);
 

@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * All URLs that do not match an existing file are routed to this page via the 
+ * .htaccss file. This files splits the URL into a variety of components to 
+ * determine which PHP file to execute and which parts of the URL are variables. 
+ * 
+ * For example:
+ * http://local.console.brickmmo.com:7777/media/tags/edit/1
+ * Will route to the /console/media.tags.php file with a variable nameed edit
+ * with a value of 1.
+ */
+
+/**
  * Load libraries through composer.
  */
 require __DIR__ . '/../vendor/autoload.php';
