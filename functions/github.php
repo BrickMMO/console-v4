@@ -2,7 +2,7 @@
 
 function github_display_token($token)
 {
-    return 'gho_'.str_repeat('*', strlen($token) - 4);
+    return strtoupper('gho_'.str_repeat('X', strlen($token) - 4));
 }
 
 function github_url($redirect_uri = '/action/github/user/token')

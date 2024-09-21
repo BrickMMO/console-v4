@@ -40,7 +40,10 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 <hr>
 
-<h2>GitHub Authentication</h2>
+<h2>
+    <i class="fa-brands fa-github"></i>
+    GitHub
+</h2>
 
 <?php if($github): ?>
 
@@ -78,7 +81,44 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 <hr>
 
+<h2> 
+    <i class="fa-brands fa-google"></i>
+    Google
+</h2>
 
+<?php if($google): ?>
+
+    <p>
+        Google Access Token: 
+        <span class="w3-tag w3-blue">
+            <?=google_display_token($google)?>
+        </span>
+    </p>
+
+    <a 
+        href="/action/google/app/revoke"
+        class="w3-button w3-white w3-border"
+    >
+        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Revoke Google Authentication
+    </a>
+
+<?php else: ?>
+
+    <p>
+        Google Access Token: 
+        <span class="w3-tag w3-blue">
+            NOT YET AUTHENTICATED
+        </span> 
+    </p>
+
+    <a 
+        href=""
+        class="w3-button w3-white w3-border"
+    >
+        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Authenticate Google
+    </a>
+
+<?php endif; ?>
 
 <?php
 
