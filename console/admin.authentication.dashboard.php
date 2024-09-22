@@ -18,6 +18,8 @@ include('../templates/main_header.php');
 include('../templates/message.php');
 
 $github = setting_fetch('GITHUB_ACCESS_TOKEN');
+$github_user = github_user($github);
+
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 ?>
@@ -48,7 +50,13 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 <?php if($github): ?>
 
     <p>
-        GitHub Access Token: 
+        <img src="<?=$github_user['avatar_url']?>" class="w3-circle w3-margin-right w3-left" width="70">
+        <a href="<?=$github_user['html_url']?>">
+            <?=$github_user['html_url']?>
+        </a>
+        <br>
+        <?=$github_user['login']?>
+        <br>
         <span class="w3-tag w3-blue">
             <?=github_display_token($github)?>
         </span>
@@ -64,7 +72,6 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 <?php else: ?>
 
     <p>
-        GitHub Access Token: 
         <span class="w3-tag w3-blue">
             NOT YET AUTHENTICATED
         </span> 
