@@ -7,7 +7,7 @@
  * 
  * For example:
  * http://local.console.brickmmo.com:7777/media/tags/edit/1
- * Will route to the /console/media.tags.php file with a variable nameed edit
+ * Will route to the /console/media.tags.php file with a variable named edit
  * with a value of 1.
  */
 

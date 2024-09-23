@@ -96,7 +96,6 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 <?php if($google): ?>
 
     <p>
-        Google Access Token: 
         <span class="w3-tag w3-blue">
             <?=google_display_token($google)?>
         </span>
@@ -114,7 +113,6 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
     <?php $google_auth_url = google_auth_url(); ?>
 
     <p>
-        Google Access Token: 
         <span class="w3-tag w3-blue">
             NOT YET AUTHENTICATED
         </span> 
