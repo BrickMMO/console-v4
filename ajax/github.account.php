@@ -15,10 +15,11 @@ elseif(!isset($_user['github_access_token']))
     return;
 }
 
+$github = setting_fetch('GITHUB_ACCESS_TOKEN');
 $url = 'https://api.github.com/users/'.$_GET['key'];
 
 $headers[] = 'Content-type: application/json';
-$headers[] = 'Authorization: Bearer '.$_user['github_access_token'];
+$headers[] = 'Authorization: Bearer '.$github;
 $headers[] = 'User-Agent: Awesome-Octocat-App';
 
 $ch = curl_init();

@@ -2,6 +2,9 @@
 
 /*
  * Dump data
+ * 
+ * This code ouputs all form, URL, session, and cookie data
+ * if the ENV_DEBUG variable in the .env file is set to true.
  */
 if(ENV_DEBUG)
 {
