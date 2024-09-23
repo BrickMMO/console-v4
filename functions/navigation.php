@@ -414,24 +414,24 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-github',
-                            'url' => '/projects/dashboard',
-                            'title' => 'Projects', 
+                            'url' => '/admin/applications/dashboard',
+                            'title' => 'Applications', 
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/projects/dashboard',
+                                    'url' => '/admin/applications/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Project Contributions',
-                                    'url' => 'https://projects.brickmmo.com',
+                                    'url' => 'https://applications.brickmmo.com',
                                     'colour' => 'orange'
                                 ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Stats Report',
-                                    'url' => '/stats/projects',
+                                    'url' => '/stats/applications',
                                     'colour' => 'orange'
                                 ]
                             ],[
