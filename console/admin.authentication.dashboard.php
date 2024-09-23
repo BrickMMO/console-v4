@@ -18,8 +18,6 @@ include('../templates/main_header.php');
 include('../templates/message.php');
 
 $github = setting_fetch('GITHUB_ACCESS_TOKEN');
-$github_user = github_user($github);
-
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 ?>
@@ -49,6 +47,8 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 
 <?php if($github): ?>
 
+    <?php $github_user = github_user($github); ?>
+
     <p>
         <img src="<?=$github_user['avatar_url']?>" class="w3-circle w3-margin-right w3-left" width="70">
         <a href="<?=$github_user['html_url']?>">
@@ -66,7 +66,7 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
         href="/action/github/app/revoke"
         class="w3-button w3-white w3-border"
     >
-        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Revoke GitHub Authentication
+        <i class="fa-solid fa-key fa-padding-right"></i> Revoke GitHub Authentication
     </a>
 
 <?php else: ?>
@@ -81,7 +81,7 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
         href="<?=github_url('/action/github/app/token')?>"
         class="w3-button w3-white w3-border"
     >
-        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Authenticate GitHub
+        <i class="fa-solid fa-key fa-padding-right"></i> Authenticate GitHub
     </a>
 
 <?php endif; ?>
@@ -106,10 +106,12 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
         href="/action/google/app/revoke"
         class="w3-button w3-white w3-border"
     >
-        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Revoke Google Authentication
+        <i class="fa-solid fa-key fa-padding-right"></i> Revoke Google Authentication
     </a>
 
 <?php else: ?>
+
+    <?php $google_auth_url = google_auth_url(); ?>
 
     <p>
         Google Access Token: 
@@ -119,10 +121,10 @@ $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
     </p>
 
     <a 
-        href=""
+        href="<?=$google_auth_url?>"
         class="w3-button w3-white w3-border"
     >
-        <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Authenticate Google
+        <i class="fa-solid fa-key fa-padding-right"></i> Authenticate Google
     </a>
 
 <?php endif; ?>
