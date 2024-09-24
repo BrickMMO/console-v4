@@ -16,7 +16,31 @@ function google_revoke($access_token)
 
 }
 
-function googl_get_client($access_token = false)
+function google_list_files($access_token, $folder_name, $folder_id)
+{
+
+    $client = google_get_client($access_token);
+    $service = new Drive($client);
+
+    $optParams = array(
+        'q' => "'$folder_id' in parents",
+        'pageSize' => 100,
+        'fields' => 'nextPageToken, files(id, name, mimeType)',
+    );
+
+    $results = $service->files->listFiles($optParams);
+
+    if (count($results->getFiles()) == 0) {
+        print "No files found in the folder '$folderName'.\n";
+    } else {
+        print "Files in folder '$folderName':<br>";
+        foreach ($results->getFiles() as $file) {
+            printf("%s (%s) - %s<br>", $file->getName(), $file->getId(), $file->getMimeType());
+        }
+    }
+}
+
+function google_get_client($access_token = false)
 {
 
     $client = new Client();
@@ -26,8 +50,8 @@ function googl_get_client($access_token = false)
     $client->setAuthConfig('../credentials.json');
     $client->setAccessType('offline');
     // $client->setRedirectUri('http://localhost:8888/callback.php');
-    // $client->setRedirectUri(ENV_ACCOUNT_DOMAIN.'/action/google/add/token');
-    $client->setRedirectUri('https://local.account.brickmmo.com:7777/action/google/add/token');
+    // $client->setRedirectUri(ENV_ACCOUNT_DOMAIN.'/action/google/app/token');
+    $client->setRedirectUri('https://local.account.brickmmo.com:7777/action/google/app/token');
 
     /**
      * If access token is provided, use it to initiate the client.
@@ -53,7 +77,7 @@ function googl_get_client($access_token = false)
 function google_auth_url()
 {
 
-    $client = googl_get_client();
+    $client = google_get_client();
     $auth_url = $client->createAuthUrl();
     return $auth_url;
 

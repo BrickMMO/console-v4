@@ -326,8 +326,12 @@ function navigation_array($selected = false)
                                     'url' => '/admin/media/images',
                                     'colour' => 'red'
                                 ],[
-                                    'title' => 'Videos',
-                                    'url' => '/admin/media/videos',
+                                    'title' => 'Video',
+                                    'url' => '/admin/media/video',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Audio',
+                                    'url' => '/admin/media/audio',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Tags',
@@ -421,21 +425,12 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-github',
-<<<<<<< HEAD
                             'url' => '/admin/applications/dashboard',
                             'title' => 'Applications', 
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
                                     'url' => '/admin/applications/dashboard',
-=======
-                            'url' => '/admin/projects/dashboard',
-                            'title' => 'Projects', 
-                            'sub-pages' => [
-                                [
-                                    'title' => 'Dashboard',
-                                    'url' => '/admin/projects/dashboard',
->>>>>>> 5e2b4627c1f90e05d2fcd6907fadb72f8ce0145c
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
