@@ -92,6 +92,33 @@ function navigation_array($selected = false)
                             'icon' => 'bm-radio',
                             'url' => '/radio/dashboard',
                             'title' => 'Radio',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/radio/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Broadcasting Schedule',
+                                    'url' => '/radio/schedule',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit Radio App',
+                                    'url' => 'https://lively.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/radio',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/radio',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-events',
                             'url' => '/events/dashboard',
@@ -403,7 +430,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-panel',
                             'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
                             'sub-pages' => [],
@@ -467,7 +494,7 @@ function navigation_array($selected = false)
                                     'br' => '---'
                                 ],[
                                     'title' => 'Radio',
-                                    'url' => 'https://radio.brickmmo.com',
+                                    'url' => 'https://lively.brickmmo.com',
                                     'colour' => 'orange'
                                 ],[
                                     'br' => '---'
