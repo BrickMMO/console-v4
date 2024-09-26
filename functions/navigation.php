@@ -156,8 +156,31 @@ function navigation_array($selected = false)
                             ],
                         ],[
                             'icon' => 'bm-qr-codes',
-                            'url' => '/qr-codes/dashboard',
+                            'url' => '/qr/dashboard',
                             'title' => 'Qr Codes',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/qr/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit QR App',
+                                    'url' => 'https://qr.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/events',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/stats',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],
                     ],
                 ],[
