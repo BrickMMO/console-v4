@@ -40,8 +40,8 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/maps',
                                     'colour' => 'orange'
-                                ]
-                            ]   
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-roadview',
                             'url' => '/roadview/dashboard',
@@ -50,7 +50,7 @@ function navigation_array($selected = false)
                             'icon' => 'bm-roadview',
                             'url' => '/places/dashboard',
                             'title' => 'Places',
-                        ]
+                        ],
                     ],
                 ],[
                     'title' => 'Control',
@@ -58,13 +58,13 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-control-panel',
-                            'url' => '/control-panel',
+                            'url' => '/panel/dashboard',
                             'title' => 'Control Panel',
                         ],[
                             'icon' => 'bm-control-clock',
                             'url' => '/clock/dashboard',
                             'title' => 'Clock',
-                        ]
+                        ],
                     ],
                 ],[
                     'title' => 'Transportation',
@@ -92,6 +92,33 @@ function navigation_array($selected = false)
                             'icon' => 'bm-radio',
                             'url' => '/radio/dashboard',
                             'title' => 'Radio',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/radio/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Broadcasting Schedule',
+                                    'url' => '/radio/schedule',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit Radio App',
+                                    'url' => 'https://lively.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/radio',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/radio',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-events',
                             'url' => '/events/dashboard',
@@ -125,12 +152,35 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/stats',
                                     'colour' => 'orange'
-                                ]
-                            ]
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-qr-codes',
-                            'url' => '/qr-codes/dashboard',
+                            'url' => '/qr/dashboard',
                             'title' => 'Qr Codes',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/qr/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit QR App',
+                                    'url' => 'https://qr.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/events',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/stats',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],
                     ],
                 ],[
@@ -240,8 +290,8 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/stats',
                                     'colour' => 'orange'
-                                ]
-                            ]
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-colours',
                             'url' => '/admin/colours/dashboard',
@@ -271,8 +321,8 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/stats',
                                     'colour' => 'orange'
-                                ]
-                            ]
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-parts',
                             'url' => '/admin/parts/dashboard',
@@ -310,8 +360,8 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/stats',
                                     'colour' => 'orange'
-                                ]
-                            ]
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-media',
                             'url' => '/admin/media/dashboard',
@@ -326,8 +376,12 @@ function navigation_array($selected = false)
                                     'url' => '/admin/media/images',
                                     'colour' => 'red'
                                 ],[
-                                    'title' => 'Videos',
-                                    'url' => '/admin/media/videos',
+                                    'title' => 'Video',
+                                    'url' => '/admin/media/video',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Audio',
+                                    'url' => '/admin/media/audio',
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Tags',
@@ -359,7 +413,7 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-crypto',
-                            'url' => '/crypto/dashboard',
+                            'url' => '/admin/crypto/dashboard',
                             'title' => 'Crypto',
                         ],
                     ],
@@ -396,16 +450,23 @@ function navigation_array($selected = false)
                                     'title' => 'Stats Report',
                                     'url' => '/stats/github',
                                     'colour' => 'orange'
-                                ]
-                            ],[
-                                'icon' => 'bm-uptime',
-                                'url' => '/uptime/dashboard',
-                                'title' => 'Up Time',
-                            ],[
-                                'icon' => 'bm-stats',
-                                'url' => '/stats/dashboard',
-                                'title' => 'Stats',
+                                ],
                             ],
+                        ],[
+                            'icon' => 'bm-panel',
+                            'url' => '/admin/panel/dashboard',
+                            'title' => 'Control Panel',
+                            'sub-pages' => [],
+                        ],[
+                            'icon' => 'bm-uptime',
+                            'url' => '/uptime/dashboard',
+                            'title' => 'Up Time',
+                            'sub-pages' => [],
+                        ],[
+                            'icon' => 'bm-stats',
+                            'url' => '/stats/dashboard',
+                            'title' => 'Stats',
+                            'sub-pages' => [],
                         ],
                     ],
                 ],[
@@ -414,34 +475,72 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-github',
-                            'url' => '/projects/dashboard',
-                            'title' => 'Projects', 
+                            'url' => '/admin/applications/dashboard',
+                            'title' => 'Applications', 
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/projects/dashboard',
+                                    'url' => '/admin/applications/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Project Contributions',
-                                    'url' => 'https://projects.brickmmo.com',
+                                    'url' => 'https://applications.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/projects',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/projects',
+                                    'colour' => 'orange'
+                                ],
+                            ],
+                        ],[
+                            'icon' => 'bm-radio',
+                            'url' => '/admin/radio/dashboard',
+                            'title' => 'Radio', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/radio/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Segments',
+                                    'url' => '/admin/radio/segments',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Radio',
+                                    'url' => 'https://lively.brickmmo.com',
                                     'colour' => 'orange'
                                 ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Stats Report',
-                                    'url' => '/stats/projects',
+                                    'url' => '/stats/applications',
                                     'colour' => 'orange'
-                                ]
-                            ],[
-                                'icon' => 'bm-uptime',
-                                'url' => '/uptime/dashboard',
-                                'title' => 'Up Time',
-                            ],[
-                                'icon' => 'bm-stats',
-                                'url' => '/stats/dashboard',
-                                'title' => 'Stats',
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/projects',
+                                    'colour' => 'orange'
+                                ],
+                            ],
+                        ],[
+                            'icon' => 'bm-github',
+                            'url' => '/admin/authentication/dashboard',
+                            'title' => 'Authentication', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/authentication/dashboard',
+                                    'colour' => 'red'
+                                ],
                             ],
                         ],
                     ],

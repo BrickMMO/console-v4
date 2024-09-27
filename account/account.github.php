@@ -57,7 +57,7 @@ include('../templates/message.php');
         <li>Prevent retrieving of BrickMMO contribution stats.</li>
         <li>Not remove your GitHub avatar from your BrickMMO account.</li>
     </ul>
-    <a href="<?=ENV_ACCOUNT_DOMAIN?>/action/github/revoke" class="w3-button w3-white w3-border">
+    <a href="<?=ENV_ACCOUNT_DOMAIN?>/action/github/user/revoke" class="w3-button w3-white w3-border">
         <i class="fa-solid fa-xmark fa-padding-right"></i>
         Revoke GitHub Account Access
     </a>

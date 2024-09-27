@@ -7,7 +7,7 @@
  * 
  * For example:
  * http://local.console.brickmmo.com:7777/media/tags/edit/1
- * Will route to the /console/media.tags.php file with a variable nameed edit
+ * Will route to the /console/media.tags.php file with a variable named edit
  * with a value of 1.
  */
 
@@ -51,7 +51,11 @@ else
 if(strpos($_SERVER['REQUEST_URI'], '?'))
 {
     $url = $_SERVER['REQUEST_URI'];
-    $url = str_replace(array('?','='), '/', $url);
+    $url = explode('?', $url);
+    $url[1] = str_replace(array('/', '%2F'), urlencode('-SLASH-'), $url[1]);
+    $url[1] = str_replace(array('?','=', '&'), '/', $url[1]);
+    $url = implode('/', $url);
+    debug_pre($url);
     header_redirect($url);
 }
 
@@ -153,21 +157,41 @@ if(!defined('PAGE_FILE'))
  * Parse remaining URL data into a $_GET array. 
  */
 
+ /**
+  * If there is only one part, the value is placed into the $_GET array with the
+  * key set to "key". 
+  */
 if(count($final_parts) == 1)
 {
     $_GET['key'] = array_shift($final_parts);
 }
+
+/**
+ * If there are an odd number of parts, the final part is placed into the $_GET array 
+ * with the key set to "key". 
+ */
 elseif(count($final_parts) % 2 == 1)
 {
-    echo count($final_parts);
     while($next = array_shift($final_parts))
     {
         if($next) $_GET['key'][] = $next;
     }
 }
+
+/**
+ * Remaining parts are placed into the $_GET array using alternating parts as keys
+ * and values.
+ */
 for($i = 0; $i < count($final_parts); $i += 2)
 {
-    $_GET[$final_parts[$i]] = isset($final_parts[$i+1]) ? $final_parts[$i+1] : true;
+    /**
+     * Slashed return from the Google API were breaking the .htaccess, so slashes in 
+     * the URL paramaters are replaced with "-SLASH-" and switched back to slashes 
+     * below. There must be a better solution to this, but this works for now. 
+     */
+    $_GET[$final_parts[$i]] = isset($final_parts[$i+1]) ? 
+        urldecode(str_replace('-SLASH-', '/', $final_parts[$i+1])) : 
+        true;
 }
 
 /**
