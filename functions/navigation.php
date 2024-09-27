@@ -112,7 +112,7 @@ function navigation_array($selected = false)
                     'id' => 'community',
                     'pages' => [
                         [
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/radio/dashboard',
                             'title' => 'Radio',
                             'sub-pages' => [
@@ -178,7 +178,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-qr-codes',
+                            'icon' => 'bm-qr',
                             'url' => '/qr/dashboard',
                             'title' => 'Qr Codes',
                             'sub-pages' => [
@@ -550,7 +550,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/admin/radio/dashboard',
                             'title' => 'Radio', 
                             'sub-pages' => [
