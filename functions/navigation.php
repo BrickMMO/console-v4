@@ -58,8 +58,31 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-control-panel',
-                            'url' => '/panel/dashboard',
+                            'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/panel/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit Control Panel App',
+                                    'url' => 'https://panel.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/panel',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/panel',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-control-clock',
                             'url' => '/clock/dashboard',
@@ -456,7 +479,29 @@ function navigation_array($selected = false)
                             'icon' => 'bm-panel',
                             'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
-                            'sub-pages' => [],
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/panel/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'codeadamca on GitHub',
+                                    'url' => 'https://panel.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/panel',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/panel',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-uptime',
                             'url' => '/uptime/dashboard',
