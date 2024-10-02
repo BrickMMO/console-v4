@@ -577,6 +577,17 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
+                            'icon' => 'bm-settings',
+                            'url' => '/admin/setting/dashboard',
+                            'title' => 'Settings', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/radio/dashboard',
+                                    'colour' => 'red'
+                                ]
+                            ],
+                        ],[
                             'icon' => 'bm-github',
                             'url' => '/admin/authentication/dashboard',
                             'title' => 'Authentication', 
@@ -584,7 +595,7 @@ function navigation_array($selected = false)
                                 [
                                     'title' => 'Dashboard',
                                     'url' => '/admin/authentication/dashboard',
-                                    'colour' => 'red'
+                                    'colour' => 'red'   
                                 ],
                             ],
                         ],
