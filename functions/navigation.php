@@ -578,12 +578,12 @@ function navigation_array($selected = false)
                             ],
                         ],[
                             'icon' => 'bm-settings',
-                            'url' => '/admin/setting/dashboard',
+                            'url' => '/admin/settings/dashboard',
                             'title' => 'Settings', 
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/admin/radio/dashboard',
+                                    'url' => '/admin/settings/dashboard',
                                     'colour' => 'red'
                                 ]
                             ],
