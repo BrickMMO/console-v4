@@ -7,7 +7,7 @@ define('APP_NAME', 'Events');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'control');
-define('PAGE_SELECTED_SUB_PAGE', '/panel/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/panel/values');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -29,7 +29,8 @@ include('../templates/message.php');
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Control Panel
+    <a href="/panel/dashboard">Control Panel</a> /
+    Modify Values
 </p>
 
 <?php

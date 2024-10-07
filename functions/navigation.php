@@ -66,6 +66,10 @@ function navigation_array($selected = false)
                                     'url' => '/panel/dashboard',
                                     'colour' => 'red'
                                 ],[
+                                    'title' => 'Modify Values',
+                                    'url' => '/panel/values',
+                                    'colour' => 'red'
+                                ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Visit panel App',
