@@ -19,7 +19,20 @@ include('../templates/message.php');
 
 ?>
 
-<h2>Panel Dashboard</h2>
+<!-- CONTENT -->
+
+<h1 class="w3-margin-top w3-margin-bottom">
+    <img
+        src="https://cdn.brickmmo.com/icons@1.0.0/control-panel.png"
+        height="50"
+        style="vertical-align: top"
+    />
+    Control Panel
+</h1>
+<p>
+    <a href="/city/dashboard">Dashboard</a> / 
+    Control Panel
+</p>
 
 <?php
 

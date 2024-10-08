@@ -63,7 +63,11 @@ function navigation_array($selected = false)
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
-                                    'url' => '/admin/panel/dashboard',
+                                    'url' => '/panel/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Modify Values',
+                                    'url' => '/panel/values',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
@@ -112,7 +116,7 @@ function navigation_array($selected = false)
                     'id' => 'community',
                     'pages' => [
                         [
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/radio/dashboard',
                             'title' => 'Radio',
                             'sub-pages' => [
@@ -178,7 +182,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-qr-codes',
+                            'icon' => 'bm-qr',
                             'url' => '/qr/dashboard',
                             'title' => 'Qr Codes',
                             'sub-pages' => [
@@ -476,7 +480,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-panel',
+                            'icon' => 'bm-control-panel',
                             'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
                             'sub-pages' => [
@@ -485,9 +489,13 @@ function navigation_array($selected = false)
                                     'url' => '/admin/panel/dashboard',
                                     'colour' => 'red'
                                 ],[
+                                    'title' => 'Modify Values',
+                                    'url' => '/admin/panel/values',
+                                    'colour' => 'red'
+                                ],[
                                     'br' => '---'
                                 ],[
-                                    'title' => 'codeadamca on GitHub',
+                                    'title' => 'Visit Panel App',
                                     'url' => 'https://panel.brickmmo.com',
                                     'colour' => 'orange'
                                 ],[
@@ -546,7 +554,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/admin/radio/dashboard',
                             'title' => 'Radio', 
                             'sub-pages' => [
@@ -595,7 +603,7 @@ function navigation_array($selected = false)
                                 [
                                     'title' => 'Dashboard',
                                     'url' => '/admin/authentication/dashboard',
-                                    'colour' => 'red'   
+                                    'colour' => 'red'
                                 ],
                             ],
                         ],

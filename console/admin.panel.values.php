@@ -5,9 +5,9 @@ admin_check();
 
 define('APP_NAME', 'Events');
 
-define('PAGE_TITLE', 'Dashboard');
+define('PAGE_TITLE', 'Modify values');
 define('PAGE_SELECTED_SECTION', 'control');
-define('PAGE_SELECTED_SUB_PAGE', '/panel/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/panel/values');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -19,17 +19,19 @@ include('../templates/message.php');
 
 ?>
 
+<!-- CONTENT -->
+
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
         src="https://cdn.brickmmo.com/icons@1.0.0/control-panel.png"
         height="50"
-        style="vertical-align: top"
-    />
+        style="vertical-align: top" />
     Control Panel
 </h1>
 <p>
-    <a href="/city/dashboard">Dashboard</a> / 
-    Control Panel
+    <a href="/city/dashboard">Dashboard</a> /
+    <a href="/admin/panel/dashboard">Control Panel</a> /
+    Modify Values
 </p>
 
 <?php
