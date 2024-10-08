@@ -58,7 +58,7 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-control-panel',
-                            'url' => '/panel/dashboard',
+                            'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
                             'sub-pages' => [
                                 [
@@ -72,7 +72,7 @@ function navigation_array($selected = false)
                                 ],[
                                     'br' => '---'
                                 ],[
-                                    'title' => 'Visit panel App',
+                                    'title' => 'Visit Control Panel App',
                                     'url' => 'https://panel.brickmmo.com',
                                     'colour' => 'orange'
                                 ],[
@@ -583,6 +583,17 @@ function navigation_array($selected = false)
                                     'url' => '/uptime/projects',
                                     'colour' => 'orange'
                                 ],
+                            ],
+                        ],[
+                            'icon' => 'bm-settings',
+                            'url' => '/admin/settings/dashboard',
+                            'title' => 'Settings', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/settings/dashboard',
+                                    'colour' => 'red'
+                                ]
                             ],
                         ],[
                             'icon' => 'bm-github',
