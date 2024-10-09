@@ -16,7 +16,7 @@ function google_revoke($access_token)
 
 }
 
-function google_list_files($access_token, $folder_name, $folder_id)
+function google_list_files($access_token, $folder_name, $folder_id, $recursive = true)
 {
 
     $client = google_get_client($access_token);
@@ -30,14 +30,29 @@ function google_list_files($access_token, $folder_name, $folder_id)
 
     $results = $service->files->listFiles($optParams);
 
+    echo '<div style="padding-left: 20px;">';
     if (count($results->getFiles()) == 0) {
         print "No files found in the folder '$folderName'.\n";
     } else {
-        print "Files in folder '$folderName':<br>";
-        foreach ($results->getFiles() as $file) {
+        print "<strong>Files in folder '$folder_name':</strong><br>";
+        foreach ($results->getFiles() as $file) 
+        {
             printf("%s (%s) - %s<br>", $file->getName(), $file->getId(), $file->getMimeType());
+            if($file->getMimeType() != 'application/vnd.google-apps.folder')
+            {
+                $file2 = $service->files->get($file->getId(), array('alt' => 'media'));
+                echo $file2->getBody();
+                echo 'Thumb: '.$file->getBody();
+                debug_pre($file);
+                die();
+            }
+            if($file->getMimeType() == 'application/vnd.google-apps.folder')
+            {
+                google_list_files($access_token, $file->getName(), $file->getId());
+            }
         }
     }
+    echo '</div>';
 }
 
 function google_get_client($access_token = false)

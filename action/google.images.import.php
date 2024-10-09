@@ -4,7 +4,7 @@
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 $google = json_decode($google, true);
 
-$image = setting_fetch('GOOGLE_DRIVE_PHOTOS', 'comma_2_array');
+$image = setting_fetch('GOOGLE_DRIVE_PHOTO', 'comma_2_array');
 
 google_list_files($google, $image[0], $image[1]);
 
