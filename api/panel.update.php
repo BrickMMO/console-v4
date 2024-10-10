@@ -1,7 +1,7 @@
 <?php
 
 // Check if all required GET parameters are present
-if (isset($_GET['id']) && isset($_GET['city_id']) && isset($_GET['port_id']) && isset($_GET['value'])) {
+if (isset($_GET['city_id']) && isset($_GET['port_id']) && isset($_GET['value'])) {
 
     // Escape and validate the input to prevent SQL injection
     $city_id = intval($_GET['city_id']);
