@@ -19,15 +19,21 @@ include('../templates/message.php');
 
 $query = 'SELECT *
     FROM media
-    WHERE image IS NOT NULL 
+    WHERE type = "image"
     AND deleted_at IS NULL';
 $image_count = mysqli_num_rows(mysqli_query($connect, $query));
 
 $query = 'SELECT *
     FROM media
-    WHERE video IS NOT NULL 
+    WHERE type = "video"
     AND deleted_at IS NULL';
 $video_count = mysqli_num_rows(mysqli_query($connect, $query));
+
+$query = 'SELECT *
+    FROM media
+    WHERE type = "audio"
+    AND deleted_at IS NULL';
+$audio_count = mysqli_num_rows(mysqli_query($connect, $query));
 
 $query = 'SELECT *
     FROM media_downloads';

@@ -95,7 +95,7 @@ define('APP_NAME', 'Colours');
 
 define('PAGE_TITLE', 'Import Colours');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/colours/import');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/colours/import');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
