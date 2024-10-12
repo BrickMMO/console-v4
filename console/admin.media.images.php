@@ -76,10 +76,11 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/action/google/import/image"
-    class="w3-button w3-white w3-border"
+  href="/action/google/import/image"
+  class="w3-button w3-white w3-border" 
+  onclick="loading();"
 >
-    <i class="fa-solid fa-file-import fa-padding-right"></i> Import Images from Google Drive
+  <i class="fa-solid fa-file-import fa-padding-right"></i> Import Images from Google Drive
 </a>
 
 <?php
