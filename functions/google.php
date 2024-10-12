@@ -168,6 +168,7 @@ function google_get_client($access_token = false)
     if ($access_token) 
     {
         $client->setAccessToken($access_token);
+        $_SESSION['access_token'] = $access_token;
     }
 
     /**

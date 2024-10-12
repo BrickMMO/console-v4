@@ -21,7 +21,17 @@ elseif($_GET['key'] == 'image') $redirect = 'images';
 elseif($_GET['key'] == 'video') $redirect = 'video';
 
 
-$files = google_list_files($google, $folder[0], $folder[1]);
+try
+{
+    $files = google_list_files($google, $folder[0], $folder[1]);
+}
+catch(Exception $e)
+{
+    message_set('Google API Error', 'Google Access Token has expired.', 'red');
+    header_redirect('/admin/authentication  /dashboard');
+}
+
+$images = 0;
 
 foreach($files as $key => $file)
 {
@@ -49,10 +59,16 @@ foreach($files as $key => $file)
             )';
         mysqli_query($connect, $query); 
 
+        $images ++;
+
     }
 
 }
 
-message_set('Import Success', 'Media from the BrickMMO Google Drive have been imported.');
+message_set(
+    'Import Success', 
+    'Media from the BrickMMO Google Drive have been imported. '.
+    'Imported '.$images.' new images.'
+);
 header_redirect(ENV_CONSOLE_DOMAIN.'/admin/media/'.$redirect);
 
