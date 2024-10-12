@@ -58,7 +58,7 @@ function navigation_array($selected = false)
                     'pages' => [
                         [
                             'icon' => 'bm-control-panel',
-                            'url' => '/admin/panel/dashboard',
+                            'url' => '/panel/dashboard',
                             'title' => 'Control Panel',
                             'sub-pages' => [
                                 [
@@ -299,7 +299,7 @@ function navigation_array($selected = false)
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Modify Word List',
-                                    'url' => '/bricksum/wordlist',
+                                    'url' => '/admin/bricksum/wordlist',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
