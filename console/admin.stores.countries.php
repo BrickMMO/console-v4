@@ -104,6 +104,7 @@ $result = mysqli_query($connect, $query);
 <a
     href="/admin/stores/countries/go"
     class="w3-button w3-white w3-border"
+    onclick="loading();"
 >
     <i class="fa-solid fa-download"></i> Start Import
 </a>

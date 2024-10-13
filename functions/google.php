@@ -59,6 +59,7 @@ function google_list_files($access_token, $folder_name, $folder_id, $files = arr
             $new_file = array(
                 'name' => $file->getName(),
                 'google_id' => $file->getId(),
+                'folder' => $folder_name,
             );
 
             if(in_array($file->getMimeType(), array('image/png', 'image/jpeg', 'image/gif')))
