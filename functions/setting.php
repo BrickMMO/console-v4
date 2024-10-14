@@ -11,7 +11,7 @@ function setting_fetch($name, $format = 'plain')
         LIMIT 1';
     $result = mysqli_query($connect, $query);
     $record = mysqli_fetch_assoc($result);
-
+    
     switch($format)
     {
         case 'comma':
