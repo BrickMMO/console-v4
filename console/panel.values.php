@@ -5,19 +5,23 @@ admin_check();
 
 // Check if form is submitted to update the panel values
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    $error = false;
     foreach ($_POST['panels'] as $panel_id => $values) {
         $new_value = $values['value'];
-        // Basic serverside validation
-        if (!strlen($new_value)) {
-            message_set('Panel update Error', 'There was an error saving your panel values', 'red');
-            header_redirect('/panel/values');
-            exit();
+
+        // Basic server-side validation
+        if (!strlen($new_value) || !update_panel_value($panel_id, $new_value, $connect)) {
+            $error = true;
+            break; // Exit loop on first error
         }
-        update_panel_value($panel_id, $new_value, $connect);
     }
 
-    // Redirect to avoid form resubmission on page refresh
+    if ($error) {
+        message_set('Panel update Error', 'There was an error saving your panel values', 'red');
+    } else {
+        message_set('Update Success', 'Panel values updated successfully!', 'green', true);
+    }
+
     header_redirect('/panel/values');
     exit();
 }
