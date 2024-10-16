@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
     $logStmt = mysqli_prepare($connect, $logsQuery);
     mysqli_stmt_bind_param($logStmt, 'sss', $content, $broadcast_time, $segment_id);
     mysqli_stmt_execute($logStmt);
+
+    message_set('Log Added', 'Broadcast Log added successfully!', 'green', true);
+
     header_redirect('/radio/schedule');
     exit();
 } elseif (isset($_POST['edit'])) {
@@ -53,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
     $updateLogsStmt = mysqli_prepare($connect, $updateLogsQuery);
     mysqli_stmt_bind_param($updateLogsStmt, 'si', $time, $segment_id);
     mysqli_stmt_execute($updateLogsStmt);
+
+    message_set('Log Edited', 'Broadcast Log added successfully!', 'green', true);
+
     header_redirect('/radio/schedule');
     exit();
 } elseif (isset($_POST['delete'])) {
@@ -70,6 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
     $deleteStmt = mysqli_prepare($connect, $deleteScheduleQuery);
     mysqli_stmt_bind_param($deleteStmt, 'i', $id);
     mysqli_stmt_execute($deleteStmt);
+
+    message_set('Log Deleted', 'Broadcast Log deleted successfully!', 'red', true);
+
     header_redirect('/radio/schedule');
     exit();
 }

@@ -77,34 +77,6 @@ $broadcasts = get_segments_data_by_schedule_5();
     class="w3-button w3-white w3-border w3-margin-top">
     <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Broadcasting Schedule Edit
 </a>
-
-<!-- Character -->
-<a onclick="document.getElementById('characterModal').style.display='block'" class="w3-button w3-white w3-border w3-margin-top">
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Choose a Character
-</a>
-
-<!-- The Modal -->
-<div id="characterModal" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-        <div class="w3-center"><br>
-            <span onclick="document.getElementById('characterModal').style.display='none'"
-                class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-            <img src="img_avatar4.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
-        </div>
-
-        <div class="w3-container">
-            <div class="w3-section">
-                <?php foreach ($characters as $character): ?>
-                    <div class="w3-container w3-border w3-padding w3-margin-bottom character-select" onclick="selectCharacter(<?= $character['id'] ?>);">
-                        <img src="<?= htmlspecialchars($character['image_url']) ?>" alt="<?= htmlspecialchars($character['name']) ?>" style="width: 100px; height: 100px;">
-                        <p><?= htmlspecialchars($character['name']) ?></p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 <hr>
 <div
     class="w3-row-padding"
