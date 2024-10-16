@@ -6,6 +6,7 @@ if(!isset($_GET['key']) || !$_GET['key'])
     header_redirect('/admin/media/dashboard');
 }
 
+/*
 $query = 'DELETE FROM media';
 mysqli_query($connect, $query);
 
@@ -14,6 +15,7 @@ mysqli_query($connect, $query);
 
 $query = 'DELETE FROM tags';
 mysqli_query($connect, $query);
+*/
 
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 $google = json_decode($google, true);
@@ -37,7 +39,7 @@ try
 catch(Exception $e)
 {
     message_set('Google API Error', 'Google Access Token has expired.', 'red');
-    header_redirect('/admin/authentication  /dashboard');
+    header_redirect('/admin/authentication/dashboard');
 }
 
 $images = 0;
