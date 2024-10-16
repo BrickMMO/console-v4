@@ -1,9 +1,9 @@
 <?php
 
-function user_avatar($id)
+function user_avatar($id, $absolute = false)
 {
     $user = user_fetch($id);
-    return $user['avatar'] ? $user['avatar'] : '/images/no_avatar.png';
+    return $user['avatar'] ? $user['avatar'] : ($absolute ? ENV_ACCOUNT_DOMAIN : '').'/images/no_avatar.png';
 }
 
 function user_name($id)

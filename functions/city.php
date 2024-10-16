@@ -1,9 +1,9 @@
 <?php
 
-function city_avatar($id)
+function city_avatar($id, $absolute = false)
 {
     $city = city_fetch($id);
-    return $city['image'] ? $city['image'] : '/images/no_city.png';
+    return $city['image'] ? $city['image'] : ($absolute ? ENV_CONSOLE_DOMAIN : '').'/images/no_city.png';
 }
 
 function city_fetch($identifier, $field = false)
