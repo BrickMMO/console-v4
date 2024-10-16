@@ -117,6 +117,9 @@ $broadcasts = get_segments_data_by_schedule_5();
 <script>
     // Global audio variable
     var audio = null;
+    document.addEventListener('DOMContentLoaded', function() {
+        playRadio();
+    });
 
     function playRadio() {
         console.log('Attempting to play radio...');
@@ -130,22 +133,22 @@ $broadcasts = get_segments_data_by_schedule_5();
         if (!audio) {
             console.log('Fetching new audio...');
             fetch('/api/radio/logs', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.blob())
-            .then(blob => {
-                var url = window.URL.createObjectURL(blob);
-                audio = new Audio(url);
-                audio.play();
-                audio.onended = function() {
-                    console.log('Audio finished playing.');
-                    audio = null; // Reset audio after it finishes playing
-                };
-            })
-            .catch(error => console.error('Error fetching or playing the radio:', error));
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = window.URL.createObjectURL(blob);
+                    audio = new Audio(url);
+                    audio.play();
+                    audio.onended = function() {
+                        console.log('Audio finished playing.');
+                        audio = null; // Reset audio after it finishes playing
+                    };
+                })
+                .catch(error => console.error('Error fetching or playing the radio:', error));
         } else {
             // Audio is loaded but was paused, so just play it
             console.log('Resuming audio...');
