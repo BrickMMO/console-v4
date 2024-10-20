@@ -74,7 +74,7 @@ $settings = mysqli_query($connect, $query);
             type="text" 
             id="setting" 
             autocomplete="off"
-            value="<?=$setting['value']?>"
+            value="<?=htmlentities($setting['value'])?>"
         />
         <label for="name" class="w3-text-gray">
             <?=$setting['name']?> <span id="name-error" class="w3-text-red"></span>

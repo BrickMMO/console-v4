@@ -3,7 +3,7 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Events');
+define('APP_NAME', 'Panels');
 
 define('PAGE_TITLE', 'Modify values');
 define('PAGE_SELECTED_SECTION', 'control');
