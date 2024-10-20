@@ -14,7 +14,7 @@ include('../templates/nav_slideout.php');
 include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 
-include('../templates/message.php');
+include('../templates/  message.php');
 
 $query = 'SELECT * FROM qr_codes ORDER BY id DESC';
 $result = mysqli_query($connect, $query);
