@@ -3,6 +3,14 @@
 security_check();
 admin_check();
 
+if(
+    !isset($_GET['key']) || 
+    !is_numeric($_GET['key']))
+{
+    message_set('Tag Error', 'There was an error with the provided QR code.');
+    header_redirect('/qr/dashboard');
+}
+
 define('APP_NAME', 'Events');
 define('PAGE_TITLE', 'QR Scan Logs');
 define('PAGE_SELECTED_SECTION', 'community');
@@ -16,37 +24,50 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 include('../templates/message.php');
 
-
-$query = 'SELECT qr_code_logs.*, qr_codes.name AS qr_name 
-          FROM qr_code_logs 
-          JOIN qr_codes ON qr_code_logs.qr_code_id = qr_codes.id 
-          ORDER BY scan_date DESC';
-
+$query = 'SELECT *
+    FROM qrs
+    WHERE id = "'.$_GET['key'].'"
+    LIMIT 1';
 $result = mysqli_query($connect, $query);
+$qr = mysqli_fetch_assoc($result);
 
-
-if (!$result) {
-    die('Database query failed: ' . mysqli_error($connect));
-}
+$query = 'SELECT *
+    FROM qr_logs
+    ORDER BY created_at DESC';
+$result = mysqli_query($connect, $query);
 
 ?>
 
-<h2>QR Scan Logs</h2>
+<h1 class="w3-margin-top w3-margin-bottom">
+    <img
+        src="https://cdn.brickmmo.com/icons@1.0.0/qr.png"
+        height="50"
+        style="vertical-align: top"
+    />
+    QR Codes
+</h1>
+<p>
+    <a href="/city/dashboard">Dashboard</a> / 
+    <a href="/qr/dashboard">Qr Codes</a> / 
+    QR Code Logs
+</p>
+
+<hr> 
+
+<h2>QR Scan Logs: <?=$qr['name']?></h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
-        <th>QR Code Name</th>
-        <th>Scanned Name</th>
-        <th>Scanned URL</th>
-        <th>Scan Time</th>
+        <th>Name</th>
+        <th>ULR</th>
+        <th>Date</th>
     </tr>
 
     <?php while ($record = mysqli_fetch_assoc($result)): ?>
         <tr>
-            <td><?= htmlspecialchars($record['qr_name']) ?></td>
-            <td><?= htmlspecialchars($record['scanned_name']) ?></td>
-            <td><a href="<?= htmlspecialchars($record['scanned_url']) ?>" target="_blank"><?= htmlspecialchars($record['scanned_url']) ?></a></td>
-            <td><?= htmlspecialchars($record['scan_date']) ?></td>
+            <td><?=$record['name']?></td>
+            <td><?=$record['url']?></td>
+            <td><?=time_elapsed_string($record['created_at'])?></td>
         </tr>
     <?php endwhile; ?>
 </table>

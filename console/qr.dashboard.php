@@ -41,6 +41,11 @@ $query = 'SELECT qrs.*,(
     FROM qrs 
     ORDER BY name';
 $result = mysqli_query($connect, $query);
+$qr_count = mysqli_num_rows($result);
+
+$query = 'SELECT *
+    FROM qr_logs';
+$log_count = mysqli_num_rows(mysqli_query($connect, $query));
 
 ?>
 
@@ -57,6 +62,13 @@ $result = mysqli_query($connect, $query);
     QR Codes
 </p>
 <hr>
+<p>
+    Total QR Codes: <span class="w3-tag w3-blue"><?=$qr_count?></span> 
+    Total Scane: <span class="w3-tag w3-blue"><?=$log_count?></span> 
+</p>
+
+<hr>
+
 
 <h3>QR Codes</h3>
 

@@ -7,7 +7,7 @@ if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']))
 {
-    message_set('Tag Error', 'There was an error with the provided tag.');
+    message_set('Tag Error', 'There was an error with the provided QR code.');
     header_redirect('/qr/dashboard');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
