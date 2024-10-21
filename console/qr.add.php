@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             url, 
             image, 
             hash,
+            city_id,
             created_at,
             updated_at
         ) VALUES (
@@ -35,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             "'.addslashes($_POST['url']).'", 
             "'.$image.'",
             "'.$hash.'",
+            '.$_city['id'].',
             NOW(),
             NOW()
         )';
