@@ -6,7 +6,7 @@ admin_check();
 define('APP_NAME', 'Events');
 define('PAGE_TITLE', 'QR Scan Logs');
 define('PAGE_SELECTED_SECTION', 'community');
-define('PAGE_SELECTED_SUB_PAGE', '/qr/scan-log');
+define('PAGE_SELECTED_SUB_PAGE', '/qr/dashboard');
 
 
 include('../templates/html_header.php');

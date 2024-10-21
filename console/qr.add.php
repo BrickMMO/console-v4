@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 define('APP_NAME', 'Events');
 define('PAGE_TITLE', 'Add QR Code');
 define('PAGE_SELECTED_SECTION', 'community');
-define('PAGE_SELECTED_SUB_PAGE', '/qr/add');
+define('PAGE_SELECTED_SUB_PAGE', '/qr/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
