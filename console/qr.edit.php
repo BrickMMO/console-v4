@@ -3,6 +3,36 @@
 security_check();
 admin_check();
 
+if(
+    !isset($_GET['key']) || 
+    !is_numeric($_GET['key']))
+{
+    message_set('Tag Error', 'There was an error with the provided tag.');
+    header_redirect('/qr/dashboard');
+}
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+
+    // Basic serverside validation
+    if (!validate_blank($_POST['name']) or !validate_blank($_POST['url']))
+    {
+        message_set('QR Code Error', 'There was an error with the provided QR code.', 'red');
+        header_redirect('/qr/add');
+    }
+    
+    $query = 'UPDATE qrs SET
+        name = "'.addslashes($_POST['name']).'",
+        url = "'.addslashes($_POST['url']).'",
+        updated_at = NOW()
+        WHERE id = '.$_GET['key'].'
+        LIMIT 1';
+    mysqli_query($connect, $query);
+
+    message_set('QR Success', 'QR code has been successfully updated.');
+    header_redirect('/qr/dashboard');
+    
+}
+
 define('APP_NAME', 'Events');
 define('PAGE_TITLE', 'Edit QR Code');
 define('PAGE_SELECTED_SECTION', 'community');
@@ -16,54 +46,99 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($connect, $_GET['id']);
-    $query = "SELECT * FROM qr_codes WHERE id = '$id'";
-    $result = mysqli_query($connect, $query);
-    $qrCode = mysqli_fetch_assoc($result);
-
-    if (!$qrCode) {
-        message_set('Error', 'QR code not found.');
-        header_redirect('qr.dashboard');
-        exit();
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = mysqli_real_escape_string($connect, $_POST['name']);
-    $redirect_url = mysqli_real_escape_string($connect, $_POST['redirect_url']);
-
-    $query = "UPDATE qr_codes 
-              SET name = '$name', redirect_url = '$redirect_url' 
-              WHERE id = '$id'";
-    mysqli_query($connect, $query);
-
-    message_set('QR Code Updated', 'QR Code has been successfully updated.');
-    header_redirect('/qr/dashboard');
-    exit();
-}
+$query = 'SELECT *
+    FROM qrs
+    WHERE id = "'.$_GET['key'].'"
+    LIMIT 1';
+$result = mysqli_query($connect, $query);
+$qr = mysqli_fetch_assoc($result);
 
 ?>
-<h2>Edit QR Code</h2>
+
+<h1 class="w3-margin-top w3-margin-bottom">
+    <img
+        src="https://cdn.brickmmo.com/icons@1.0.0/qr.png"
+        height="50"
+        style="vertical-align: top"
+    />
+    QR Codes
+</h1>
+<p>
+    <a href="/city/dashboard">Dashboard</a> / 
+    <a href="/qr/dashboard">Qr Codes</a> / 
+    Add QR Code
+</p>
+
+<hr>
+
+<h2>Edit QR Code: <?=$qr['name']?></h2>
 
 <!-- Display the QR code -->
-<div class="w3-center w3-padding">
-    <h3>QR Code Preview</h3>
-    <img src="<?= $qrCode['qr_code_image'] ?>" alt="QR Code" class="w3-image" style="width: 300px; height: 300px;">
-</div>
+<img src="<?= $qr['image'] ?>" alt="" style="max-width: 200px;" class="w3-padding w3-border">
 
 <!-- Edit form -->
-<form action="" method="POST" class="w3-container w3-card-4 w3-light-grey w3-padding">
-    <div class="w3-section">
-        <label for="name">QR Code Name:</label>
-        <input class="w3-input w3-border" type="text" name="name" value="<?= htmlspecialchars($qrCode['name']) ?>" required>
-    </div>
-    <div class="w3-section">
-        <label for="redirect_url">Redirect URL:</label>
-        <input class="w3-input w3-border" type="url" name="redirect_url" value="<?= htmlspecialchars($qrCode['redirect_url']) ?>" required>
-    </div>
-    <button type="submit" class="w3-button w3-blue w3-margin-top">Update QR Code</button>
+<form
+    method="post"
+    novalidate
+    id="main-form"
+>
+
+    <input  
+        name="name" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="name" 
+        autocomplete="off"
+        value="<?=$qr['name']?>"
+    />
+    <label for="name" class="w3-text-gray">
+        Name <span id="name-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="url" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="url" 
+        autocomplete="off"
+        value="<?=$qr['url']?>"
+    />
+    <label for="url" class="w3-text-gray">
+        URL <span id="url-error" class="w3-text-red"></span>
+    </label>
+
+    <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
+        <i class="fa-solid fa-tag fa-padding-right"></i>
+        Add QR Code
+    </button>
+
 </form>
+
+<script>
+
+    function validateMainForm() {
+        let errors = 0;
+
+        let name = document.getElementById("name");
+        let name_error = document.getElementById("name-error");
+        name_error.innerHTML = "";
+        if (name.value == "") {
+            name_error.innerHTML = "(name is required)";
+            errors++;
+        }
+
+        let url = document.getElementById("url");
+        let url_error = document.getElementById("url-error");
+        url_error.innerHTML = "";
+        if (url.value == "") {
+            url_error.innerHTML = "(URL is required)";
+            errors++;
+        }
+
+        if (errors) return false;
+    }
+
+</script>
 
 <?php
 

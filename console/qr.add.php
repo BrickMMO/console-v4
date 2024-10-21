@@ -38,8 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     message_set('QR Success', 'QR code has been successfully created.');
     header_redirect('/qr/dashboard');
-
-    exit();
 }
 
 define('APP_NAME', 'Events');
@@ -67,7 +65,7 @@ include('../templates/message.php');
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/qrs/dashboard">Qr Codes</a> / 
+    <a href="/qr/dashboard">Qr Codes</a> / 
     Add QR Code
 </p>
 
@@ -94,7 +92,7 @@ include('../templates/message.php');
 
     <input  
         name="url" 
-        class="w3-input w3-border" 
+        class="w3-input w3-border w3-margin-top" 
         type="text" 
         id="url" 
         autocomplete="off"

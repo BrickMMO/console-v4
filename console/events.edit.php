@@ -69,7 +69,6 @@ $query = 'SELECT *
     FROM events
     WHERE id = "'.$_GET['key'].'"
     LIMIT 1';
-
 $result = mysqli_query($connect, $query);
 
 ?>

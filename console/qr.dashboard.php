@@ -87,7 +87,7 @@ $result = mysqli_query($connect, $query);
                 <?=$record['scans']?>
             </td>
             <td>
-                <a href="/qr/edit/id/<?=$record['id'] ?>">
+                <a href="/qr/edit/<?=$record['id'] ?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
