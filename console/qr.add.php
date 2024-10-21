@@ -27,12 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             name, 
             url, 
             image, 
-            hash
+            hash,
+            created_at,
+            updated_at
         ) VALUES (
             "'.addslashes($_POST['name']).'",
             "'.addslashes($_POST['url']).'", 
             "'.$image.'",
-            "'.$hash.'"
+            "'.$hash.'",
+            NOW(),
+            NOW()
         )';
     mysqli_query($connect, $query);
 

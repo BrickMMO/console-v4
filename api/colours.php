@@ -10,8 +10,6 @@ $colorArray = array();
 
 if($result){
 
-    header("Content-type: JSON");
-
     $i = 0;
 
     while($colour = mysqli_fetch_assoc($result)){

@@ -39,7 +39,7 @@ $query = 'SELECT qrs.*,(
         WHERE qrs.id = qr_logs.qr_id
     ) AS scans
     FROM qrs 
-    ORDER BY name DESC';
+    ORDER BY name';
 $result = mysqli_query($connect, $query);
 
 ?>
@@ -54,7 +54,7 @@ $result = mysqli_query($connect, $query);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Qr Codes
+    QR Codes
 </p>
 <hr>
 
