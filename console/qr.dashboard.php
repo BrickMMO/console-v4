@@ -84,7 +84,7 @@ $result = mysqli_query($connect, $query);
                 </small>
             </td>
             <td>
-                <?=$record['scans']?>
+                <a href="/qr/logs/<?=$record['id']?>"><?=$record['scans']?></a>
             </td>
             <td>
                 <a href="/qr/edit/<?=$record['id'] ?>">
