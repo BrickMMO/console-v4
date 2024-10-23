@@ -19,5 +19,5 @@ while($record = mysqli_fetch_assoc($result))
 $data = array(
     'message' => 'QR codes retrieved successfully.',
     'error' => false, 
-    'cities' => $qrs,
+    'qrs' => $qrs,
 );
