@@ -89,7 +89,7 @@ $log_count = mysqli_num_rows(mysqli_query($connect, $query));
     <?php while ($record = mysqli_fetch_assoc($result)): ?>
         <tr>
             <td>
-                <img src="<?=$record['image'] ?>" alt="QR Code" width="50">
+                <img src="<?=$record['image'] ?>" alt="QR Code" width="70">
             </td>
             <td>
                 <?=$record['name'] ?>
