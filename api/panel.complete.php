@@ -1,10 +1,10 @@
 <?php
 
 // Check if 'city_id' is present in the GET request
-if (isset($_GET['key'])) {
+if (isset($_GET['city'])) {
 
     // Escape and validate the input to prevent SQL injection
-    $city_id = intval($_GET['key']);  // Ensures only integer values are used
+    $city_id = intval($_GET['city']);  // Ensures only integer values are used
 
     // Query to fetch panel data based on city_id
     $query = "SELECT * FROM panels WHERE city_id = " . $city_id;
