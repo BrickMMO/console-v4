@@ -4,7 +4,7 @@
 if (isset($_GET['city']) && isset($_GET['port'])) {
 
     // Escape and validate the input to prevent SQL injection
-    $city_id = intval($_GET['city_id']);
+    $city_id = intval($_GET['city']);
     $port = mysqli_real_escape_string($connect, $_GET['port']);    
 
     // Check if 'cartridge' is present and handle NULL values

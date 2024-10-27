@@ -1,10 +1,10 @@
 <?php
 
 // Check if all required GET parameters are present
-if (isset($_GET['city_id']) && isset($_GET['port']) && isset($_GET['value'])) {
+if (isset($_GET['city']) && isset($_GET['port']) && isset($_GET['value'])) {
 
     // Escape and validate the input to prevent SQL injection
-    $city_id = intval($_GET['city_id']);
+    $city_id = intval($_GET['city']);
     $port = mysqli_real_escape_string($connect, $_GET['port']);
     $value = mysqli_real_escape_string($connect, $_GET['value']);
 
