@@ -22,7 +22,7 @@ function update_panel_value($panel_id, $new_value, $connect)
     return $result;
 }
 
-// Group panel data by cartridge and port_id
+// Group panel data by cartridge and port
 function group_panel_data_by_cartridge($panel_data)
 {
     $power_lever = [];
@@ -30,26 +30,26 @@ function group_panel_data_by_cartridge($panel_data)
     $cartridge_data = [];
 
     foreach ($panel_data as $panel) {
-        if ($panel['port_id'] == 'A') {
+        if ($panel['port'] == 'a') {
             $power_lever = ['id' => $panel['id'], 'value' => $panel['value']];
         }
-        if ($panel['port_id'] == 'S1') {
+        if ($panel['port'] == '1') {
             $current_cartridge = ['id' => $panel['id'], 'value' => $panel['value']];
         }
         if ($panel['cartridge'] != null) {
             $cartridge = $panel['cartridge'];
-            $port_id = $panel['port_id'];
+            $port = $panel['port'];
             $value = $panel['value'];
 
             if (!isset($cartridge_data[$cartridge])) {
                 $cartridge_data[$cartridge] = [];
             }
 
-            if (!isset($cartridge_data[$cartridge][$port_id])) {
-                $cartridge_data[$cartridge][$port_id] = [];
+            if (!isset($cartridge_data[$cartridge][$port])) {
+                $cartridge_data[$cartridge][$port] = [];
             }
 
-            $cartridge_data[$cartridge][$port_id][] = ['id' => $panel['id'], 'value' => $value];
+            $cartridge_data[$cartridge][$port][] = ['id' => $panel['id'], 'value' => $value];
         }
     }
 
@@ -65,11 +65,11 @@ function get_panel_data_by_cartridge($cartridge, $city_id, $connect)
 
     $cartridge_data = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $port_id = $row['port_id'];
-        if (!isset($cartridge_data[$port_id])) {
-            $cartridge_data[$port_id] = [];
+        $port = $row['port'];
+        if (!isset($cartridge_data[$port])) {
+            $cartridge_data[$port] = [];
         }
-        $cartridge_data[$port_id][] = ['id' => $row['id'], 'value' => $row['value']];
+        $cartridge_data[$port][] = ['id' => $row['id'], 'value' => $row['value']];
     }
 
     return $cartridge_data;

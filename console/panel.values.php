@@ -43,7 +43,7 @@ include('../templates/message.php');
 // Fetch panel data for the current city
 $panel_data = get_panel_data_by_city($_SESSION['user']['city_id'], $connect);
 
-// Group panel data by cartridge and port_id using the function
+// Group panel data by cartridge and port using the function
 list($power_lever, $current_cartridge, $cartridge_data) = group_panel_data_by_cartridge($panel_data);
 
 ?>
@@ -92,11 +92,11 @@ list($power_lever, $current_cartridge, $cartridge_data) = group_panel_data_by_ca
         <hr>
         <div>
             <p>Cartridge: <span class="w3-tag w3-<?= strtolower($cartridge) ?>"><?= $cartridge ?></span></p>
-            <?php foreach ($ports as $port_id => $values): ?>
+            <?php foreach ($ports as $port => $values): ?>
                 <p style="display:flex; align-items: center">
-                    <?php echo ctype_alpha($port_id) ? "Motor $port_id" : "Switch $port_id"; ?>:
+                    <?php echo is_numeric($port) ? "Motor $port" : "Switch $port"; ?>:
                     <?php foreach ($values as $panel): ?>
-                        <?php if (ctype_alpha($port_id)): ?>
+                        <?php if (is_numeric($port)): ?>
                             <input type="number"
                                 name="panels[<?= $panel['id'] ?>][value]"
                                 value="<?= $panel['value'] ?>"

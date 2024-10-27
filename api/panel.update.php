@@ -1,11 +1,11 @@
 <?php
 
 // Check if all required GET parameters are present
-if (isset($_GET['city_id']) && isset($_GET['port_id']) && isset($_GET['value'])) {
+if (isset($_GET['city_id']) && isset($_GET['port']) && isset($_GET['value'])) {
 
     // Escape and validate the input to prevent SQL injection
     $city_id = intval($_GET['city_id']);
-    $port_id = mysqli_real_escape_string($connect, $_GET['port_id']);
+    $port = mysqli_real_escape_string($connect, $_GET['port']);
     $value = mysqli_real_escape_string($connect, $_GET['value']);
 
     // Check if 'cartridge' is present and handle NULL values
@@ -16,7 +16,7 @@ if (isset($_GET['city_id']) && isset($_GET['port_id']) && isset($_GET['value']))
         UPDATE panels 
         SET value = '$value' 
         WHERE city_id = $city_id 
-          AND port_id = '$port_id' 
+          AND port = '$port' 
           AND " . ($cartridge === null ? "cartridge IS NULL" : "cartridge = '$cartridge'");
 
     // Execute the query
@@ -52,7 +52,7 @@ if (isset($_GET['city_id']) && isset($_GET['port_id']) && isset($_GET['value']))
 } else {
     // Handle the case where one or more required parameters are missing in the request
     $data = array(
-        'message' => 'Missing one or more required parameters: city_id, port_id, value.',
+        'message' => 'Missing one or more required parameters: city_id, port, value.',
         'error' => true,
     );
 }

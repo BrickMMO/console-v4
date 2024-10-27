@@ -1,11 +1,11 @@
 <?php
 
 // Check if all required GET parameters are present
-if (isset($_GET['city_id']) && isset($_GET['port_id'])) {
+if (isset($_GET['city_id']) && isset($_GET['port'])) {
 
     // Escape and validate the input to prevent SQL injection
     $city_id = intval($_GET['city_id']);
-    $port_id = mysqli_real_escape_string($connect, $_GET['port_id']);    
+    $port = mysqli_real_escape_string($connect, $_GET['port']);    
 
     // Check if 'cartridge' is present and handle NULL values
     $cartridge = isset($_GET['cartridge']) ? mysqli_real_escape_string($connect, $_GET['cartridge']) : null;
@@ -15,7 +15,7 @@ if (isset($_GET['city_id']) && isset($_GET['port_id'])) {
         SELECT *
         FROM panels
         WHERE city_id = $city_id 
-          AND port_id = '$port_id' 
+          AND port = '$port' 
           AND " . ($cartridge === null ? "cartridge IS NULL" : "cartridge = '$cartridge'");
 
     // Execute the query
@@ -27,7 +27,7 @@ if (isset($_GET['city_id']) && isset($_GET['port_id'])) {
 } else {
     // Handle the case where one or more required parameters are missing in the request
     $data = array(
-        'message' => 'Missing one or more required parameters: city_id, port_id, value.',
+        'message' => 'Missing one or more required parameters: city_id, port, value.',
         'error' => true,
     );
 }

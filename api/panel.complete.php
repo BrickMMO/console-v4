@@ -25,7 +25,7 @@ if (isset($_GET['city_id'])) {
         $i = 0;
         while ($panel = mysqli_fetch_assoc($result)) {
             $panelArray[$i]['id'] = $panel['id'];
-            $panelArray[$i]['port_id'] = $panel['port_id'];
+            $panelArray[$i]['port'] = $panel['port'];
             $panelArray[$i]['cartridge'] = $panel['cartridge'];
             $panelArray[$i]['city_id'] = $panel['city_id'];
             $panelArray[$i]['value'] = $panel['value'];
