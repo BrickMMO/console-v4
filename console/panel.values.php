@@ -26,6 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
+// Fetch panel data for the current city
+$panel_data = panels_data_by_city($_city['id']);
+
+if(!count($panel_data))
+{
+    message_set('Panel Error', 'This city does not yet have a panel initiated.', 'red');
+    header_redirect('/panel/new');
+}
+
+
 define('APP_NAME', 'Panels');
 
 define('PAGE_TITLE', 'Dashboard');
@@ -40,11 +50,8 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-// Fetch panel data for the current city
-$panel_data = get_panel_data_by_city($_SESSION['user']['city_id'], $connect);
-
 // Group panel data by cartridge and port using the function
-list($power_lever, $current_cartridge, $cartridge_data) = group_panel_data_by_cartridge($panel_data);
+list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_cartridge($panel_data);
 
 ?>
 

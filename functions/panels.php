@@ -1,12 +1,18 @@
 <?php
 
 // Fetch panel data based on city_id
-function get_panel_data_by_city($city_id, $connect)
+function panels_data_by_city($city_id)
 {
-    $query = "SELECT * FROM panels WHERE city_id = " . mysqli_real_escape_string($connect, $city_id);
+    global $connect;
+
+    $query = 'SELECT * 
+        FROM panels 
+        WHERE city_id = "'.mysqli_real_escape_string($connect, $city_id).'"
+        LIMIT 1';
     $result = mysqli_query($connect, $query);
 
     $panel_data = [];
+
     while ($row = mysqli_fetch_assoc($result)) {
         $panel_data[] = $row;
     }
@@ -15,15 +21,17 @@ function get_panel_data_by_city($city_id, $connect)
 }
 
 // Update panel value based on panel ID
-function update_panel_value($panel_id, $new_value, $connect)
+function panels_update_value($panel_id, $new_value)
 {
+    global $connect;
+
     $query = "UPDATE panels SET value = '" . mysqli_real_escape_string($connect, $new_value) . "' WHERE id = '" . mysqli_real_escape_string($connect, $panel_id) . "'";
     $result = mysqli_query($connect, $query);
     return $result;
 }
 
 // Group panel data by cartridge and port
-function group_panel_data_by_cartridge($panel_data)
+function panels_group_data_by_cartridge($panel_data)
 {
     $power_lever = [];
     $current_cartridge = [];
@@ -57,7 +65,7 @@ function group_panel_data_by_cartridge($panel_data)
 }
 
 // Fetch panel data based on cartridge and city_id
-function get_panel_data_by_cartridge($cartridge, $city_id, $connect)
+function panels_data_by_cartridge($cartridge, $city_id, $connect)
 {
     $query = "SELECT * FROM panels WHERE city_id = " . mysqli_real_escape_string($connect, $city_id) . " 
               AND cartridge = '" . mysqli_real_escape_string($connect, $cartridge) . "'";
