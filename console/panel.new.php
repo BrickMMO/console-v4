@@ -6,8 +6,7 @@ admin_check();
 if (isset($_GET['key']) && $_GET['key'] == 'go') 
 {
 
-
-    die('here');
+    panels_new($_city['id']);
 
     message_set('Panel Success', 'A panel has been created for this city.');
     header_redirect('/panel/dashboard');

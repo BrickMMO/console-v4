@@ -4,21 +4,29 @@ security_check();
 admin_check();
 
 // Check if form is submitted to update the panel values
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
+
     $error = false;
-    foreach ($_POST['panels'] as $panel_id => $values) {
+
+    foreach ($_POST['panels'] as $panel_id => $values) 
+    {
         $new_value = $values['value'];
 
         // Basic server-side validation
-        if (!strlen($new_value) || !update_panel_value($panel_id, $new_value, $connect)) {
+        if (!strlen($new_value) || !panels_update_value($panel_id, $new_value)) 
+        {
             $error = true;
-            break; // Exit loop on first error
+            break;
         }
     }
 
-    if ($error) {
+    if ($error) 
+    {
         message_set('Panel update Error', 'There was an error saving your panel values', 'red');
-    } else {
+    } 
+    else 
+    {
         message_set('Update Success', 'Panel values updated successfully!', 'green', true);
     }
 
@@ -84,14 +92,14 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
     <p style="display:flex; align-items: center">
         Current Cartridge:
         <select name="panels[<?= $current_cartridge['id'] ?>][value]" class="w3-input w3-margin-left w3-border w3-quarter">
-            <option value="NOCOLOR" <?= $current_cartridge['value'] == 'NOCOLOR' ? 'selected' : '' ?>>NOCOLOR</option>
-            <option value="BLACK" <?= $current_cartridge['value'] == 'BLACK' ? 'selected' : '' ?>>BLACK</option>
-            <option value="BLUE" <?= $current_cartridge['value'] == 'BLUE' ? 'selected' : '' ?>>BLUE</option>
-            <option value="GREEN" <?= $current_cartridge['value'] == 'GREEN' ? 'selected' : '' ?>>GREEN</option>
-            <option value="YELLOW" <?= $current_cartridge['value'] == 'YELLOW' ? 'selected' : '' ?>>YELLOW</option>
-            <option value="RED" <?= $current_cartridge['value'] == 'RED' ? 'selected' : '' ?>>RED</option>
-            <option value="WHITE" <?= $current_cartridge['value'] == 'WHITE' ? 'selected' : '' ?>>WHITE</option>
-            <option value="BROWN" <?= $current_cartridge['value'] == 'BROWN' ? 'selected' : '' ?>>BROWN</option>
+            <!-- <option value="nocolour" <?= $current_cartridge['value'] == 'nocolour' ? 'selected' : '' ?>>nocolour</option> -->
+            <!-- <option value="black" <?= $current_cartridge['value'] == 'black' ? 'selected' : '' ?>>black</option> -->
+            <option value="blue" <?= $current_cartridge['value'] == 'blue' ? 'selected' : '' ?>>blue</option>
+            <!-- <option value="green" <?= $current_cartridge['value'] == 'green' ? 'selected' : '' ?>>green</option> -->
+            <option value="yellow" <?= $current_cartridge['value'] == 'yellow' ? 'selected' : '' ?>>yellow</option>
+            <option value="red" <?= $current_cartridge['value'] == 'red' ? 'selected' : '' ?>>red</option>
+            <!-- <option value="white" <?= $current_cartridge['value'] == 'white' ? 'selected' : '' ?>>white</option> -->
+            <option value="brown" <?= $current_cartridge['value'] == 'briwn' ? 'selected' : '' ?>>brown</option>
         </select>
     </p>
 
@@ -101,9 +109,9 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             <p>Cartridge: <span class="w3-tag w3-<?= strtolower($cartridge) ?>"><?= $cartridge ?></span></p>
             <?php foreach ($ports as $port => $values): ?>
                 <p style="display:flex; align-items: center">
-                    <?php echo is_numeric($port) ? "Motor $port" : "Switch $port"; ?>:
+                    <?php echo !is_numeric($port) ? "Motor $port" : "Switch $port"; ?>:
                     <?php foreach ($values as $panel): ?>
-                        <?php if (is_numeric($port)): ?>
+                        <?php if (!is_numeric($port)): ?>
                             <input type="number"
                                 name="panels[<?= $panel['id'] ?>][value]"
                                 value="<?= $panel['value'] ?>"
@@ -122,10 +130,12 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
         </div>
     <?php endforeach; ?>
 
-    <button type="submit" class="w3-block w3-btn w3-orange w3-text-white w3-margin-bottom w3-margin-top w3-half">
-        <i class="fa-solid fa-save fa-padding-right"></i>
-        Save Panel Changes
+
+    <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top">
+        <i class="fa-solid fa-pen fa-padding-right"></i>
+        Save
     </button>
+
 </form>
 
 <?php

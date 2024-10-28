@@ -7,8 +7,7 @@ function panels_data_by_city($city_id)
 
     $query = 'SELECT * 
         FROM panels 
-        WHERE city_id = "'.mysqli_real_escape_string($connect, $city_id).'"
-        LIMIT 1';
+        WHERE city_id = "'.mysqli_real_escape_string($connect, $city_id).'"';
     $result = mysqli_query($connect, $query);
 
     $panel_data = [];
@@ -25,8 +24,11 @@ function panels_update_value($panel_id, $new_value)
 {
     global $connect;
 
-    $query = "UPDATE panels SET value = '" . mysqli_real_escape_string($connect, $new_value) . "' WHERE id = '" . mysqli_real_escape_string($connect, $panel_id) . "'";
+    $query = 'UPDATE panels SET 
+        value = "'.mysqli_real_escape_string($connect, $new_value).'" 
+        WHERE id = "'.mysqli_real_escape_string($connect, $panel_id).'"';
     $result = mysqli_query($connect, $query);
+    
     return $result;
 }
 
@@ -81,4 +83,76 @@ function panels_data_by_cartridge($cartridge, $city_id, $connect)
     }
 
     return $cartridge_data;
+}
+
+function panels_new($city_id)
+{
+    global $connect;
+
+    $query = 'SELECT *
+        FROM panels
+        WHERE city_id = "'.$city_id.'"';
+    $result = mysqli_query($connect, $query);
+
+    if(mysqli_num_rows($result))
+    {
+        return;
+    }
+
+    $panels = [
+        [
+            'port' => 'a',
+            'cartridge' => null,
+            'value' => 'OFF',
+        ],
+        [
+            'port' => '1',
+            'cartridge' => null,
+            'value' => 'blue',
+        ],
+        ['port' => 'b', 'cartridge' => 'blue',  'value' => '0'],
+        ['port' => 'c', 'cartridge' => 'blue',  'value' => '0'],
+        ['port' => 'd', 'cartridge' => 'blue',  'value' => '0'],
+        ['port' => 'b', 'cartridge' => 'red',  'value' => '0'],
+        ['port' => 'c', 'cartridge' => 'red',  'value' => '0'],
+        ['port' => 'd', 'cartridge' => 'red',  'value' => '0'],
+        ['port' => 'b', 'cartridge' => 'brown',  'value' => '0'],
+        ['port' => 'c', 'cartridge' => 'brown',  'value' => '0'],
+        ['port' => 'd', 'cartridge' => 'brown',  'value' => '0'],
+        ['port' => 'b', 'cartridge' => 'yellow',  'value' => '0'],
+        ['port' => 'c', 'cartridge' => 'yellow',  'value' => '0'],
+        ['port' => 'd', 'cartridge' => 'yellow',  'value' => '0'],
+        ['port' => '2', 'cartridge' => 'blue',  'value' => 'OFF'],
+        ['port' => '3', 'cartridge' => 'blue',  'value' => 'OFF'],
+        ['port' => '4', 'cartridge' => 'blue',  'value' => 'OFF'],
+        ['port' => '2', 'cartridge' => 'red',  'value' => 'OFF'],
+        ['port' => '3', 'cartridge' => 'red',  'value' => 'OFF'],
+        ['port' => '4', 'cartridge' => 'red',  'value' => 'OFF'],
+        ['port' => '2', 'cartridge' => 'brown',  'value' => 'OFF'],
+        ['port' => '3', 'cartridge' => 'brown',  'value' => 'OFF'],
+        ['port' => '4', 'cartridge' => 'brown',  'value' => 'OFF'],
+        ['port' => '2', 'cartridge' => 'yellow',  'value' => 'OFF'],
+        ['port' => '3', 'cartridge' => 'yellow',  'value' => 'OFF'],
+        ['port' => '4', 'cartridge' => 'yellow',  'value' => 'OFF'],
+    ];
+
+    foreach($panels as $panel)
+    {
+        $query = 'INSERT INTO panels (
+                `port`,
+                `cartridge`,
+                `value`,
+                `city_id`,
+                `created_at`,
+                `updated_at`
+            ) VALUES (
+                "'.$panel['port'].'",
+                '.($panel['cartridge'] ? '"'.$panel['cartridge'].'"' : 'NULL').',
+                "'.$panel['value'].'",
+                "'.$city_id.'",
+                NOW(),
+                NOW()
+            )';
+        mysqli_query($connect, $query);
+    }
 }

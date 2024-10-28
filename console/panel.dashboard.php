@@ -26,9 +26,6 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-
-
-
 // Group panel data by cartridge and port using the function
 list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_cartridge($panel_data);
 
@@ -47,6 +44,9 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
 </p>
 
 <hr>
+
+<?php debug_pre($cartridge_data); ?>
+<?php debug_pre($current_cartridge); ?>
 
 <div class="w3-row">
     <div class="w3-col w3-center s12 m12 l12" style="border:9px solid black; background-color:#D9D9D9">
@@ -153,6 +153,16 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
         </div>
     </div>
 </div>
+
+<hr>
+
+<a
+    href="/panel/values"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-download"></i> Modify Values
+</a>
+
 <script>
     // Assuming $cartridge_data is available globally through PHP
     const cartridgeData = <?= json_encode($cartridge_data) ?>;
@@ -173,9 +183,9 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
         if (cartridgeData[selectedCartridge]) {
 
             // Update the dial values
-            const `port`BValue = cartridgeData[selectedCartridge]['B'][0]['value'];
-            const portCValue = cartridgeData[selectedCartridge]['C'][0]['value'];
-            const portDValue = cartridgeData[selectedCartridge]['D'][0]['value'];
+            const portBValue = cartridgeData[selectedCartridge]['b'][0]['value'];
+            const portCValue = cartridgeData[selectedCartridge]['c'][0]['value'];
+            const portDValue = cartridgeData[selectedCartridge]['g'][0]['value'];
 
             // Update dials based on new selected values
             document.getElementById('dial-B').style.transform = `rotate(calc(${portBValue} * 2.7deg))`;
