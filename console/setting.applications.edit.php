@@ -3,37 +3,42 @@
 security_check();
 admin_check();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+if(
+    !isset($_GET['key']) || 
+    !is_numeric($_GET['key']) || 
+    !tag_fetch($_GET['key']))
+{
+    message_set('application Error', 'There was an error with the provided application.');
+    header_redirect('/admin/applicaitons/dashboard');
+}
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-        message_set('Project Error', 'There was an error with the provided project.', 'red');
-        header_redirect('/setting/projects/add');
+
+        message_set('application Error', 'There was an error with the provided application.', 'red');
+        header_redirect('/setting/applications/dashboard');
     }
     
-    $query = 'INSERT INTO tags (
-            name,
-            created_at,
-            updated_at
-        ) VALUES (
-            "'.addslashes($_POST['name']).'",
-            NOW(),
-            NOW()
-        )';
+    $query = 'UPDATE tags SET
+        name = "'.addslashes($_POST['name']).'",
+        updated_at = NOW()
+        WHERE id = '.$_GET['key'].'
+        LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('project Success', 'Your project has been added.');
-    header_redirect('/setting/projects');
+    message_set('application Success', 'Your application has been edited.');
+    header_redirect('/setting/applications/dashboard');
     
 }
 
 define('APP_NAME', 'Setting');
 
-define('PAGE_TITLE', 'Add project');
+define('PAGE_TITLE','Edit application');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/setting/projects/add');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/applications/edit');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -42,6 +47,8 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 
 include('../templates/message.php');
+
+$tag = tag_fetch($_GET['key']);
 
 ?>
 
@@ -53,17 +60,17 @@ include('../templates/message.php');
         height="50"
         style="vertical-align: top"
     />
-    Projects
+    Applications
 </h1>
 <p>
-    <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/projects/dashboard">projects</a> / 
-    Add project
+    <a href="/city/dashboard">Dashboard</a> /
+    <a href="/admin/applications/dashboard">Application</a> / 
+    Edit application
 </p>
 
 <hr />
 
-<h2>Add project</h2>
+<h2>Edit application: <?=$tag['name']?></h2>
 
 <form
     method="post"
@@ -77,6 +84,7 @@ include('../templates/message.php');
         type="text" 
         id="name" 
         autocomplete="off"
+        value="<?=$tag['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
@@ -84,7 +92,7 @@ include('../templates/message.php');
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-project fa-padding-right"></i>
-        Add project
+        Edit Application
     </button>
 </form>
 

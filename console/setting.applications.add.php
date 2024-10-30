@@ -3,42 +3,37 @@
 security_check();
 admin_check();
 
-if(
-    !isset($_GET['key']) || 
-    !is_numeric($_GET['key']) || 
-    !tag_fetch($_GET['key']))
-{
-    message_set('project Error', 'There was an error with the provided project.');
-    header_redirect('/projects/dashboard');
-}
-elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-
-        message_set('project Error', 'There was an error with the provided project.', 'red');
-        header_redirect('/projects/dashboard');
+        message_set('Project Error', 'There was an error with the provided project.', 'red');
+        header_redirect('/admin/applications/add');
     }
     
-    $query = 'UPDATE tags SET
-        name = "'.addslashes($_POST['name']).'",
-        updated_at = NOW()
-        WHERE id = '.$_GET['key'].'
-        LIMIT 1';
+    $query = 'INSERT INTO tags (
+            name,
+            created_at,
+            updated_at
+        ) VALUES (
+            "'.addslashes($_POST['name']).'",
+            NOW(),
+            NOW()
+        )';
     mysqli_query($connect, $query);
 
-    message_set('project Success', 'Your project has been edited.');
-    header_redirect('/projects/dashboard');
+    message_set('application Success', 'Your application has been added.');
+    header_redirect('/admin/applications');
     
 }
 
 define('APP_NAME', 'Setting');
 
-define('PAGE_TITLE','Edit project');
+define('PAGE_TITLE', 'Add application');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/setting/projects/edit');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/applications/add');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -47,8 +42,6 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 
 include('../templates/message.php');
-
-$tag = tag_fetch($_GET['key']);
 
 ?>
 
@@ -60,17 +53,17 @@ $tag = tag_fetch($_GET['key']);
         height="50"
         style="vertical-align: top"
     />
-    Projects
+    Applications
 </h1>
 <p>
-    <a href="/city/dashboard">Dashboard</a> /
-    <a href="/projects/dashboard">Project</a> / 
-    Edit project
+    <a href="/city/dashboard">Dashboard</a> / 
+    <a href="/admin/applications/dashboard">applications</a> / 
+    Add application
 </p>
 
 <hr />
 
-<h2>Edit project: <?=$tag['name']?></h2>
+<h2>Add application</h2>
 
 <form
     method="post"
@@ -84,7 +77,6 @@ $tag = tag_fetch($_GET['key']);
         type="text" 
         id="name" 
         autocomplete="off"
-        value="<?=$tag['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
@@ -92,7 +84,7 @@ $tag = tag_fetch($_GET['key']);
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-project fa-padding-right"></i>
-        Edit Project
+        Add Application
     </button>
 </form>
 
