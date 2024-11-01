@@ -46,7 +46,7 @@ $result = mysqli_query($connect, $query);
 
 <hr />
 
-<h2>Imagess</h2>
+<h2>Images</h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
@@ -76,10 +76,11 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/action/google/images/import"
-    class="w3-button w3-white w3-border"
+  href="/action/google/import/image"
+  class="w3-button w3-white w3-border" 
+  onclick="loading();"
 >
-    <i class="fa-solid fa-file-import fa-padding-right"></i> Import Images from Google Drive
+  <i class="fa-solid fa-file-import fa-padding-right"></i> Import Images from Google Drive
 </a>
 
 <?php

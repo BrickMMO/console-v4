@@ -60,6 +60,33 @@ function navigation_array($selected = false)
                             'icon' => 'bm-control-panel',
                             'url' => '/panel/dashboard',
                             'title' => 'Control Panel',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/panel/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Modify Values',
+                                    'url' => '/panel/values',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit Control Panel App',
+                                    'url' => 'https://panel.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/panel',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/panel',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-control-clock',
                             'url' => '/clock/dashboard',
@@ -89,7 +116,7 @@ function navigation_array($selected = false)
                     'id' => 'community',
                     'pages' => [
                         [
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/radio/dashboard',
                             'title' => 'Radio',
                             'sub-pages' => [
@@ -155,7 +182,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-qr-codes',
+                            'icon' => 'bm-qr',
                             'url' => '/qr/dashboard',
                             'title' => 'Qr Codes',
                             'sub-pages' => [
@@ -272,7 +299,7 @@ function navigation_array($selected = false)
                                     'colour' => 'red'
                                 ],[
                                     'title' => 'Modify Word List',
-                                    'url' => '/bricksum/wordlist',
+                                    'url' => '/admin/bricksum/wordlist',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
@@ -453,10 +480,36 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-panel',
+                            'icon' => 'bm-control-panel',
                             'url' => '/admin/panel/dashboard',
                             'title' => 'Control Panel',
-                            'sub-pages' => [],
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/panel/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Modify Values',
+                                    'url' => '/admin/panel/values',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit Panel App',
+                                    'url' => 'https://panel.brickmmo.com',
+                                    'colour' => 'orange'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/panel',
+                                    'colour' => 'orange'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/stats/panel',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-uptime',
                             'url' => '/uptime/dashboard',
@@ -501,7 +554,7 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-radio',
+                            'icon' => 'bm-radio-station',
                             'url' => '/admin/radio/dashboard',
                             'title' => 'Radio', 
                             'sub-pages' => [
@@ -530,6 +583,17 @@ function navigation_array($selected = false)
                                     'url' => '/uptime/projects',
                                     'colour' => 'orange'
                                 ],
+                            ],
+                        ],[
+                            'icon' => 'bm-settings',
+                            'url' => '/admin/settings/dashboard',
+                            'title' => 'Settings', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/settings/dashboard',
+                                    'colour' => 'red'
+                                ]
                             ],
                         ],[
                             'icon' => 'bm-github',

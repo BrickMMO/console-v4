@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if (
         !validate_blank($_POST['bricksum_wordlist']))
     {
-        message_set('Word List Error', 'There was an error saving your workd list.', 'red');
+        message_set('Word List Error', 'There was an error saving your word list.', 'red');
         header_redirect('/admin/bricksum/wordlist');
     }
 

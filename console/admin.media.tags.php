@@ -35,18 +35,27 @@ include('../templates/main_header.php');
 include('../templates/message.php');
 
 $query = 'SELECT tags.*,(
-        SELECT COUNT(id)
-        FROM media
-        LEFT JOIN media_tag
+        SELECT COUNT(*)
+        FROM media_tag
+        INNER JOIN media 
         ON media.id = media_tag.medium_id
-        WHERE image IS NOT NULL
+        WHERE type = "image"
+        AND media_tag.tag_id = tags.id
     ) AS images,(
-        SELECT COUNT(id)
-        FROM media
-        LEFT JOIN media_tag
+        SELECT COUNT(*)
+        FROM media_tag
+        INNER JOIN media 
         ON media.id = media_tag.medium_id
-        WHERE video IS NOT NULL
-    ) AS videos
+        WHERE type = "video"
+        AND media_tag.tag_id = tags.id
+    ) AS videos,(
+        SELECT COUNT(*)
+        FROM media_tag
+        INNER JOIN media 
+        ON media.id = media_tag.medium_id
+        WHERE type = "audio"
+        AND media_tag.tag_id = tags.id
+    ) AS audio
     FROM tags
     ORDER BY name';
 $result = mysqli_query($connect, $query);
@@ -77,7 +86,8 @@ $result = mysqli_query($connect, $query);
     <tr>
         <th>Name</th>
         <th class="bm-table-number">Images</th>
-        <th class="bm-table-number">Videos</th>
+        <th class="bm-table-number">Video</th>
+        <th class="bm-table-number">Audio</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -92,6 +102,9 @@ $result = mysqli_query($connect, $query);
             </td>
             <td>
                 <?=$record['videos']?>
+            </td>
+            <td>
+                <?=$record['audio']?>
             </td>
             <td>
                 <a href="/admin/media/tags/edit/<?=$record['id']?>">

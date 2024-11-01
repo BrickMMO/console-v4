@@ -44,3 +44,27 @@
 
   </head>
   <body>
+
+  <div id="loading" class="w3-modal" style="z-index: 300; display; transition: 0.5s;">
+    <div class="w3-black w3-text-white w3-padding-16 w3-center" style="max-width: 200px; margin: auto;">
+      <strong>
+        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+        Loading...
+      </strong>
+    </div>
+  </div>
+
+  <script>
+
+    function loading()
+    {
+      let loadingOverlay = document.getElementById("loading");  
+      loadingOverlay.style.display = "block";
+
+      setTimeout(function () {
+        loadingOverlay.style.transition = "0.5s";
+        loadingOverlay.style.opacity = "1";
+      }, 0);
+    }
+
+  </script>

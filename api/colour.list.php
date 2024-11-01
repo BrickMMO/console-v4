@@ -3,14 +3,11 @@
 $query = 'SELECT * 
     FROM colours 
     ORDER BY name'; 
-
 $result = mysqli_query($connect, $query);
 
 $colorArray = array();
 
 if($result){
-
-    header("Content-type: JSON");
 
     $i = 0;
 

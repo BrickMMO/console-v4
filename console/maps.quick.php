@@ -7,7 +7,7 @@ define('APP_NAME', 'Bricksum');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/maps/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/maps/quick');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
