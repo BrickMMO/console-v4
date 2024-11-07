@@ -33,6 +33,7 @@ $qr = mysqli_fetch_assoc($result);
 
 $query = 'SELECT *
     FROM qr_logs
+    WHERE qr_id = "'.addslashes($_GET['key']).'"
     ORDER BY created_at DESC';
 $result = mysqli_query($connect, $query);
 
