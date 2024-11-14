@@ -34,7 +34,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     
 }
 
-define('APP_NAME', 'Roadview');
+define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE','Edit Road');
 define('PAGE_SELECTED_SECTION', 'geography');
@@ -62,11 +62,11 @@ $width = round(100/$_city['width'],2);
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Road View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
+    <a href="/roadview/dashboard">Road View</a> / 
     <a href="/roadview/roads">Roads</a> / 
     Road Squares
 </p>

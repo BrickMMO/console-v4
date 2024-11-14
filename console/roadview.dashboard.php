@@ -3,7 +3,7 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Roadview');
+define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
@@ -31,11 +31,11 @@ $width = round(100/$_city['width'],2);
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Road View
 </h1>
 <p>
-    <a href="/roadview/dashboard">Dashboard</a> / 
-    Roadview
+    <a href="/city/dashboard">Dashboard</a> / 
+    Road View
 </p>
 <hr>
 
@@ -50,7 +50,6 @@ $width = round(100/$_city['width'],2);
                 onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
 
                 <?php if($squares[$row][$col]['images']< 4 and $squares[$row][$col]['road_id']): ?>
-                    
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 <?php endif; ?>
 
@@ -61,13 +60,6 @@ $width = round(100/$_city['width'],2);
     </div>
 
 <?php endfor; ?>
-
-<a
-    href="/roadview/roads"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Roads
-</a>
 
 <hr />
 

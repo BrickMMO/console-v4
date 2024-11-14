@@ -37,10 +37,10 @@ function navigation_array($selected = false)
                                     'colour' => 'red',
                                     'icon' => 'bm-places'
                                 ],[
-                                    'title' => 'Tracks',
-                                    'url' => '/tracks/dashboard',
+                                    'title' => 'Track View',
+                                    'url' => '/trackview/dashboard',
                                     'colour' => 'red',
-                                    'icon' => 'bm-tracks'
+                                    'icon' => 'bm-trackview'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -64,7 +64,7 @@ function navigation_array($selected = false)
                         ],[
                             'icon' => 'bm-roadview',
                             'url' => '/roadview/dashboard',
-                            'title' => 'Roadview',
+                            'title' => 'Road View',
                             'sub-pages' => [
                                 [
                                     'title' => 'Dashboard',
@@ -87,10 +87,10 @@ function navigation_array($selected = false)
                                     'colour' => 'red',
                                     'icon' => 'bm-places'
                                 ],[
-                                    'title' => 'Tracks',
-                                    'url' => '/tracks/dashboard',
+                                    'title' => 'Track View',
+                                    'url' => '/trackview/dashboard',
                                     'colour' => 'red',
-                                    'icon' => 'bm-tracks'
+                                    'icon' => 'bm-trackview'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -116,9 +116,55 @@ function navigation_array($selected = false)
                             'url' => '/places/dashboard',
                             'title' => 'Places',
                         ],[
-                            'icon' => 'bm-tracks',
-                            'url' => '/tracks/dashboard',
-                            'title' => 'Tracks',
+                            'icon' => 'bm-trackview',
+                            'url' => '/trackview/dashboard',
+                            'title' => 'Track View',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/trackview/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Tracks',
+                                    'url' => '/trackview/tracks',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Maps',
+                                    'url' => '/maps/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-maps'
+                                ],[
+                                    'title' => 'Road View',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-roadview'
+                                ],[
+                                    'title' => 'Places',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-places'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit BrickMMO Maps',
+                                    'url' => 'https://maps.brickmmo.com',
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange',
+                                    'icons' => 'bm-uptime'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],
                     ],
                 ],[

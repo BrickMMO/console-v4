@@ -62,6 +62,23 @@ function square_colour($id, $data = array())
         {
             return 'grey';
         }
+
+        // If track is current track
+        if(isset($data['track_id']) and $data['track_id'] == $road['track_id'])
+        {
+            return 'dark-grey';
+        }
+        // If road is specidifed btu square is other road
+        elseif(isset($data['track_id']) and $road['track_id'])
+        {
+            return 'grey';
+        }
+        // If roads are true and this square is a road
+        elseif(isset($data['tracks']) and $road['track_id'])
+        {
+            return 'grey';
+        }
+
         elseif($road['type'] == 'ground')
         {
             return 'brown';

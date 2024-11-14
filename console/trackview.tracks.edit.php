@@ -3,39 +3,42 @@
 security_check();
 admin_check();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+if(
+    !isset($_GET['key']) || 
+    !is_numeric($_GET['key']) || 
+    !tag_fetch($_GET['key']))
+{
+    message_set('Track Error', 'There was an error with the provided track.');
+    header_redirect('/trackview/tracks');
+}
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-        message_set('Road Error', 'There was an error with the provided troadag.', 'red');
-        header_redirect('/roadview/roads/add');
+
+        message_set('Track Error', 'There was an error with the provided track.', 'red');
+        header_redirect('/admin/media/tags');
     }
     
-    $query = 'INSERT INTO roads (
-            name,
-            city_id,
-            created_at,
-            updated_at
-        ) VALUES (
-            "'.addslashes($_POST['name']).'",
-            "'.$_city['id'].'",
-            NOW(),
-            NOW()
-        )';
+    $query = 'UPDATE tracks SET
+        name = "'.addslashes($_POST['name']).'",
+        updated_at = NOW()
+        WHERE id = '.$_GET['key'].'
+        LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('Tag Success', 'Your road has been added.');
-    header_redirect('/roadview/roads');
+    message_set('Track Success', 'Your track has been edited.');
+    header_redirect('/trackview/tracks');
     
 }
 
-define('APP_NAME', 'Roadview');
+define('APP_NAME', 'Track View');
 
-define('PAGE_TITLE', 'Add Road');
+define('PAGE_TITLE','Edit Track');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/trackview/tracks');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -45,28 +48,30 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
+$track = track_fetch($_GET['key']);
+
 ?>
 
 <!-- CONTENT -->
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/trackview.png"
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Track View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Add Road
+    <a href="/trackview/dashboard">Track View</a> / 
+    <a href="/trackview/tracks">Tracks</a> / 
+    Edit Track
 </p>
 
 <hr />
 
-<h2>Add Road</h2>
+<h2>Edit Track: <?=$track['name']?></h2>
 
 <form
     method="post"
@@ -80,6 +85,7 @@ include('../templates/message.php');
         type="text" 
         id="name" 
         autocomplete="off"
+        value="<?=$track['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
@@ -87,7 +93,7 @@ include('../templates/message.php');
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Add Road
+        Edit Track
     </button>
 </form>
 

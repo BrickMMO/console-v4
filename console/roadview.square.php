@@ -98,11 +98,11 @@ $square = square_fetch($_GET['key']);
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Road View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
+    <a href="/roadview/dashboard">Road View</a> / 
     Modify Road Square
 </p>
 <hr />

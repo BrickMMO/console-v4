@@ -12,8 +12,8 @@ if (isset($_GET['delete']))
     mysqli_query($connect, $query);
 
     $query = 'UPDATE squares SET
-        road = 0
-        WHERE road = '.$_GET['delete'];
+        road_id = 0
+        WHERE road_id = '.$_GET['delete'];
     mysqli_query($connect, $query);
 
     message_set('Delete Success', 'Road has been deleted.');
@@ -60,11 +60,11 @@ $result = mysqli_query($connect, $query);
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Road View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
+    <a href="/roadview/dashboard">Road View</a> / 
     Roads
 </p>
 

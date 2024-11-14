@@ -10,15 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // Basic serverside validation
     if (
-        !validate_blank($_POST['road_id']))
+        !validate_blank($_POST['track_id']))
     {
         message_set('Square Error', 'There was an error with your square information.', 'red');
         header_redirect('/maps/square/'.$_GET['key']);
     }
 
     $query = 'UPDATE squares SET
-        road_id = "'.addslashes($_POST['road_id']).'",
-        road_rules = "'.addslashes($_POST['road_rules']).'"
+        track_id = "'.addslashes($_POST['track_id']).'",
+        track_rules = "'.addslashes($_POST['track_rules']).'"
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }   
 
     message_set('Square Success', 'Square has been updated.');
-    header_redirect('/roadview/square/'.$_GET['key']);
+    header_redirect('/trackview/square/'.$_GET['key']);
     
 }
 elseif(isset($_GET['delete']))
@@ -68,7 +68,7 @@ elseif(isset($_GET['delete']))
     mysqli_query($connect, $query);
     
     message_set('Square Image Success', 'Square image has been updated.');
-    header_redirect('/roadview/square/'.$_GET['key']);
+    header_redirect('/trackview/square/'.$_GET['key']);
 
 }
 
@@ -94,19 +94,19 @@ $square = square_fetch($_GET['key']);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/trackview.png"
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Track View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
-    Modify Road Square
+    <a href="/trackview/dashboard">Track View</a> / 
+    Modify Track Square
 </p>
 <hr />
-<h2>Modify Road Square</h2>
+<h2>Modify Track Square</h2>
 
 <form
     method="post"
@@ -115,20 +115,20 @@ $square = square_fetch($_GET['key']);
     enctype="multipart/form-data"
 >
 
-    <?=form_select_table('road_id', 'roads', 'id', 'name', array('selected' => $square['road_id'], 'empty_key' => 0, 'first' => true))?>
-    <label for="road_id" class="w3-text-gray">
-        Road <span id="road-id-error" class="w3-text-red"></span>
+    <?=form_select_table('track_id', 'tracks', 'id', 'name', array('selected' => $square['track_id'], 'empty_key' => 0, 'first' => true))?>
+    <label for="track_id" class="w3-text-gray">
+        Track <span id="track-id-error" class="w3-text-red"></span>
     </label>
 
     <input  
-        name="road_rules" 
+        name="track_rules" 
         class="w3-input w3-border w3-margin-top" 
         type="text" 
-        id="road_rules" 
-        value="<?=$square['road_rules']?>"
+        id="track_rules" 
+        value="<?=$square['track_rules']?>"
     />
-    <label for="road_rules" class="w3-text-gray">
-        Road Rules <span id="road-rules-error" class="w3-text-red"></span>
+    <label for="track_rules" class="w3-text-gray">
+        Track Rules <span id="track-rules-error" class="w3-text-red"></span>
     </label>
 
     <?php foreach(DIRECTIONS as $direction): ?>
@@ -138,7 +138,7 @@ $square = square_fetch($_GET['key']);
                 <img src="<?=$square[$direction]?>" style="max-width:300px;" />
             </div>
             <div class="w3-margin-top">
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete this image?', '/roadview/square/delete/<?=$direction?>/<?=$_GET['key']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete this image?', '/trackview/square/delete/<?=$direction?>/<?=$_GET['key']?>');">
                     <i class="fa-solid fa-trash-can"></i> Delete Image
                 </a>
             </div>

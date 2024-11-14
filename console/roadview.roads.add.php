@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-        message_set('Road Error', 'There was an error with the provided troadag.', 'red');
+        message_set('Road Error', 'There was an error with the provided road.', 'red');
         header_redirect('/roadview/roads/add');
     }
     
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
 }
 
-define('APP_NAME', 'Roadview');
+define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE', 'Add Road');
 define('PAGE_SELECTED_SECTION', 'geography');
@@ -55,11 +55,11 @@ include('../templates/message.php');
         height="50"
         style="vertical-align: top"
     />
-    Roadview
+    Road View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Roadview</a> / 
+    <a href="/roadview/dashboard">Road View</a> / 
     <a href="/roadview/roads">Roads</a> / 
     Add Road
 </p>
