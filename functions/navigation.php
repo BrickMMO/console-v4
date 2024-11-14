@@ -167,19 +167,19 @@ function navigation_array($selected = false)
                     'id' => 'students',
                     'pages' => [
                         [
-                            'icon' => 'bm-bricksum',
+                            'icon' => 'bm-timesheets',
                             'url' => '/timesheets/dashboard',
                             'title' => 'Timesheets',
                             'sub-pages' => [
                                 [
-                                    'title' => 'Dashboard',
+                                    'title' => 'Log in hours',
                                     'url' => '/timesheets/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
                                 ],[
-                                    'title' => 'Stats Report',
-                                    'url' => '/stats/timesheets',
+                                    'title' => 'View Timesheet',
+                                    'url' => '/timesheets/dashboard/list',
                                     'colour' => 'orange'
                                 ],
                             ],
