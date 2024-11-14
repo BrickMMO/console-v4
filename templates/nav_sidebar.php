@@ -36,6 +36,13 @@ $navigation = navigation_array(PAGE_SELECTED_SUB_PAGE);
                     class="w3-bar-item w3-button w3-text-<?=$page['colour']?> <?php if($page['url'] == PAGE_SELECTED_SUB_PAGE): ?>bm-selected<?php endif; ?>"
                     href="<?=(strpos($page['url'], 'http') === 0) ? '' : ENV_CONSOLE_DOMAIN?><?=$page['url']?>"
                 >
+                    <?php if(isset($page['icon'])): ?>
+                        <?php if(substr($page['icon'], 0, 2) == 'fa'): ?>
+                            <i class="<?=$page['icon']?> fa-padding-right"></i> 
+                        <?php elseif(substr($page['icon'], 0, 2) == 'bm'): ?>
+                            <i class="<?=$page['icon']?> fa-padding-right"></i> 
+                        <?php endif; ?>
+                    <?php endif; ?> 
                     <?=$page['title']?>   
                 </a>
 

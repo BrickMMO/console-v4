@@ -14,9 +14,9 @@ include('../templates/nav_header.php');
 include('../templates/nav_slideout.php');
 include('../templates/main_header.php');
 
-?>
+include('../templates/message.php');
 
-<?php include('../templates/message.php'); ?>
+?>
 
 <div class="w3-center">
 
