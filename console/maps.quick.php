@@ -92,8 +92,6 @@ $width = round(100/$_city['width'],2);
 
 </script>
 
-
-
 <?php
 
 include('../templates/modal_city.php');

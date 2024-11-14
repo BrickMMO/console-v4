@@ -6,25 +6,26 @@ admin_check();
 if (isset($_GET['delete'])) 
 {
 
-    $query = 'DELETE FROM tags 
+    $query = 'DELETE FROM roads 
         WHERE id = '.$_GET['delete'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM media_tag
-        WHERE medium_id = '.$_GET['delete'];
+    $query = 'UPDATE squares SET
+        road = 0
+        WHERE road = '.$_GET['delete'];
     mysqli_query($connect, $query);
 
-    message_set('Delete Success', 'Tag has been deleted.');
-    header_redirect('/admin/media/tags');
+    message_set('Delete Success', 'Road has been deleted.');
+    header_redirect('/roadview/roads');
     
 }
 
-define('APP_NAME', 'Media');
+define('APP_NAME', 'Roadvie');
 
-define('PAGE_TITLE', 'Tags');
-define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/media/tags');
+define('PAGE_TITLE', 'Roads');
+define('PAGE_SELECTED_SECTION', 'geography');
+define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -34,29 +35,12 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'SELECT tags.*,(
+$query = 'SELECT *,(
         SELECT COUNT(*)
-        FROM media_tag
-        INNER JOIN media 
-        ON media.id = media_tag.medium_id
-        WHERE type = "image"
-        AND media_tag.tag_id = tags.id
-    ) AS images,(
-        SELECT COUNT(*)
-        FROM media_tag
-        INNER JOIN media 
-        ON media.id = media_tag.medium_id
-        WHERE type = "video"
-        AND media_tag.tag_id = tags.id
-    ) AS videos,(
-        SELECT COUNT(*)
-        FROM media_tag
-        INNER JOIN media 
-        ON media.id = media_tag.medium_id
-        WHERE type = "audio"
-        AND media_tag.tag_id = tags.id
-    ) AS audio
-    FROM tags
+        FROM squares
+        WHERE road_id = roads.id
+    ) AS squares
+    FROM roads
     ORDER BY name';
 $result = mysqli_query($connect, $query);
 
@@ -66,28 +50,26 @@ $result = mysqli_query($connect, $query);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/bricksum.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
         height="50"
         style="vertical-align: top"
     />
-    Media
+    Roadview
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/admin/media/dashboard">Media</a> / 
-    Tags
+    <a href="/roadview/dashboard">Roadview</a> / 
+    Roads
 </p>
 
 <hr />
 
-<h2>Media Tags</h2>
+<h2>Roads</h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th class="bm-table-number">Images</th>
-        <th class="bm-table-number">Video</th>
-        <th class="bm-table-number">Audio</th>
+        <th class="bm-table-number">Squares</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -98,21 +80,17 @@ $result = mysqli_query($connect, $query);
                 <?=$record['name']?>
             </td>
             <td>
-                <?=$record['images']?>
+                <a href="/roadview/roads/squares/<?=$record['id']?>">
+                    <?=$record['squares']?>
+                </a>
             </td>
             <td>
-                <?=$record['videos']?>
-            </td>
-            <td>
-                <?=$record['audio']?>
-            </td>
-            <td>
-                <a href="/admin/media/tags/edit/<?=$record['id']?>">
+                <a href="/roadview/roads/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the tag <?=$record['name']?>?', '/admin/media/tags/delete/<?=$record['id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the road <?=$record['name']?>?', '/roadview/roads/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -122,10 +100,10 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/admin/media/tags/add"
+    href="/roadview/roads/add"
     class="w3-button w3-white w3-border"
 >
-    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Tag
+    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Road
 </a>
 
 <?php

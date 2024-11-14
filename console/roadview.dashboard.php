@@ -3,7 +3,7 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Bricksum');
+define('APP_NAME', 'Roadview');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
@@ -27,15 +27,15 @@ $width = round(100/$_city['width'],2);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/bricksum.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
         height="50"
         style="vertical-align: top"
     />
-    Maps
+    Roadview
 </h1>
 <p>
-    <a href="/city/dashboard">Dashboard</a> / 
-    Maps
+    <a href="/roadview/dashboard">Dashboard</a> / 
+    Roadview
 </p>
 <hr>
 
@@ -45,9 +45,9 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo ($squares[$row][$col]['type'] == 'water') ? 'blue' : 'brown'; ?>" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer;"
-                onclick="location.href='/maps/square/<?=$squares[$row][$col]['id']?>';">
+            <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('roads' => true)); ?>" 
+                style="width: <?=$width?>%; height: 35px; <?=$squares[$row][$col]['road_id'] ? 'cursor: pointer;' : ''?>"
+                onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
             </div>
 
         <?php endfor; ?>    
@@ -57,17 +57,10 @@ $width = round(100/$_city['width'],2);
 <?php endfor; ?>
 
 <a
-    href="/maps/quick"
+    href="/roadview/roads"
     class="w3-button w3-white w3-border w3-margin-top"
 >
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Map Quick Edit
-</a>
-
-<a
-    href="/city/profile"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-map fa-padding-right"></i> Edit Map Dimensions
+    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Roads
 </a>
 
 <hr />

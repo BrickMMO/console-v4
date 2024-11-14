@@ -49,6 +49,8 @@ include('../templates/main_header.php');
 include('../templates/message.php');
 
 $road = road_fetch($_GET['key']);
+$squares = squares_fetch_all($_city['id']);
+$width = round(100/$_city['width'],2);
 
 ?>
 
@@ -66,52 +68,72 @@ $road = road_fetch($_GET['key']);
     <a href="/city/dashboard">Dashboard</a> / 
     <a href="/roadview/dashboard">Roadview</a> / 
     <a href="/roadview/roads">Roads</a> / 
-    Edit Road
+    Road Squares
 </p>
 
 <hr />
 
-<h2>Edit Road: <?=$road['name']?></h2>
+<h2>Road Squares: <?=$road['name']?></h2>
 
-<form
-    method="post"
-    novalidate
-    id="main-form"
->
+<?php for($row = 0; $row < $_city['height']; $row ++): ?>
 
-    <input  
-        name="name" 
-        class="w3-input w3-border" 
-        type="text" 
-        id="name" 
-        autocomplete="off"
-        value="<?=$road['name']?>"
-    />
-    <label for="name" class="w3-text-gray">
-        Name <span id="name-error" class="w3-text-red"></span>
-    </label>
+<div class="w3-cell-row">
 
-    <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
-        <i class="fa-solid fa-tag fa-padding-right"></i>
-        Edit Road
-    </button>
-</form>
+    <?php for($col = 0; $col < $_city['width']; $col ++): ?>
+
+        <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('road_id'=> $_GET['key']))?>" 
+            style="width: <?=$width?>%; height: 35px; cursor: pointer;"
+            data-id="<?=$squares[$row][$col]['id']?>"
+            data-type="<?=$squares[$row][$col]['type']?>"
+            data-road-id="<?=$squares[$row][$col]['road_id'] == $_GET['key']?>"
+            onclick="editSquareType(this);">
+        </div>
+
+    <?php endfor; ?>    
+
+</div>
+
+<?php endfor; ?>
 
 <script>
 
-    function validateMainForm() {
-        let errors = 0;
+function editSquareType(target)
+{
+    let id = target.dataset.id;
+    let type = target.dataset.type;
+    let road_id = target.dataset.road_id;
+    let key = <?=$_GET['key']?>;
 
-        let name = document.getElementById("name");
-        let name_error = document.getElementById("name-error");
-        name_error.innerHTML = "";
-        if (name.value == "") {
-            name_error.innerHTML = "(name is required)";
-            errors++;
+    console.log(road_id);
+
+    if(type == "ground")
+    {
+
+        if(road_id == key)
+        {
+            target.classList.remove("w3-dark-grey");
+            target.classList.add("w3-brown");
+
+            target.dataset.road_id = 0;
         }
+        else
+        {
+            target.classList.remove("w3-brown");
+            target.classList.remove("w3-grey");
+            target.classList.add("w3-dark-grey");
 
-        if (errors) return false;
+            target.dataset.road_id = key;
+        }        
+        
+        fetch('/ajax/square/road',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({id: id, road_id: target.dataset.road_id})
+        });
     }
+}
 
 </script>
     

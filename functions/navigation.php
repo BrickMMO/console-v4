@@ -71,7 +71,7 @@ function navigation_array($selected = false)
                                     'url' => '/roadview/dashboard',
                                     'colour' => 'red'
                                 ],[
-                                    'title' => 'Road List',
+                                    'title' => 'Roads',
                                     'url' => '/roadview/roads',
                                     'colour' => 'red'
                                 ],[

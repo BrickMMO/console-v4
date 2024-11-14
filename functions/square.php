@@ -18,6 +18,48 @@ function square_fetch($identifier)
 
 }
 
+function square_colour($id, $data = array())
+{
+
+    global $connect;
+
+    $query = 'SELECT *
+        FROM squares
+        WHERE id = "'.$id.'"
+        LIMIT 1';
+    $result = mysqli_query($connect, $query);
+
+    if(mysqli_num_rows($result)) 
+    {
+        $road = mysqli_fetch_assoc($result);
+
+        // If road is current road
+        if(isset($data['road_id']) and $data['road_id'] == $road['road_id'])
+        {
+            return 'dark-grey';
+        }
+        // If road is specidifed btu square is other road
+        elseif(isset($data['road_id']) and $road['road_id'])
+        {
+            return 'grey';
+        }
+        // If roads are true and this square is a road
+        elseif(isset($data['roads']) and $road['road_id'])
+        {
+            return 'grey';
+        }
+        elseif($road['type'] == 'ground')
+        {
+            return 'brown';
+        }
+        elseif($road['type'] == 'water')
+        {
+            return 'blue';
+        }
+    }
+    else return false;
+}
+
 function squares_fetch_all($id)
 {
 
