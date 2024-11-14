@@ -85,6 +85,18 @@ $square = square_fetch($_GET['key']);
         Road Rules <span id="road-rules-error" class="w3-text-red"></span>
     </label>
 
+
+    <input  
+        name="photos[north]" 
+        class="w3-input w3-border w3-margin-top" 
+        type="file" 
+        id="photos-north" 
+        autocomplete="off"
+    />
+    <label for="photos-north" class="w3-text-gray">
+        North Photo
+    </label>
+
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-pen fa-padding-right"></i>
         Update Square
