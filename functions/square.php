@@ -26,6 +26,8 @@ function square_fetch($identifier)
         $square[$image['direction']] = $image['image'];
     }
 
+    $square['images'] = mysqli_num_rows($result);
+
     return $square;
 
 }
@@ -79,7 +81,11 @@ function squares_fetch_all($id)
 
     $city = city_fetch($id);
 
-    $query = 'SELECT *
+    $query = 'SELECT *,(
+            SELECT COUNT(*)
+            FROM square_images
+            WHERE squares.id = square_id
+        ) AS images
         FROM squares
         WHERE city_id = '.$id.'
         ORDER BY y,x';
