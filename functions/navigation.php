@@ -65,6 +65,52 @@ function navigation_array($selected = false)
                             'icon' => 'bm-roadview',
                             'url' => '/roadview/dashboard',
                             'title' => 'Roadview',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Road List',
+                                    'url' => '/roadview/roads',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Maps',
+                                    'url' => '/maps/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-maps'
+                                ],[
+                                    'title' => 'Places',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-places'
+                                ],[
+                                    'title' => 'Tracks',
+                                    'url' => '/tracks/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-tracks'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit BrickMMO Maps',
+                                    'url' => 'https://maps.brickmmo.com',
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange',
+                                    'icons' => 'bm-uptime'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-places',
                             'url' => '/places/dashboard',
