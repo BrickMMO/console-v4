@@ -13,8 +13,20 @@ function square_fetch($identifier)
         LIMIT 1';
     $result = mysqli_query($connect, $query);
 
-    if(mysqli_num_rows($result)) return mysqli_fetch_assoc($result);
+    if(mysqli_num_rows($result)) $square = mysqli_fetch_assoc($result);
     else return false;
+
+    $query = 'SELECT *
+        FROM square_images
+        WHERE square_id = "'.$identifier.'"';
+    $result = mysqli_query($connect, $query);
+
+    while($image = mysqli_fetch_assoc($result))
+    {
+        $square[$image['direction']] = $image['image'];
+    }
+
+    return $square;
 
 }
 

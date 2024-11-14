@@ -46,7 +46,7 @@ $width = round(100/$_city['width'],2);
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
             <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('roads' => true)); ?>" 
-                style="width: <?=$width?>%; height: 35px; <?=$squares[$row][$col]['road_id'] ? 'cursor: pointer;' : ''?>"
+                style="width: <?=$width?>%; height: 35px; cursor: pointer;"
                 onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
             </div>
 

@@ -39,7 +39,13 @@ $query = 'SELECT *,(
         SELECT COUNT(*)
         FROM squares
         WHERE road_id = roads.id
-    ) AS squares
+    ) AS squares,(
+        SELECT COUNT(*)
+        FROM square_images
+        INNER JOIN squares
+        ON square_id = squares.id
+        WHERE road_id = roads.id
+    ) AS images
     FROM roads
     ORDER BY name';
 $result = mysqli_query($connect, $query);
@@ -72,12 +78,16 @@ $result = mysqli_query($connect, $query);
         <th class="bm-table-number">Squares</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
+        <th class="bm-table-icon"></th>
     </tr>
 
     <?php while($record = mysqli_fetch_assoc($result)): ?>
         <tr>
             <td>
                 <?=$record['name']?>
+            </td>
+            <td>                
+                <?=$record['images']?>/<?=$record['squares'] * 4?>
             </td>
             <td>
                 <a href="/roadview/roads/squares/<?=$record['id']?>">
