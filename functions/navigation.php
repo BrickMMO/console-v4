@@ -12,7 +12,7 @@ function navigation_array($selected = false)
                     'id' => 'geography',
                     'pages' => [
                         [
-                            'icon' => 'bm-roadview',
+                            'icon' => 'bm-maps',
                             'url' => '/maps/dashboard',
                             'title' => 'Maps',
                             'sub-pages' => [
@@ -27,15 +27,34 @@ function navigation_array($selected = false)
                                 ],[
                                     'br' => '---'
                                 ],[
+                                    'title' => 'Road View',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-roadview'
+                                ],[
+                                    'title' => 'Places',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-places'
+                                ],[
+                                    'title' => 'Track View',
+                                    'url' => '/trackview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-trackview'
+                                ],[
+                                    'br' => '---'
+                                ],[
                                     'title' => 'Visit BrickMMO Maps',
                                     'url' => 'https://maps.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Uptime Report',
                                     'url' => '/uptime/maps',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icons' => 'bm-uptime'
                                 ],[
                                     'title' => 'Stats Report',
                                     'url' => '/uptime/maps',
@@ -45,11 +64,107 @@ function navigation_array($selected = false)
                         ],[
                             'icon' => 'bm-roadview',
                             'url' => '/roadview/dashboard',
-                            'title' => 'Roadview',
+                            'title' => 'Road View',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Roads',
+                                    'url' => '/roadview/roads',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Maps',
+                                    'url' => '/maps/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-maps'
+                                ],[
+                                    'title' => 'Places',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-places'
+                                ],[
+                                    'title' => 'Track View',
+                                    'url' => '/trackview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-trackview'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit BrickMMO Maps',
+                                    'url' => 'https://maps.brickmmo.com',
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange',
+                                    'icons' => 'bm-uptime'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],[
-                            'icon' => 'bm-roadview',
+                            'icon' => 'bm-places',
                             'url' => '/places/dashboard',
                             'title' => 'Places',
+                        ],[
+                            'icon' => 'bm-trackview',
+                            'url' => '/trackview/dashboard',
+                            'title' => 'Track View',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/trackview/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Tracks',
+                                    'url' => '/trackview/tracks',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Maps',
+                                    'url' => '/maps/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-maps'
+                                ],[
+                                    'title' => 'Road View',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-roadview'
+                                ],[
+                                    'title' => 'Places',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-places'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit BrickMMO Maps',
+                                    'url' => 'https://maps.brickmmo.com',
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Uptime Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange',
+                                    'icons' => 'bm-uptime'
+                                ],[
+                                    'title' => 'Stats Report',
+                                    'url' => '/uptime/maps',
+                                    'colour' => 'orange'
+                                ],
+                            ],
                         ],
                     ],
                 ],[
@@ -74,7 +189,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Control Panel App',
                                     'url' => 'https://panel.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'                                    
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -101,10 +217,6 @@ function navigation_array($selected = false)
                             'icon' => 'bm-navigation',
                             'url' => '/navigation/dashboard',
                             'title' => 'Navigation',
-                        ],[
-                            'icon' => 'bm-tracks',
-                            'url' => '/tracks/dashboard',
-                            'title' => 'Tracks',
                         ],[
                             'icon' => 'bm-train',
                             'url' => '/train/dashboard',
@@ -133,7 +245,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Radio App',
                                     'url' => 'https://lively.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -168,7 +281,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Events App',
                                     'url' => 'https://events.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -195,7 +309,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit QR App',
                                     'url' => 'https://qr.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -244,19 +359,19 @@ function navigation_array($selected = false)
                     'id' => 'students',
                     'pages' => [
                         [
-                            'icon' => 'bm-bricksum',
+                            'icon' => 'bm-timesheets',
                             'url' => '/timesheets/dashboard',
                             'title' => 'Timesheets',
                             'sub-pages' => [
                                 [
-                                    'title' => 'Dashboard',
+                                    'title' => 'Log in hours',
                                     'url' => '/timesheets/dashboard',
                                     'colour' => 'red'
                                 ],[
                                     'br' => '---'
                                 ],[
-                                    'title' => 'Stats Report',
-                                    'url' => '/stats/timesheets',
+                                    'title' => 'View Timesheet',
+                                    'url' => '/timesheets/dashboard/list',
                                     'colour' => 'orange'
                                 ],
                             ],
@@ -306,7 +421,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Bricksum App',
                                     'url' => 'https://bricksum.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -337,7 +453,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Colors App',
                                     'url' => 'https://colours.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -376,7 +493,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Stores App',
                                     'url' => 'https://stores.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -419,7 +537,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit BrickMMO Media',
                                     'url' => 'https://media.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[
@@ -497,7 +616,8 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Visit Panel App',
                                     'url' => 'https://panel.brickmmo.com',
-                                    'colour' => 'orange'
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
                                 ],[
                                     'br' => '---'
                                 ],[

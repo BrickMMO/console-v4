@@ -83,6 +83,7 @@ include('../templates/message.php');
             type="email"
             id="email"
             autocomplete="off"
+            <?=(ENV_DEBUG == true) ? 'value="thomasadam83@hotmail.com"' : ''?>
         />
         <label for="email" class="w3-text-gray">
             <i class="fa-solid fa-envelope"></i> Email
@@ -95,6 +96,7 @@ include('../templates/message.php');
             type="password"
             id="password"
             autocomplete="off"
+            <?=(ENV_DEBUG == true) ? 'value="password"' : ''?>
         />
         <label for="password" class="w3-text-gray">
             <i class="fa-solid fa-lock"></i> Password

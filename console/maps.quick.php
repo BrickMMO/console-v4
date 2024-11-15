@@ -82,17 +82,15 @@ $width = round(100/$_city['width'],2);
         }
         
         fetch('/ajax/square/type',{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({id: id, type: type})
-            });
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({id: id, type: type})
+        });
     }
 
 </script>
-
-
 
 <?php
 

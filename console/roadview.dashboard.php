@@ -3,11 +3,11 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Maps');
+define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/maps/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/roadview/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -27,15 +27,15 @@ $width = round(100/$_city['width'],2);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/bricksum.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
         height="50"
         style="vertical-align: top"
     />
-    Maps
+    Road View
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Maps
+    Road View
 </p>
 <hr>
 
@@ -45,9 +45,14 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo ($squares[$row][$col]['type'] == 'water') ? 'blue' : 'brown'; ?>" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer;"
-                onclick="location.href='/maps/square/<?=$squares[$row][$col]['id']?>';">
+            <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('roads' => true)); ?>" 
+                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle;"
+                onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
+
+                <?php if($squares[$row][$col]['images']< 4 and $squares[$row][$col]['road_id']): ?>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                <?php endif; ?>
+
             </div>
 
         <?php endfor; ?>    
@@ -55,20 +60,6 @@ $width = round(100/$_city['width'],2);
     </div>
 
 <?php endfor; ?>
-
-<a
-    href="/maps/quick"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Map Quick Edit
-</a>
-
-<a
-    href="/city/profile"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-map fa-padding-right"></i> Edit Map Dimensions
-</a>
 
 <hr />
 

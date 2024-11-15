@@ -172,10 +172,15 @@ if(count($final_parts) == 1)
  */
 elseif(count($final_parts) % 2 == 1)
 {
+
+    $_GET['key'] = array_pop($final_parts);
+    /*
     while($next = array_shift($final_parts))
     {
-        if($next) $_GET['key'][] = $next;
+        if($next) $_GET['key'] = $next;
     }
+    */
+    
 }
 
 /**
@@ -193,6 +198,7 @@ for($i = 0; $i < count($final_parts); $i += 2)
         urldecode(str_replace('-SLASH-', '/', $final_parts[$i+1])) : 
         true;
 }
+
 
 /**
  * If the request is an ajax request. 

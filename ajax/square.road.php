@@ -2,7 +2,7 @@
 
 if(
     !isset($_POST['id']) || 
-    !isset($_POST['type']))
+    !isset($_POST['road_id']))
 {
     header_bad_request();
     $data = array('message'=>'Missing Paramater.', 'error' => true);
@@ -10,7 +10,7 @@ if(
 }
 
 $query = 'UPDATE squares SET
-    type = "'.addslashes($_POST['type']).'"
+    road_id = "'.addslashes($_POST['road_id']).'"
     WHERE id = '.addslashes($_POST['id']).'
     LIMIT 1';
 mysqli_query($connect, $query);
