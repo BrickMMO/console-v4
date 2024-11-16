@@ -60,7 +60,6 @@ $bricksum_stopwords = setting_fetch('BRICKSUM_STOPWORDS', 'comma');
 
 <form
     method="post"
-    onsubmit="return validateLoginForm()"
     novalidate
 >
     <textarea name="bricksum_wordlist" class="w3-input w3-border w3-margin-bottom" rows="10"><?=$bricksum_wordlist?></textarea>
