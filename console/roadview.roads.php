@@ -38,12 +38,16 @@ include('../templates/message.php');
 $query = 'SELECT *,(
         SELECT COUNT(*)
         FROM squares
+        INNER JOIN road_square
+        ON squares.id = road_square.square_id
         WHERE road_id = roads.id
     ) AS squares,(
         SELECT COUNT(*)
-        FROM square_images
-        INNER JOIN squares
-        ON square_id = squares.id
+        FROM squares
+        INNER JOIN road_square
+        ON squares.id = road_square.square_id
+        INNER JOIN square_images
+        ON square_images.square_id = squares.id
         WHERE road_id = roads.id
     ) AS images
     FROM roads

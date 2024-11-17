@@ -40,7 +40,7 @@ $width = round(100/$_city['width'],2);
 </p>
 <hr>
 
-<textarea name="seeder" id="seeder" class="w3-input w3-border w3-margin-bottom" rows="10">TEST</textarea>
+<textarea name="seeder" id="seeder" class="w3-input w3-border w3-margin-bottom" rows="20"><?=city_seeder($_city['id'])?></textarea>
 <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-bottom w3-margin-top" onclick="copySeeder();">
     <i class="fa-solid fa-copy fa-padding-right"></i>
     Copy Seeder

@@ -28,6 +28,8 @@ function square_fetch($identifier)
 
     $square['images'] = mysqli_num_rows($result);
 
+    $square['roads'] = square_roads($square['id'], true);
+    
     return $square;
 
 }
@@ -35,34 +37,23 @@ function square_fetch($identifier)
 function square_colour($id, $data = array())
 {
 
-    global $connect;
+    $square = square_fetch($id);
 
-    $query = 'SELECT *
-        FROM squares
-        WHERE id = "'.$id.'"
-        LIMIT 1';
-    $result = mysqli_query($connect, $query);
-
-    if(mysqli_num_rows($result)) 
+    if($square) 
     {
-        $road = mysqli_fetch_assoc($result);
 
         // If road is current road
-        if(isset($data['road_id']) and $data['road_id'] == $road['road_id'])
+        if(isset($data['road_id']) and in_array($road['road_id'], $square['roads']))
         {
             return 'dark-grey';
         }
-        // If road is specidifed btu square is other road
-        elseif(isset($data['road_id']) and $road['road_id'])
-        {
-            return 'grey';
-        }
-        // If roads are true and this square is a road
-        elseif(isset($data['roads']) and $road['road_id'])
+        // If road is specified and square is a road
+        elseif(isset($data['roads']) and count($square['roads']))
         {
             return 'grey';
         }
 
+        /*
         // If track is current track
         if(isset($data['track_id']) and $data['track_id'] == $road['track_id'])
         {
@@ -78,17 +69,53 @@ function square_colour($id, $data = array())
         {
             return 'grey';
         }
+        */
 
-        elseif($road['type'] == 'ground')
+        // else
+        
+        if($square['type'] == 'ground')
         {
             return 'brown';
         }
-        elseif($road['type'] == 'water')
+        elseif($square['type'] == 'water')
         {
             return 'blue';
         }
     }
     else return false;
+}
+
+function square_roads($id, $array = false)
+{
+
+    global $connect;
+
+    $query = 'SELECT *
+        FROM road_square
+        WHERE square_id = "'.$id.'"';
+    $result = mysqli_query($connect, $query);
+
+    $roads = array();
+
+    if($array) 
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $roads[] = $record['road_id'];
+        }
+    }
+    else
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $roads[] = $record;
+        }
+    }
+    
+    $roads = array_filter($roads);
+
+    return $roads;
+
 }
 
 function squares_fetch_all($id)
@@ -115,6 +142,7 @@ function squares_fetch_all($id)
 
     while($record = mysqli_fetch_assoc($result))
     {
+        $record['roads'] = square_roads($record['id'], true);
         $data[$record['y']][$record['x']] = $record;
     }
 

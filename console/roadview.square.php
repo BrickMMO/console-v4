@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
     $query = 'UPDATE squares SET
-        road_id = "'.addslashes($_POST['road_id']).'",
         road_rules = "'.addslashes($_POST['road_rules']).'"
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
@@ -54,8 +53,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
     }   
 
+    $query = 'DELETE FROM road_square
+        WHERE square_id = "'.$_GET['key'].'"';
+    mysqli_query($connect, $query);
+
+    foreach($_POST['road_id'] as $value)
+    {
+        $query = 'INSERT INTO road_square (
+                road_id,
+                square_id
+            ) VALUES (
+                "'.$value.'",
+                "'.$_GET['key'].'"
+            )';
+        mysqli_query($connect, $query);
+    }
+
     message_set('Square Success', 'Square has been updated.');
-    header_redirect('/roadview/square/'.$_GET['key']);
+    // header_redirect('/roadview/square/'.$_GET['key']);
+    header_redirect('/roadview/dashboard');
     
 }
 elseif(isset($_GET['delete']))
@@ -115,7 +131,7 @@ $square = square_fetch($_GET['key']);
     enctype="multipart/form-data"
 >
 
-    <?=form_select_table('road_id', 'roads', 'id', 'name', array('selected' => $square['road_id'], 'empty_key' => 0, 'first' => true))?>
+    <?=form_select_table('road_id', 'roads', 'id', 'name', array('multiple' => true, 'selected' => $square['roads'], 'first' => true))?>
     <label for="road_id" class="w3-text-gray">
         Road <span id="road-id-error" class="w3-text-red"></span>
     </label>

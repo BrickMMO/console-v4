@@ -45,12 +45,15 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('roads' => true)); ?>" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle;"
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true))?> w3-text-white" 
+                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%;"
                 onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
 
-                <?php if($squares[$row][$col]['images']< 4 and $squares[$row][$col]['road_id']): ?>
+                <?php if(count($squares[$row][$col]['roads']) and $squares[$row][$col]['images'] < 4): ?>
                     <i class="fa-solid fa-triangle-exclamation"></i>
+                <?php endif; ?>
+                <?php if(count($squares[$row][$col]['roads']) and !$squares[$row][$col]['road_rules']): ?>
+                    <i class="fa-solid fa-arrow-turn-up"></i>
                 <?php endif; ?>
 
             </div>
