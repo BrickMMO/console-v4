@@ -54,7 +54,7 @@ $width = round(100/$_city['width'],2);
             style="width: <?=$width?>%; height: 35px; cursor: pointer;"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
-            data-road-id="<?=(is_array($squares[$row][$col]['roads']) and in_array($_GET['key'], $squares[$row][$col]['roads'])) ? implode(',', $squares[$row][$col]['roads']) : ''?>"
+            data-road="<?=(is_array($squares[$row][$col]['roads']) and in_array($_GET['key'], $squares[$row][$col]['roads'])) ? 'true' : 'false'?>"
             onclick="editSquareType(this);">
         </div>
 
@@ -70,31 +70,25 @@ function editSquareType(target)
 {
     let id = target.dataset.id;
     let type = target.dataset.type;
-    // let road_id = target.dataset.road-id;
-    let road_id = target.getAttribute("data-road-id");
+    let road = target.dataset.road;
     let key = <?=$_GET['key']?>;
-
-    console.log(road_id);
 
     if(type == "ground")
     {
 
-        if(road_id == key)
+        if(road == "true")
         {
             target.classList.remove("w3-dark-grey");
             target.classList.add("w3-brown");
-
-            // target.dataset.road_id = 0;
-            target.setAttribute("data-road-id", 0);
+            target.dataset.road = "false";
+            road = "false";
         }
         else
         {
             target.classList.remove("w3-brown");
-            target.classList.remove("w3-grey");
             target.classList.add("w3-dark-grey");
-
-            // target.dataset.road_id = key;
-            target.setAttribute("data-road-id", key);
+            target.dataset.road = "true";
+            road = "true";
         }        
         
         fetch('/ajax/square/road',{
@@ -102,7 +96,7 @@ function editSquareType(target)
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, road_id: target.getAttribute("data-road-id")})
+            body: JSON.stringify({id: id, road_id: key, road: road})
         });
     }
 }

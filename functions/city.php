@@ -113,7 +113,12 @@ function city_seeder($identifier)
         {
             $data .= '"'.$key.'" => "'.$value.'",';
         }
-        $data .= ']);'.chr(13);
+        $data .= '])';
+
+        $roads = square_roads($record['id'], true);
+        if(count($roads)) $data .= '->roads()->attach(['.implode(',', $roads).'])';
+
+        $data .= ';'.chr(13);
     }
 
     /*

@@ -43,7 +43,7 @@ function square_colour($id, $data = array())
     {
 
         // If road is current road
-        if(isset($data['road_id']) and in_array($road['road_id'], $square['roads']))
+        if(isset($data['road_id']) and in_array($data['road_id'], $square['roads']))
         {
             return 'dark-grey';
         }
@@ -70,10 +70,8 @@ function square_colour($id, $data = array())
             return 'grey';
         }
         */
-
-        // else
         
-        if($square['type'] == 'ground')
+        elseif($square['type'] == 'ground')
         {
             return 'brown';
         }

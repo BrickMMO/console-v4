@@ -11,8 +11,7 @@ if (isset($_GET['delete']))
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'UPDATE squares SET
-        road_id = 0
+    $query = 'DELETE FROM road_square 
         WHERE road_id = '.$_GET['delete'];
     mysqli_query($connect, $query);
 
@@ -79,8 +78,8 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
+        <th class="bm-table-number">Images</th>
         <th class="bm-table-number">Squares</th>
-        <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>

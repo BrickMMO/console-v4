@@ -17,7 +17,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$squares = squares_fetch_all($_city['id']);
+$squares = squares_fetch_all($_city['id'], array('roads' => true));
 $width = round(100/$_city['width'],2);
 
 ?>
@@ -45,7 +45,7 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo ($squares[$row][$col]['type'] == 'water') ? 'blue' : 'brown'; ?>" 
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true))?>" 
                 style="width: <?=$width?>%; height: 35px; cursor: pointer;"
                 onclick="location.href='/maps/square/<?=$squares[$row][$col]['id']?>';">
             </div>
