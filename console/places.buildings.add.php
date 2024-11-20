@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             `name`,
             `set`,
             `number`,
+            `colour`,
             `road_id`,
             `city_id`,
             `created_at`,
@@ -26,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             "'.addslashes($_POST['name']).'",
             "'.addslashes($_POST['set']).'",
             "'.addslashes($_POST['number']).'",
+            "'.addslashes($_POST['colour']).'",
             "'.addslashes($_POST['road_id']).'",
             "'.$_city['id'].'",
             NOW(),
@@ -101,6 +103,17 @@ include('../templates/message.php');
     />
     <label for="set" class="w3-text-gray">
         LEGO Set Number <span id="set-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="colour" 
+        class="w3-input w3-border" 
+        type="text" 
+        id="colour" 
+        autocomplete="off"
+    />
+    <label for="colour" class="w3-text-gray">
+        Colour <span id="colour-error" class="w3-text-red"></span>
     </label>
 
     <input  

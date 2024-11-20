@@ -26,6 +26,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
         `name` = "'.addslashes($_POST['name']).'",
         `set` = "'.addslashes($_POST['set']).'",
         `number` = "'.addslashes($_POST['number']).'",
+        `colour` = "'.addslashes($_POST['colour']).'",
         `road_id` = "'.addslashes($_POST['road_id']).'",
         `updated_at` = NOW()
         WHERE id = '.$_GET['key'].'
@@ -104,6 +105,18 @@ $building = building_fetch($_GET['key']);
     />
     <label for="set" class="w3-text-gray">
         LEGO Set Number <span id="set-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="colour" 
+        class="w3-input w3-border" 
+        type="text" 
+        id="colour" 
+        autocomplete="off"
+        value="<?=$building['colour']?>"
+    />
+    <label for="colour" class="w3-text-gray">
+        Colour <span id="colour-error" class="w3-text-red"></span>
     </label>
 
     <input  
