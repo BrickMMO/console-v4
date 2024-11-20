@@ -118,6 +118,9 @@ function city_seeder($identifier)
         $roads = square_roads($record['id'], true);
         if(count($roads)) $data .= '->roads()->attach(['.implode(',', $roads).'])';
 
+        $tracks = square_tracks($record['id'], true);
+        if(count($tracks)) $data .= '->tracks()->attach(['.implode(',', $tracks).'])';
+
         $data .= ';'.chr(13);
     }
 

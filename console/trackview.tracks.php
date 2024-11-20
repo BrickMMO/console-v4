@@ -11,7 +11,7 @@ if (isset($_GET['delete']))
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM track_square 
+    $query = 'DELETE FROM square_track 
         WHERE track_id = '.$_GET['delete'];
     mysqli_query($connect, $query);
 
@@ -37,14 +37,14 @@ include('../templates/message.php');
 $query = 'SELECT *,(
         SELECT COUNT(*)
         FROM squares
-        INNER JOIN track_square
-        ON squares.id = track_square.square_id
+        INNER JOIN square_track
+        ON squares.id = square_track.square_id
         WHERE track_id = tracks.id
     ) AS squares,(
         SELECT COUNT(*)
         FROM squares
-        INNER JOIN track_square
-        ON squares.id = track_square.square_id
+        INNER JOIN square_track
+        ON squares.id = square_track.square_id
         INNER JOIN square_images
         ON square_images.square_id = squares.id
         WHERE track_id = tracks.id

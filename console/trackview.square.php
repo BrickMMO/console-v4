@@ -53,13 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
     }   
 
-    $query = 'DELETE FROM track_square
+    $query = 'DELETE FROM square_track
         WHERE square_id = "'.$_GET['key'].'"';
     mysqli_query($connect, $query);
 
     foreach($_POST['track_id'] as $value)
     {
-        $query = 'INSERT INTO track_square (
+        $query = 'INSERT INTO square_track (
                 track_id,
                 square_id
             ) VALUES (
