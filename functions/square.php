@@ -73,7 +73,7 @@ function square_colour($id, $data = array())
         // If building is specified and square is a building
         elseif(isset($data['buildings']) && $square['building_id'])
         {
-            return 'grey';
+            return 'blue-grey';
         }        
         
         elseif($square['type'] == 'ground')

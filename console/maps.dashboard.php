@@ -45,7 +45,7 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true, 'tracks' => true))?>" 
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true, 'tracks' => true, 'buildings' => true))?>" 
                 style="width: <?=$width?>%; height: 35px; cursor: pointer;"
                 onclick="location.href='/maps/square/<?=$squares[$row][$col]['id']?>';">
             </div>
