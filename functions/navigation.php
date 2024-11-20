@@ -98,23 +98,47 @@ function navigation_array($selected = false)
                                     'url' => 'https://maps.brickmmo.com',
                                     'colour' => 'orange',
                                     'icon' => 'fa-solid fa-arrow-up-right-from-square'
-                                ],[
-                                    'br' => '---'
-                                ],[
-                                    'title' => 'Uptime Report',
-                                    'url' => '/uptime/maps',
-                                    'colour' => 'orange',
-                                    'icons' => 'bm-uptime'
-                                ],[
-                                    'title' => 'Stats Report',
-                                    'url' => '/uptime/maps',
-                                    'colour' => 'orange'
                                 ],
                             ],
                         ],[
                             'icon' => 'bm-places',
                             'url' => '/places/dashboard',
                             'title' => 'Places',
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/places/dashboard',
+                                    'colour' => 'red'
+                                ],[
+                                    'title' => 'Buildings',
+                                    'url' => '/places/buildings',
+                                    'colour' => 'red'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Maps',
+                                    'url' => '/maps/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-maps'
+                                ],[
+                                    'title' => 'Road View',
+                                    'url' => '/roadview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-roadview'
+                                ],[
+                                    'title' => 'Track View',
+                                    'url' => '/trackview/dashboard',
+                                    'colour' => 'red',
+                                    'icon' => 'bm-trackview'
+                                ],[
+                                    'br' => '---'
+                                ],[
+                                    'title' => 'Visit BrickMMO Maps',
+                                    'url' => 'https://maps.brickmmo.com',
+                                    'colour' => 'orange',
+                                    'icon' => 'fa-solid fa-arrow-up-right-from-square'
+                                ],
+                            ],
                         ],[
                             'icon' => 'bm-trackview',
                             'url' => '/trackview/dashboard',
@@ -152,17 +176,6 @@ function navigation_array($selected = false)
                                     'url' => 'https://maps.brickmmo.com',
                                     'colour' => 'orange',
                                     'icon' => 'fa-solid fa-arrow-up-right-from-square'
-                                ],[
-                                    'br' => '---'
-                                ],[
-                                    'title' => 'Uptime Report',
-                                    'url' => '/uptime/maps',
-                                    'colour' => 'orange',
-                                    'icons' => 'bm-uptime'
-                                ],[
-                                    'title' => 'Stats Report',
-                                    'url' => '/uptime/maps',
-                                    'colour' => 'orange'
                                 ],
                             ],
                         ],

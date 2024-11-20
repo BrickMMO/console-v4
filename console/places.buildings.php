@@ -6,25 +6,25 @@ admin_check();
 if (isset($_GET['delete'])) 
 {
 
-    $query = 'DELETE FROM roads 
+    $query = 'DELETE FROM buildings 
         WHERE id = '.$_GET['delete'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM road_square 
-        WHERE road_id = '.$_GET['delete'];
+    $query = 'DELETE FROM building_square 
+        WHERE building_id = '.$_GET['delete'];
     mysqli_query($connect, $query);
 
-    message_set('Delete Success', 'Road has been deleted.');
-    header_redirect('/roadview/roads');
+    message_set('Delete Success', 'Building has been deleted.');
+    header_redirect('/places/buildings');
     
 }
 
-define('APP_NAME', 'Roadvie');
+define('APP_NAME', 'Buildingvie');
 
-define('PAGE_TITLE', 'Roads');
+define('PAGE_TITLE', 'Buildings');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/places/buildings');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -37,19 +37,19 @@ include('../templates/message.php');
 $query = 'SELECT *,(
         SELECT COUNT(*)
         FROM squares
-        INNER JOIN road_square
-        ON squares.id = road_square.square_id
-        WHERE road_id = roads.id
+        INNER JOIN building_square
+        ON squares.id = building_square.square_id
+        WHERE building_id = buildings.id
     ) AS squares,(
         SELECT COUNT(*)
         FROM squares
-        INNER JOIN road_square
-        ON squares.id = road_square.square_id
+        INNER JOIN building_square
+        ON squares.id = building_square.square_id
         INNER JOIN square_images
         ON square_images.square_id = squares.id
-        WHERE road_id = roads.id
+        WHERE building_id = buildings.id
     ) AS images
-    FROM roads
+    FROM buildings
     ORDER BY name';
 $result = mysqli_query($connect, $query);
 
@@ -59,21 +59,21 @@ $result = mysqli_query($connect, $query);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    Roads
+    <a href="/places/dashboard">Places</a> / 
+    Buildings
 </p>
 
 <hr />
 
-<h2>Roads</h2>
+<h2>Buildings</h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
@@ -93,17 +93,17 @@ $result = mysqli_query($connect, $query);
                 <?=$record['images']?>/<?=$record['squares'] * 4?>
             </td>
             <td>
-                <a href="/roadview/roads/squares/<?=$record['id']?>">
+                <a href="/places/buildings/squares/<?=$record['id']?>">
                     <?=$record['squares']?>
                 </a>
             </td>
             <td>
-                <a href="/roadview/roads/edit/<?=$record['id']?>">
+                <a href="/places/buildings/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the road <?=$record['name']?>?', '/roadview/roads/delete/<?=$record['id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the building <?=$record['name']?>?', '/places/buildings/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -113,10 +113,10 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/roadview/roads/add"
+    href="/places/buildings/add"
     class="w3-button w3-white w3-border"
 >
-    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Road
+    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Building
 </a>
 
 <?php

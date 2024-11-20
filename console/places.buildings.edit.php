@@ -6,10 +6,10 @@ admin_check();
 if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']) || 
-    !road_fetch($_GET['key']))
+    !building_fetch($_GET['key']))
 {
-    message_set('Road Error', 'There was an error with the provided road.');
-    header_redirect('/roadview/roads');
+    message_set('Building Error', 'There was an error with the provided building.');
+    header_redirect('/places/buildings');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
@@ -18,27 +18,27 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     if (!validate_blank($_POST['name']))
     {
 
-        message_set('Road Error', 'There was an error with the provided road.', 'red');
+        message_set('Building Error', 'There was an error with the provided building.', 'red');
         header_redirect('/admin/media/tags');
     }
     
-    $query = 'UPDATE roads SET
+    $query = 'UPDATE buildings SET
         name = "'.addslashes($_POST['name']).'",
         updated_at = NOW()
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('Road Success', 'Your road has been edited.');
-    header_redirect('/roadview/roads');
+    message_set('Building Success', 'Your building has been edited.');
+    header_redirect('/places/buildings');
     
 }
 
-define('APP_NAME', 'Road View');
+define('APP_NAME', 'Places');
 
-define('PAGE_TITLE','Edit Road');
+define('PAGE_TITLE','Edit Building');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/places/buildings');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -48,7 +48,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$road = road_fetch($_GET['key']);
+$building = building_fetch($_GET['key']);
 
 ?>
 
@@ -56,22 +56,22 @@ $road = road_fetch($_GET['key']);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Edit Road
+    <a href="/places/dashboard">Places</a> / 
+    <a href="/places/buildings">Buildings</a> / 
+    Edit Building
 </p>
 
 <hr />
 
-<h2>Edit Road: <?=$road['name']?></h2>
+<h2>Edit Building: <?=$building['name']?></h2>
 
 <form
     method="post"
@@ -85,7 +85,7 @@ $road = road_fetch($_GET['key']);
         type="text" 
         id="name" 
         autocomplete="off"
-        value="<?=$road['name']?>"
+        value="<?=$building['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
@@ -93,7 +93,7 @@ $road = road_fetch($_GET['key']);
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Edit Road
+        Edit Building
     </button>
 </form>
 

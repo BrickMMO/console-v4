@@ -3,11 +3,11 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Road View');
+define('APP_NAME', 'Places');
 
-define('PAGE_TITLE','Edit Road');
+define('PAGE_TITLE','Edit Building');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/places/buildings');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -17,7 +17,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$road = road_fetch($_GET['key']);
+$building = building_fetch($_GET['key']);
 $squares = squares_fetch_all($_city['id']);
 $width = round(100/$_city['width'],2);
 
@@ -27,22 +27,22 @@ $width = round(100/$_city['width'],2);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Road Squares
+    <a href="/places/dashboard">Places</a> / 
+    <a href="/places/buildings">Buildings</a> / 
+    Building Squares
 </p>
 
 <hr />
 
-<h2>Road Squares: <?=$road['name']?></h2>
+<h2>Building Squares: <?=$building['name']?></h2>
 
 <?php for($row = 0; $row < $_city['height']; $row ++): ?>
 
@@ -50,11 +50,11 @@ $width = round(100/$_city['width'],2);
 
     <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('road_id'=> $_GET['key']))?>" 
+        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('building_id'=> $_GET['key']))?>" 
             style="width: <?=$width?>%; height: 35px; cursor: pointer;"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
-            data-road="<?=(is_array($squares[$row][$col]['roads']) and in_array($_GET['key'], $squares[$row][$col]['roads'])) ? 'true' : 'false'?>"
+            data-building="<?=(is_array($squares[$row][$col]['buildings']) and in_array($_GET['key'], $squares[$row][$col]['buildings'])) ? 'true' : 'false'?>"
             onclick="editSquareType(this);">
         </div>
 
@@ -70,33 +70,33 @@ function editSquareType(target)
 {
     let id = target.dataset.id;
     let type = target.dataset.type;
-    let road = target.dataset.road;
+    let building = target.dataset.building;
     let key = <?=$_GET['key']?>;
 
     if(type == "ground")
     {
 
-        if(road == "true")
+        if(building == "true")
         {
             target.classList.remove("w3-red");
             target.classList.add("w3-brown");
-            target.dataset.road = "false";
-            road = "false";
+            target.dataset.building = "false";
+            building = "false";
         }
         else
         {
             target.classList.remove("w3-brown");
             target.classList.add("w3-red");
-            target.dataset.road = "true";
-            road = "true";
+            target.dataset.building = "true";
+            building = "true";
         }        
         
-        fetch('/ajax/square/road',{
+        fetch('/ajax/square/building',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, road_id: key, road: road})
+            body: JSON.stringify({id: id, building_id: key, building: building})
         });
     }
 }

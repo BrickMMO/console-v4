@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-        message_set('Road Error', 'There was an error with the provided road.', 'red');
-        header_redirect('/roadview/roads/add');
+        message_set('Building Error', 'There was an error with the provided building.', 'red');
+        header_redirect('/places/buildings/add');
     }
     
-    $query = 'INSERT INTO roads (
+    $query = 'INSERT INTO buildings (
             name,
             city_id,
             created_at,
@@ -26,16 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         )';
     mysqli_query($connect, $query);
 
-    message_set('Tag Success', 'Your road has been added.');
-    header_redirect('/roadview/roads');
+    message_set('Tag Success', 'Your building has been added.');
+    header_redirect('/places/buildings');
     
 }
 
-define('APP_NAME', 'Road View');
+define('APP_NAME', 'Places');
 
-define('PAGE_TITLE', 'Add Road');
+define('PAGE_TITLE', 'Add Building');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/places/buildings');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -51,22 +51,22 @@ include('../templates/message.php');
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Add Road
+    <a href="/places/dashboard">Places</a> / 
+    <a href="/places/buildings">Buildings</a> / 
+    Add Building
 </p>
 
 <hr />
 
-<h2>Add Road</h2>
+<h2>Add Building</h2>
 
 <form
     method="post"
@@ -87,7 +87,7 @@ include('../templates/message.php');
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Add Road
+        Add Building
     </button>
 </form>
 

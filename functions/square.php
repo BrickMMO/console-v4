@@ -64,6 +64,17 @@ function square_colour($id, $data = array())
         {
             return 'grey';
         }        
+
+        // If road is current building
+        elseif(isset($data['building_id']) and $data['building_id'] == $square['building_id'])
+        {
+            return 'red';
+        }
+        // If building is specified and square is a building
+        elseif(isset($data['buildings']) and $square['building_id'])
+        {
+            return 'grey';
+        }        
         
         elseif($square['type'] == 'ground')
         {

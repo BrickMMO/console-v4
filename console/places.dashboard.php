@@ -3,11 +3,11 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Road View');
+define('APP_NAME', 'Places');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/places/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -27,15 +27,15 @@ $width = round(100/$_city['width'],2);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Road View
+    Places
 </p>
 <hr>
 
@@ -45,17 +45,9 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true))?> w3-text-white" 
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('buildings' => true))?> w3-text-white" 
                 style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%;"
-                onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
-
-                <?php if(count($squares[$row][$col]['roads']) and $squares[$row][$col]['images'] < 4): ?>
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                <?php endif; ?>
-                <?php if(count($squares[$row][$col]['roads']) and !$squares[$row][$col]['road_rules']): ?>
-                    <i class="fa-solid fa-arrow-turn-up"></i>
-                <?php endif; ?>
-
+                onclick="location.href='/places/square/<?=$squares[$row][$col]['id']?>';">
             </div>
 
         <?php endfor; ?>    
