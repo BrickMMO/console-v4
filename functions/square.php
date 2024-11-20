@@ -29,6 +29,7 @@ function square_fetch($identifier)
     $square['images'] = mysqli_num_rows($result);
 
     $square['roads'] = square_roads($square['id'], true);
+    $square['tracks'] = square_tracks($square['id'], true);
     
     return $square;
 
@@ -53,23 +54,16 @@ function square_colour($id, $data = array())
             return 'grey';
         }
 
-        /*
         // If track is current track
-        if(isset($data['track_id']) and $data['track_id'] == $road['track_id'])
+        elseif(isset($data['track_id']) and in_array($data['track_id'], $square['tracks']))
         {
             return 'dark-grey';
         }
-        // If road is specidifed btu square is other road
-        elseif(isset($data['track_id']) and $road['track_id'])
+        // If track is specified and square is a track
+        elseif(isset($data['tracks']) and count($square['tracks']))
         {
             return 'grey';
         }
-        // If roads are true and this square is a road
-        elseif(isset($data['tracks']) and $road['track_id'])
-        {
-            return 'grey';
-        }
-        */
         
         elseif($square['type'] == 'ground')
         {
@@ -116,6 +110,39 @@ function square_roads($id, $array = false)
 
 }
 
+function square_tracks($id, $array = false)
+{
+
+    global $connect;
+
+    $query = 'SELECT *
+        FROM square_track
+        WHERE square_id = "'.$id.'"';
+    $result = mysqli_query($connect, $query);
+
+    $tracks = array();
+
+    if($array) 
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $tracks[] = $record['track_id'];
+        }
+    }
+    else
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $tracks[] = $record;
+        }
+    }
+    
+    $tracks = array_filter($tracks);
+
+    return $tracks;
+
+}
+
 function squares_fetch_all($id)
 {
 
@@ -141,6 +168,7 @@ function squares_fetch_all($id)
     while($record = mysqli_fetch_assoc($result))
     {
         $record['roads'] = square_roads($record['id'], true);
+        $record['tracks'] = square_tracks($record['id'], true);
         $data[$record['y']][$record['x']] = $record;
     }
 
