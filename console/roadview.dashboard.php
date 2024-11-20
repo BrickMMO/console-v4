@@ -49,10 +49,10 @@ $width = round(100/$_city['width'],2);
                 style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%;"
                 onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
 
-                <?php if(count($squares[$row][$col]['roads']) and $squares[$row][$col]['images'] < 4): ?>
+                <?php if(count($squares[$row][$col]['roads']) && $squares[$row][$col]['images'] < 4): ?>
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 <?php endif; ?>
-                <?php if(count($squares[$row][$col]['roads']) and !$squares[$row][$col]['road_rules']): ?>
+                <?php if(count($squares[$row][$col]['roads']) && !$squares[$row][$col]['road_rules']): ?>
                     <i class="fa-solid fa-arrow-turn-up"></i>
                 <?php endif; ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_GET['hash']) or !invite_fetch($_GET['hash']))
+if(!isset($_GET['hash']) || !invite_fetch($_GET['hash']))
 {
     message_set('City Invite Error', 'There was an error with the password reset link, please try again.', 'red');
     header_redirect(ENV_ACCOUNT_DOMAIN.'/login');

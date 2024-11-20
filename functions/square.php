@@ -44,34 +44,34 @@ function square_colour($id, $data = array())
     {
 
         // If track is current track
-        if(isset($data['track_id']) and in_array($data['track_id'], $square['tracks']))
+        if(isset($data['track_id']) && in_array($data['track_id'], $square['tracks']))
         {
             return 'red';
         }
         // If track is specified and square is a track
-        elseif(isset($data['tracks']) and count($square['tracks']))
+        elseif(isset($data['tracks']) && count($square['tracks']))
         {
             return 'dark-grey';
         }
 
         // If road is current road
-        elseif(isset($data['road_id']) and in_array($data['road_id'], $square['roads']))
+        elseif(isset($data['road_id']) && in_array($data['road_id'], $square['roads']))
         {
             return 'red';
         }
         // If road is specified and square is a road
-        elseif(isset($data['roads']) and count($square['roads']))
+        elseif(isset($data['roads']) && count($square['roads']))
         {
             return 'grey';
         }        
 
         // If road is current building
-        elseif(isset($data['building_id']) and $data['building_id'] == $square['building_id'])
+        elseif(isset($data['building_id']) && $data['building_id'] == $square['building_id'])
         {
             return 'red';
         }
         // If building is specified and square is a building
-        elseif(isset($data['buildings']) and $square['building_id'])
+        elseif(isset($data['buildings']) && $square['building_id'])
         {
             return 'grey';
         }        

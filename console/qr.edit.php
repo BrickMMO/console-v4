@@ -14,7 +14,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']) or !validate_blank($_POST['url']))
+    if (!validate_blank($_POST['name']) || !validate_blank($_POST['url']))
     {
         message_set('QR Code Error', 'There was an error with the provided QR code.', 'red');
         header_redirect('/qr/add');

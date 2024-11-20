@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_GET['key']) or !is_numeric($_GET['key']))
+if(!isset($_GET['key']) || !is_numeric($_GET['key']))
 {
     $data = array(
         'message' => 'Invalid colour.',

@@ -54,7 +54,7 @@ $width = round(100/$_city['width'],2);
             style="width: <?=$width?>%; height: 35px; cursor: pointer;"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
-            data-building="<?=(is_array($squares[$row][$col]['buildings']) and in_array($_GET['key'], $squares[$row][$col]['buildings'])) ? 'true' : 'false'?>"
+            data-building="<?=(is_array($squares[$row][$col]['buildings']) && in_array($_GET['key'], $squares[$row][$col]['buildings'])) ? 'true' : 'false'?>"
             onclick="editSquareType(this);">
         </div>
 

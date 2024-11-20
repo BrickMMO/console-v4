@@ -7,7 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']))
+    if (!validate_blank($_POST['name']) || 
+        !validate_blank($_POST['set']))
     {
         message_set('Building Error', 'There was an error with the provided building.', 'red');
         header_redirect('/places/buildings/add');
@@ -15,11 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     $query = 'INSERT INTO buildings (
             name,
+            set,
             city_id,
             created_at,
             updated_at
         ) VALUES (
             "'.addslashes($_POST['name']).'",
+            "'.addslashes($_POST['set']).'",
             "'.$_city['id'].'",
             NOW(),
             NOW()

@@ -1,6 +1,6 @@
 <?php
 
-if(!isset($_GET['hash']) or !user_fetch($_GET['hash']))
+if(!isset($_GET['hash']) || !user_fetch($_GET['hash']))
 {
     message_set('Verification Error', 'There was an error with the password reset link, please try again.', 'red');
     header_redirect('/forgot');

@@ -11,10 +11,6 @@ if (isset($_GET['delete']))
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM building_square 
-        WHERE building_id = '.$_GET['delete'];
-    mysqli_query($connect, $query);
-
     message_set('Delete Success', 'Building has been deleted.');
     header_redirect('/places/buildings');
     
@@ -37,18 +33,8 @@ include('../templates/message.php');
 $query = 'SELECT *,(
         SELECT COUNT(*)
         FROM squares
-        INNER JOIN building_square
-        ON squares.id = building_square.square_id
         WHERE building_id = buildings.id
-    ) AS squares,(
-        SELECT COUNT(*)
-        FROM squares
-        INNER JOIN building_square
-        ON squares.id = building_square.square_id
-        INNER JOIN square_images
-        ON square_images.square_id = squares.id
-        WHERE building_id = buildings.id
-    ) AS images
+    ) AS squares
     FROM buildings
     ORDER BY name';
 $result = mysqli_query($connect, $query);
@@ -78,7 +64,6 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th class="bm-table-number">Images</th>
         <th class="bm-table-number">Squares</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
@@ -88,9 +73,6 @@ $result = mysqli_query($connect, $query);
         <tr>
             <td>
                 <?=$record['name']?>
-            </td>
-            <td>                
-                <?=$record['images']?>/<?=$record['squares'] * 4?>
             </td>
             <td>
                 <a href="/places/buildings/squares/<?=$record['id']?>">

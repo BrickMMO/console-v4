@@ -8,7 +8,7 @@ if (!isset($_GET['key']) || !in_array($_GET['key'], explode(',', setting_fetch('
     message_set('Import Error', 'There was an error importing repos.', 'red');
     header_redirect('admin/github/dashboard');
 }
-elseif (!isset($_user['github_access_token']) or !$_user['github_access_token'])
+elseif (!isset($_user['github_access_token']) || !$_user['github_access_token'])
 {
     message_set('GitHub Error', 'Missing GitHub authentication tokens.', 'red');
     header_redirect('/admin/github/dashboard');
