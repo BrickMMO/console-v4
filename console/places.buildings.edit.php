@@ -23,8 +23,11 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     $query = 'UPDATE buildings SET
-        name = "'.addslashes($_POST['name']).'",
-        updated_at = NOW()
+        `name` = "'.addslashes($_POST['name']).'",
+        `set` = "'.addslashes($_POST['set']).'",
+        `number` = "'.addslashes($_POST['number']).'",
+        `road_id` = "'.addslashes($_POST['road_id']).'",
+        `updated_at` = NOW()
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
@@ -89,6 +92,35 @@ $building = building_fetch($_GET['key']);
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="set" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="set" 
+        autocomplete="off"
+        value="<?=$building['set']?>"
+    />
+    <label for="set" class="w3-text-gray">
+        LEGO Set Number <span id="set-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="number" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="set" 
+        autocomplete="off"
+        value="<?=$building['number']?>"
+    />
+    <label for="number" class="w3-text-gray">
+        Road Number <span id="number-error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_table('road_id', 'roads', 'id', 'name', array('selected' => $building['road_id'], 'empty_key' => ''))?>
+    <label for="road_id" class="w3-text-gray">
+        Road <span id="road-id-error" class="w3-text-red"></span>
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">

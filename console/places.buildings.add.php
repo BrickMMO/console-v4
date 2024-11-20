@@ -15,14 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     $query = 'INSERT INTO buildings (
-            name,
-            set,
-            city_id,
-            created_at,
-            updated_at
+            `name`,
+            `set`,
+            `number`,
+            `road_id`,
+            `city_id`,
+            `created_at`,
+            `updated_at`
         ) VALUES (
             "'.addslashes($_POST['name']).'",
             "'.addslashes($_POST['set']).'",
+            "'.addslashes($_POST['number']).'",
+            "'.addslashes($_POST['road_id']).'",
             "'.$_city['id'].'",
             NOW(),
             NOW()
@@ -86,6 +90,33 @@ include('../templates/message.php');
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="set" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="set" 
+        autocomplete="off"
+    />
+    <label for="set" class="w3-text-gray">
+        LEGO Set Number <span id="set-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="number" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="set" 
+        autocomplete="off"
+    />
+    <label for="number" class="w3-text-gray">
+        Road Number <span id="number-error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_table('road_id', 'roads', 'id', 'name', array('empty_key' => ''))?>
+    <label for="road_id" class="w3-text-gray">
+        Road <span id="road-id-error" class="w3-text-red"></span>
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
