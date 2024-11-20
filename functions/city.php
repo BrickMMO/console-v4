@@ -98,6 +98,29 @@ function city_seeder($identifier)
 
     $data .= str_repeat(chr(13), 2).
         '// **************************************************'.chr(13).
+        '// Tracks'.chr(13);
+
+    $query = 'SELECT *
+        FROM buildings
+        WHERE city_id = "'.$identifier.'"
+        ORDER BY id';
+    $result = mysqli_query($connect, $query);
+
+    while($record = mysqli_fetch_assoc($result))
+    {
+        $data .= 'Building::factory()->create([';
+        foreach($record as $key => $value)
+        {
+            if($value)
+            {
+                $data .= '"'.$key.'" => "'.$value.'",';
+            }
+        }
+        $data .= ']);'.chr(13);
+    }
+
+    $data .= str_repeat(chr(13), 2).
+        '// **************************************************'.chr(13).
         '// Squares'.chr(13);
 
     $query = 'SELECT *
