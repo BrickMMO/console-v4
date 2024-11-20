@@ -108,20 +108,19 @@ function city_seeder($identifier)
 
     while($record = mysqli_fetch_assoc($result))
     {
-        $data .= 'Square::factory()->create([';
+        $data .= '$square = Square::factory()->create([';
         foreach($record as $key => $value)
         {
             $data .= '"'.$key.'" => "'.$value.'",';
         }
-        $data .= '])';
+        $data .= ']);'.chr(13);
 
         $roads = square_roads($record['id'], true);
-        if(count($roads)) $data .= '->roads()->attach(['.implode(',', $roads).'])';
+        if(count($roads)) $data .= '$square->roads()->attach(['.implode(',', $roads).']);'.chr(13);
 
         $tracks = square_tracks($record['id'], true);
-        if(count($tracks)) $data .= '->tracks()->attach(['.implode(',', $tracks).'])';
+        if(count($tracks)) $data .= '$square->tracks()->attach(['.implode(',', $tracks).']);'.chr(13);
 
-        $data .= ';'.chr(13);
     }
 
     /*

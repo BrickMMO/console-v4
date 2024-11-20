@@ -78,7 +78,7 @@ function editSquareType(target)
 
         if(track == "true")
         {
-            target.classList.remove("w3-dark-grey");
+            target.classList.remove("w3-red");
             target.classList.add("w3-brown");
             target.dataset.track = "false";
             track = "false";
@@ -86,7 +86,7 @@ function editSquareType(target)
         else
         {
             target.classList.remove("w3-brown");
-            target.classList.add("w3-dark-grey");
+            target.classList.add("w3-red");
             target.dataset.track = "true";
             track = "true";
         }        
