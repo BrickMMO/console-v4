@@ -98,7 +98,7 @@ function city_seeder($identifier)
 
     $data .= str_repeat(chr(13), 2).
         '// **************************************************'.chr(13).
-        '// Tracks'.chr(13);
+        '// Buildings'.chr(13);
 
     $query = 'SELECT *
         FROM buildings
