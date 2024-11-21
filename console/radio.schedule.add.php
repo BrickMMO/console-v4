@@ -6,8 +6,7 @@ admin_check();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
-    if (!validate_blank($_POST['name']) ||
-        !validate_blank($_POST['minute']) || 
+    if (!validate_blank($_POST['minute']) || 
         !validate_blank($_POST['type_id']))
     {
         message_set('Schedule Error', 'There was an error with the provided schedule.', 'red');
@@ -15,14 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     $query = 'INSERT INTO schedules (
-            name,
             minute,
             type_id,
             city_id,
             created_at,
             updated_at
         ) VALUES (
-            "'.addslashes($_POST['name']).'",
             "'.addslashes($_POST['minute']).'",
             "'.addslashes($_POST['type_id']).'",
             "'.$_city['id'].'",
@@ -80,17 +77,6 @@ include('../templates/message.php');
 >
 
     <input  
-        name="name" 
-        class="w3-input w3-border" 
-        type="text" 
-        id="name" 
-        autocomplete="off"
-    />
-    <label for="name" class="w3-text-gray">
-        Name <span id="name-error" class="w3-text-red"></span>
-    </label>
-
-    <input  
         name="minute" 
         class="w3-input w3-border w3-margin-top" 
         type="text" 
@@ -116,14 +102,6 @@ include('../templates/message.php');
 
     function validateMainForm() {
         let errors = 0;
-
-        let name = document.getElementById("name");
-        let name_error = document.getElementById("name-error");
-        name_error.innerHTML = "";
-        if (name.value == "") {
-            name_error.innerHTML = "(name is required)";
-            errors++;
-        }
 
         let minute = document.getElementById("minute");
         let minute_error = document.getElementById("minute-error");

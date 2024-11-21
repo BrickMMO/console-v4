@@ -10,7 +10,6 @@ function schedule_fetch($identifier)
     $query = 'SELECT *
         FROM schedules
         WHERE id = "'.addslashes($identifier).'"
-        OR name = "'.addslashes($identifier).'"
         LIMIT 1';
     $result = mysqli_query($connect, $query);
 

@@ -116,9 +116,8 @@ $result = mysqli_query($connect, $query);
         <tr>
             <th>Minute</th>
             <th>Type</th>
-            <th>Title</th>
-            <th></th>
-            <th></th>
+            <th class="bm-table-icon"></th>
+            <th class="bm-table-icon"></th>
         </tr>
     </thead>
     <tbody>
@@ -126,76 +125,24 @@ $result = mysqli_query($connect, $query);
             <tr>
                 <td><?= htmlspecialchars($record['minute']) ?></td>
                 <td><?= htmlspecialchars($record['type_name']) ?></td>
-                <td><?= htmlspecialchars($record['name']) ?></td>
                 <td>
                     <a href="/radio/schedule/edit/<?=$record['id']?>">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule <?=$record['name']?>?', '/roadview/schedule/delete/<?=$record['id']?>');">
+                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule?', '/roadview/schedule/delete/<?=$record['id']?>');">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
                 </td>
             </tr>
-
-            <?php /* ?>
-            <!-- Hidden Edit Form -->
-            <tr id="editForm-<?= $item['id'] ?>" style="display:none;">
-                <td colspan="3">
-                    <form action="/Radio/schedule" method="post">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <!-- <input type="hidden" name="segment_id" value="<?= $item['segment_id'] ?>"> -->
-
-                        <?php
-                        // Convert 24-hour format to 12-hour format with AM/PM
-                        $timeParts = explode(':', $item['time']);
-                        $hour = (int)$timeParts[0];
-                        $minute = $timeParts[1];
-                        $ampm = $hour >= 12 ? 'PM' : 'AM';
-                        $hour = $hour > 12 ? $hour - 12 : ($hour == 0 ? 12 : $hour);
-                        ?>
-
-                        <label for="hour-<?= $item['id'] ?>">Hour:</label>
-                        <select id="hour-<?= $item['id'] ?>" name="hour" required>
-                            <?php for ($i = 1; $i <= 12; $i++): ?>
-                                <option value="<?= $i ?>" <?= $i == $hour ? 'selected' : '' ?>><?= sprintf('%02d', $i) ?></option>
-                            <?php endfor; ?>
-                        </select>
-
-                        <label for="minute-<?= $item['id'] ?>">Minute:</label>
-                        <select id="minute-<?= $item['id'] ?>" name="minute" required>
-                            <?php for ($i = 0; $i < 60; $i += 5): ?>
-                                <option value="<?= sprintf('%02d', $i) ?>" <?= $minute == sprintf('%02d', $i) ? 'selected' : '' ?>><?= sprintf('%02d', $i) ?></option>
-                            <?php endfor; ?>
-                        </select>
-
-                        <label for="ampm-<?= $item['id'] ?>">AM/PM:</label>
-                        <select id="ampm-<?= $item['id'] ?>" name="ampm" required>
-                            <option value="AM" <?= $ampm == 'AM' ? 'selected' : '' ?>>AM</option>
-                            <option value="PM" <?= $ampm == 'PM' ? 'selected' : '' ?>>PM</option>
-                        </select>
-
-                        <label for="segment-<?= $item['id'] ?>">Title:</label>
-                        <select id="segment-<?= $item['id'] ?>" name="segment_id">
-                            <?php foreach ($segments as $segment): ?>
-                                <option value="<?= $segment['id'] ?>" <?= $segment['name'] == $item['title'] ? 'selected' : '' ?>><?= $segment['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <button type="submit" name="edit" class="w3-button w3-green">Save Changes</button>
-                        <button type="button" onclick="hideEditForm(<?= $item['id'] ?>);" class="w3-button w3-gray">Cancel</button>
-                    </form>
-                </td>
-            </tr>
-            <?php */ ?>
         <?php endforeach; ?>
     </tbody>
 </table>
 
 <hr>
 
-<a href="/radio/schedule/add" class="w3-button w3-white w3-border w3-margin-top">
+<a href="/radio/schedule/add" class="w3-button w3-white w3-border">
     <i class="fa-solid fa-plus fa-padding-right"></i> Add Schedule
 </a>
 

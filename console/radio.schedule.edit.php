@@ -15,8 +15,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']) ||
-        !validate_blank($_POST['minute']) || 
+    if (!validate_blank($_POST['minute']) || 
         !validate_blank($_POST['type_id']))
     {
 
@@ -25,7 +24,6 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     $query = 'UPDATE schedules SET
-        name = "'.addslashes($_POST['name']).'",
         minute = "'.addslashes($_POST['minute']).'",
         type_id = "'.addslashes($_POST['type_id']).'",
         updated_at = NOW()
@@ -75,25 +73,13 @@ $schedule = schedule_fetch($_GET['key']);
 
 <hr />
 
-<h2>Edit Schedule: <?=$schedule['name']?></h2>
+<h2>Edit Schedule</h2>
 
 <form
     method="post"
     novalidate
     id="main-form"
 >
-
-    <input  
-        name="name" 
-        class="w3-input w3-border" 
-        type="text" 
-        id="name" 
-        autocomplete="off"
-        value="<?=$schedule['name']?>"
-    />
-    <label for="name" class="w3-text-gray">
-        Name <span id="name-error" class="w3-text-red"></span>
-    </label>
 
     <input  
         name="minute" 
@@ -122,14 +108,6 @@ $schedule = schedule_fetch($_GET['key']);
 
     function validateMainForm() {
         let errors = 0;
-
-        let name = document.getElementById("name");
-        let name_error = document.getElementById("name-error");
-        name_error.innerHTML = "";
-        if (name.value == "") {
-            name_error.innerHTML = "(name is required)";
-            errors++;
-        }
 
         let minute = document.getElementById("minute");
         let minute_error = document.getElementById("minute-error");
