@@ -16,7 +16,7 @@ if (isset($_GET['delete']))
     
 }
 
-define('APP_NAME', 'Buildingvie');
+define('APP_NAME', 'Places');
 
 define('PAGE_TITLE', 'Buildings');
 define('PAGE_SELECTED_SECTION', 'geography');

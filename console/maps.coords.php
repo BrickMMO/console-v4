@@ -36,61 +36,68 @@ $width = round(100/$_city['width'],2);
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     <a href="/maps/dashboard">Maps</a> / 
-    Map Quick Edit
+    Simulate Coords
 </p>
 <hr>
 
 <?php for($row = 0; $row < $_city['height']; $row ++): ?>
 
-    <div class="w3-cell-row">
+<div class="w3-cell-row">
 
-        <?php for($col = 0; $col < $_city['width']; $col ++): ?>
+    <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo ($squares[$row][$col]['type'] == 'water') ? 'blue' : 'brown'; ?>" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer;"
-                data-id="<?=$squares[$row][$col]['id']?>"
-                data-type="<?=$squares[$row][$col]['type']?>"
-                onclick="editSquareType(this);">
-            </div>
+        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('coords' => true))?>" 
+            style="width: <?=$width?>%; height: 35px; cursor: pointer;"
+            data-id="<?=$squares[$row][$col]['id']?>"
+            data-type="<?=$squares[$row][$col]['type']?>"
+            data-coord="<?=(count($squares[$row][$col]['coords'])) ? 'true' : 'false'?>"
+            onclick="editSquareCoord(this);">
+        </div>
 
-        <?php endfor; ?>    
+    <?php endfor; ?>    
 
-    </div>
+</div>
 
 <?php endfor; ?>
 
 <script>
 
-    function editSquareType(target)
-    {
-        let id = target.dataset.id;
-        let type = target.dataset.type;
+function editSquareCoord(target)
+{
+    let id = target.dataset.id;
+    let type = target.dataset.type;
+    let coord = target.dataset.coord;
 
-        if(type == "ground")
+    if(type == "ground")
+    {
+
+        if(coord == "true")
         {
-            target.dataset.type = "water";
-            target.classList.remove("w3-brown");
-            target.classList.add("w3-blue");
-            type = "water";
+            target.classList.remove("w3-red");
+            target.classList.add("w3-brown");
+            target.dataset.coord = "false";
+            coord = "false";
         }
         else
         {
-            target.dataset.type = "ground";
-            target.classList.remove("w3-blue");
-            target.classList.add("w3-brown");
-            type = "ground";
-        }
+            target.classList.remove("w3-brown");
+            target.classList.add("w3-red");
+            target.dataset.coord = "true";
+            coord = "true";
+        }        
         
-        fetch('/ajax/square/type',{
+        fetch('/ajax/square/coord',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, type: type})
+            body: JSON.stringify({id: id, coord: coord})
         });
     }
+}
 
 </script>
+    
 
 <?php
 

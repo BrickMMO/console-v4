@@ -250,7 +250,7 @@ function navigation_array($selected = false)
                                     'url' => '/radio/dashboard',
                                     'colour' => 'red'
                                 ],[
-                                    'title' => 'Broadcasting Schedule',
+                                    'title' => 'Schedule',
                                     'url' => '/radio/schedule',
                                     'colour' => 'red'
                                 ],[

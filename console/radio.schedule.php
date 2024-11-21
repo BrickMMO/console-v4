@@ -3,18 +3,9 @@
 security_check();
 admin_check();
 
-// Fetch segments for the dropdown
-$segmentsStmt = "SELECT id, name FROM Segments ORDER BY name ASC";
-$result = mysqli_query($connect, $segmentsStmt);
-$segments = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $segments[] = $row;
-}
-// debug_pre($segments);
 
-
-// Add, Edit, Delete the broadcast
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) 
+{
     $segment_id = $_POST['segment_id'];
     $content = generateContent($segment_id);
 
@@ -37,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
 
     header_redirect('/radio/schedule');
     exit();
-} elseif (isset($_POST['edit'])) {
+} 
+elseif (isset($_POST['edit'])) 
+{
     debug_pre($_POST);
     $id = $_POST['id'];
     $timeInput = $_POST['hour'] . ':' . $_POST['minute'] . ' ' . $_POST['ampm'];
@@ -61,7 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
 
     header_redirect('/radio/schedule');
     exit();
-} elseif (isset($_POST['delete'])) {
+} 
+elseif (isset($_POST['delete'])) 
+{
     $id = $_POST['id'];
 
     
@@ -96,9 +91,11 @@ require_once('../templates/main_header.php');
 require_once('../templates/message.php');
 
 
-// Fetching broadcast schedule from database
-$schedule = get_broadcast_list();
-// debug_pre($schedule);
+$query = 'SELECT *
+    FROM schedules
+    WHERE city_id = "'.$_city['id'].'"
+    ORDER BY minute';
+$result = mysqli_query($connect, $query);
 
 ?>
 
@@ -112,25 +109,30 @@ $schedule = get_broadcast_list();
 <table class="w3-table w3-striped w3-bordered">
     <thead>
         <tr>
-            <th>Time</th>
+            <th>Minute</th>
             <th>Title</th>
-            <th>Actions</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($schedule as $item):?>
+        <?php foreach ($result as $record):?>
             <tr>
-                <td><?= htmlspecialchars($item['time']) ?></td>
-                <td><?= htmlspecialchars($item['title']) ?></td>
+                <td><?= htmlspecialchars($record['minute']) ?></td>
+                <td><?= htmlspecialchars($record['name']) ?></td>
                 <td>
-                    <button onclick="showEditForm(<?= $item['id'] ?>);" class="w3-button w3-teal"><i class="fa fa-edit"></i> Edit</button>
-                    <form action="/Radio/schedule" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit" name="delete" class="w3-button w3-red"><i class="fa fa-trash-alt"></i> Delete</button>
-                    </form>
+                    <a href="/radio/schedule/edit/<?=$record['id']?>">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule <?=$record['name']?>?', '/roadview/schedule/delete/<?=$record['id']?>');">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
                 </td>
             </tr>
 
+            <?php /* ?>
             <!-- Hidden Edit Form -->
             <tr id="editForm-<?= $item['id'] ?>" style="display:none;">
                 <td colspan="3">
@@ -179,62 +181,16 @@ $schedule = get_broadcast_list();
                     </form>
                 </td>
             </tr>
+            <?php */ ?>
         <?php endforeach; ?>
     </tbody>
 </table>
+
 <hr>
-<a href="#" onclick="showAddBroadcastForm();" class="w3-button w3-white w3-border w3-margin-top">
-    <i class="fa-solid fa-plus fa-padding-right"></i> Add Broadcast
+
+<a href="/radio/schedule/add" class="w3-button w3-white w3-border w3-margin-top">
+    <i class="fa-solid fa-plus fa-padding-right"></i> Add Schedule
 </a>
-
-<div id="addBroadcastForm" style="display: none;">
-    <h3>Add New Broadcast</h3>
-    <form action="/Radio/schedule" method="post">
-        <label for="hour">Hour:</label>
-        <select id="hour" name="hour" required>
-            <?php for ($i = 1; $i <= 12; $i++): ?>
-                <option value="<?= $i ?>"><?= sprintf('%02d', $i) ?></option>
-            <?php endfor; ?>
-        </select>
-
-        <label for="minute">Minute:</label>
-        <select id="minute" name="minute" required>
-            <?php for ($i = 0; $i < 60; $i += 5): // You can adjust the step value 
-            ?>
-                <option value="<?= sprintf('%02d', $i) ?>"><?= sprintf('%02d', $i) ?></option>
-            <?php endfor; ?>
-        </select>
-
-        <label for="ampm">AM/PM:</label>
-        <select id="ampm" name="ampm" required>
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-        </select>
-
-        <label for="segment_id">Segment:</label>
-        <select id="segment_id" name="segment_id">
-            <?php foreach ($segments as $segment): ?>
-                <option value="<?= $segment['id'] ?>"><?= htmlspecialchars($segment['name']) ?></option>
-            <?php endforeach; ?>
-        </select>
-
-        <input type="submit" name="add" value="Save Broadcast">
-    </form>
-</div>
-<script>
-    function showEditForm(id) {
-        document.getElementById('editForm-' + id).style.display = 'table-row';
-    }
-
-    function hideEditForm(id) {
-        document.getElementById('editForm-' + id).style.display = 'none';
-    }
-
-    function showAddBroadcastForm() {
-        var form = document.getElementById('addBroadcastForm');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
 
 <?php
 require_once('../templates/modal_city.php');

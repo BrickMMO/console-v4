@@ -16,10 +16,9 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 
 include('../templates/message.php');
-// debug_pre(generateContent(4));
-// Prepare and execute the query to fetch broadcasts
-$broadcasts = get_segments_data_by_schedule_5();
-// debug_pre($broadcasts);
+
+// $broadcasts = get_segments_data_by_schedule_5();
+
 ?>
 
 <h1 class="w3-margin-top w3-margin-bottom">
@@ -37,11 +36,8 @@ $broadcasts = get_segments_data_by_schedule_5();
 
 <hr>
 
-<h2>Radio Station</h2>
-
 <img src="https://www.lego.com/cdn/cs/set/assets/blt13be82b8c836289b/10334_alt1.png?format=webply&fit=bounds&quality=60&width=800&height=800&dpr=2" alt="Radio-Image" width="300px" style="margin-bottom: 20px;">
 
-<br>
 <div class="btn" style=" margin-left: 10px; font-size: 20px; ">
     <button class="w3-button w3-teal" id="playRadio" onclick="playRadio()">
         <i class="fas fa-play button-icon"></i>
@@ -53,31 +49,6 @@ $broadcasts = get_segments_data_by_schedule_5();
 
 <hr>
 
-<h2>Upcoming Broadcasts</h2>
-
-<table class="w3-table w3-striped w3-bordered">
-    <thead>
-        <tr>
-            <th>Time</th>
-            <th>Title</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($broadcasts as $broadcast): ?>
-            <tr>
-                <td><?= htmlspecialchars($broadcast['time']) ?></td>
-                <td><?= htmlspecialchars($broadcast['title']) ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<a
-    href="/Radio/schedule"
-    class="w3-button w3-white w3-border w3-margin-top">
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Broadcasting Schedule Edit
-</a>
-<hr>
 <div
     class="w3-row-padding"
     style="margin-left: -16px; margin-right: -16px">

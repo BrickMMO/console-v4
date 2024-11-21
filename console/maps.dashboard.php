@@ -70,11 +70,20 @@ $width = round(100/$_city['width'],2);
     <i class="fa-solid fa-map fa-padding-right"></i> Edit Map Dimensions
 </a>
 
+<hr>
+
 <a
     href="/maps/export"
-    class="w3-button w3-white w3-border w3-margin-top"
+    class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-file-export fa-padding-right"></i> Export Seeder
+</a>
+
+<a
+    href="/maps/coords"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-map-pin fa-padding-right"></i> Simulate GPS Coords
 </a>
 
 <hr />

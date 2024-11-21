@@ -30,6 +30,7 @@ function square_fetch($identifier)
 
     $square['roads'] = square_roads($square['id'], true);
     $square['tracks'] = square_tracks($square['id'], true);
+    $square['coords'] = square_coords($square['id'], true);
     
     return $square;
 
@@ -74,7 +75,13 @@ function square_colour($id, $data = array())
         elseif(isset($data['buildings']) && $square['building_id'])
         {
             return 'blue-grey';
-        }        
+        }       
+        
+        // If road is specified and square is a road
+        elseif(isset($data['coords']) && count($square['coords']))
+        {
+            return 'red';
+        }       
         
         elseif($square['type'] == 'ground')
         {
@@ -154,6 +161,42 @@ function square_tracks($id, $array = false)
 
 }
 
+function square_coords($id, $array = false)
+{
+
+    global $connect;
+
+    $query = 'SELECT coords.*
+        FROM coords
+        INNER JOIN squares
+        ON squares.x = coords.x
+        AND squares.y = coords.y
+        WHERE squares.id = "'.$id.'"';
+    $result = mysqli_query($connect, $query);
+
+    $coords = array();
+
+    if($array) 
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $coords[] = $record['id'];
+        }
+    }
+    else
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $coords[] = $record;
+        }
+    }
+    
+    $coords = array_filter($coords);
+
+    return $coords;
+
+}
+
 function squares_fetch_all($id)
 {
 
@@ -180,6 +223,7 @@ function squares_fetch_all($id)
     {
         $record['roads'] = square_roads($record['id'], true);
         $record['tracks'] = square_tracks($record['id'], true);
+        $record['coords'] = square_coords($record['id'], true);
         $data[$record['y']][$record['x']] = $record;
     }
 
