@@ -687,37 +687,6 @@ function navigation_array($selected = false)
                                 ],
                             ],
                         ],[
-                            'icon' => 'bm-radio-station',
-                            'url' => '/admin/radio/dashboard',
-                            'title' => 'Radio', 
-                            'sub-pages' => [
-                                [
-                                    'title' => 'Dashboard',
-                                    'url' => '/admin/radio/dashboard',
-                                    'colour' => 'red'
-                                ],[
-                                    'title' => 'Segments',
-                                    'url' => '/admin/radio/segments',
-                                    'colour' => 'red'
-                                ],[
-                                    'br' => '---'
-                                ],[
-                                    'title' => 'Radio',
-                                    'url' => 'https://lively.brickmmo.com',
-                                    'colour' => 'orange'
-                                ],[
-                                    'br' => '---'
-                                ],[
-                                    'title' => 'Stats Report',
-                                    'url' => '/stats/applications',
-                                    'colour' => 'orange'
-                                ],[
-                                    'title' => 'Uptime Report',
-                                    'url' => '/uptime/projects',
-                                    'colour' => 'orange'
-                                ],
-                            ],
-                        ],[
                             'icon' => 'bm-settings',
                             'url' => '/admin/settings/dashboard',
                             'title' => 'Settings', 
@@ -736,6 +705,17 @@ function navigation_array($selected = false)
                                 [
                                     'title' => 'Dashboard',
                                     'url' => '/admin/authentication/dashboard',
+                                    'colour' => 'red'
+                                ],
+                            ],
+                        ],[
+                            'icon' => 'bm-github',
+                            'url' => '/admin/crons/dashboard',
+                            'title' => 'Cron Jobs', 
+                            'sub-pages' => [
+                                [
+                                    'title' => 'Dashboard',
+                                    'url' => '/admin/crons/dashboard',
                                     'colour' => 'red'
                                 ],
                             ],
