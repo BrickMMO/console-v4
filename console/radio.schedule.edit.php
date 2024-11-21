@@ -6,39 +6,43 @@ admin_check();
 if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']) || 
-    !road_fetch($_GET['key']))
+    !schedule_fetch($_GET['key']))
 {
-    message_set('Road Error', 'There was an error with the provided road.');
-    header_redirect('/roadview/roads');
+    message_set('Schedule Error', 'There was an error with the provided schedule.');
+    header_redirect('/radio/schedule');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']))
+    if (!validate_blank($_POST['name']) ||
+        !validate_blank($_POST['minute']) || 
+        !validate_blank($_POST['type_id']))
     {
 
-        message_set('Road Error', 'There was an error with the provided road.', 'red');
-        header_redirect('/admin/media/tags');
+        message_set('Schedule Error', 'There was an error with the provided schedule.', 'red');
+        header_redirect('/radio/schedule');
     }
     
-    $query = 'UPDATE roads SET
+    $query = 'UPDATE schedules SET
         name = "'.addslashes($_POST['name']).'",
+        minute = "'.addslashes($_POST['minute']).'",
+        type_id = "'.addslashes($_POST['type_id']).'",
         updated_at = NOW()
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('Road Success', 'Your road has been edited.');
-    header_redirect('/roadview/roads');
+    message_set('Schedule Success', 'Your schedule has been edited.');
+    header_redirect('/radio/schedule');
     
 }
 
-define('APP_NAME', 'Road View');
+define('APP_NAME', 'Radio');
 
-define('PAGE_TITLE','Edit Road');
+define('PAGE_TITLE','Edit Schedule');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -48,7 +52,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$road = road_fetch($_GET['key']);
+$schedule = schedule_fetch($_GET['key']);
 
 ?>
 
@@ -56,22 +60,22 @@ $road = road_fetch($_GET['key']);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/radio.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Radio
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Edit Road
+    <a href="/radio/dashboard">Radio</a> / 
+    <a href="/radio/schedule">Schedule</a> / 
+    Edit Schedule
 </p>
 
 <hr />
 
-<h2>Edit Road: <?=$road['name']?></h2>
+<h2>Edit Schedule: <?=$schedule['name']?></h2>
 
 <form
     method="post"
@@ -85,15 +89,32 @@ $road = road_fetch($_GET['key']);
         type="text" 
         id="name" 
         autocomplete="off"
-        value="<?=$road['name']?>"
+        value="<?=$schedule['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
     </label>
 
+    <input  
+        name="minute" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="minute" 
+        autocomplete="off"
+        value="<?=$schedule['minute']?>"
+    />
+    <label for="minute" class="w3-text-gray">
+        Minute <span id="minute-error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_table('type_id', 'schedule_types', 'id', 'name', array('selected' => $schedule['type_id'], 'empty_key' => ''))?>
+    <label for="type_id" class="w3-text-gray">
+        Type <span id="type-id-error" class="w3-text-red"></span>
+    </label>
+
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Edit Road
+        Edit Schedule
     </button>
 </form>
 
@@ -107,6 +128,28 @@ $road = road_fetch($_GET['key']);
         name_error.innerHTML = "";
         if (name.value == "") {
             name_error.innerHTML = "(name is required)";
+            errors++;
+        }
+
+        let minute = document.getElementById("minute");
+        let minute_error = document.getElementById("minute-error");
+        minute_error.innerHTML = "";
+        if (minute.value == "") {
+            minute_error.innerHTML = "(minute is required)";
+            errors++;
+        }else if (minute.value.length < 2) {
+            minute_error.innerHTML = "(minute must be two numbers)";
+            errors++;
+        }else if (!/^[0-5][0-9]$/.test(minute.value)) {
+            minute_error.innerHTML = "(minute must be between 00 and 59)";
+            errors++;
+        }
+
+        let type_id = document.getElementById("name");
+        let type_id_error = document.getElementById("type-id-error");
+        type_id_error.innerHTML = "";
+        if (type_id.value == "") {
+            type_id_error.innerHTML = "(type is required)";
             errors++;
         }
 

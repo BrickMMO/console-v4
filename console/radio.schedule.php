@@ -91,8 +91,11 @@ require_once('../templates/main_header.php');
 require_once('../templates/message.php');
 
 
-$query = 'SELECT *
+$query = 'SELECT schedules.*,
+    schedule_types.name AS type_name
     FROM schedules
+    LEFT JOIN schedule_types
+    ON schedules.type_id = schedule_types.id
     WHERE city_id = "'.$_city['id'].'"
     ORDER BY minute';
 $result = mysqli_query($connect, $query);
@@ -100,16 +103,19 @@ $result = mysqli_query($connect, $query);
 ?>
 
 <h1 class="w3-margin-top w3-margin-bottom">
-    <img src="https://cdn.brickmmo.com/icons@1.0.0/radio.png" alt="Radio Broadcast Icon" height="50" style="vertical-align: top" /> Radio Broadcast
+    <img src="https://cdn.brickmmo.com/icons@1.0.0/radio.png" alt="Radio Broadcast Icon" height="50" style="vertical-align: top" /> 
+    Radio
 </h1>
 <p><a href="/city/dashboard">Dashboard</a> / <a href="/radio/dashboard">Radio</a> / Schedule</p>
 <hr>
 
-<h2>Broadcasting Schedule</h2>
+<h2>Radio Schedule</h2>
+
 <table class="w3-table w3-striped w3-bordered">
     <thead>
         <tr>
             <th>Minute</th>
+            <th>Type</th>
             <th>Title</th>
             <th></th>
             <th></th>
@@ -119,6 +125,7 @@ $result = mysqli_query($connect, $query);
         <?php foreach ($result as $record):?>
             <tr>
                 <td><?= htmlspecialchars($record['minute']) ?></td>
+                <td><?= htmlspecialchars($record['type_name']) ?></td>
                 <td><?= htmlspecialchars($record['name']) ?></td>
                 <td>
                     <a href="/radio/schedule/edit/<?=$record['id']?>">

@@ -6,28 +6,33 @@ admin_check();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
-    // Basic serverside validation
-    if (!validate_blank($_POST['name']))
+    if (!validate_blank($_POST['name']) ||
+        !validate_blank($_POST['minute']) || 
+        !validate_blank($_POST['type_id']))
     {
-        message_set('Road Error', 'There was an error with the provided road.', 'red');
-        header_redirect('/roadview/roads/add');
+        message_set('Schedule Error', 'There was an error with the provided schedule.', 'red');
+        header_redirect('/radio/schedule/add');
     }
     
-    $query = 'INSERT INTO roads (
+    $query = 'INSERT INTO schedules (
             name,
+            minute,
+            type_id,
             city_id,
             created_at,
             updated_at
         ) VALUES (
             "'.addslashes($_POST['name']).'",
+            "'.addslashes($_POST['minute']).'",
+            "'.addslashes($_POST['type_id']).'",
             "'.$_city['id'].'",
             NOW(),
             NOW()
         )';
     mysqli_query($connect, $query);
 
-    message_set('Tag Success', 'Your road has been added.');
-    header_redirect('/roadview/roads');
+    message_set('Schedule Success', 'Your schedule has been added.');
+    header_redirect('/radio/schedule');
     
 }
 
@@ -55,13 +60,13 @@ include('../templates/message.php');
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Radio
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    <a href="/roadview/roads">Roads</a> / 
-    Add Road
+    <a href="/radio/dashboard">Radio</a> / 
+    <a href="/radio/schedule">Schedule</a> / 
+    Add Schedule
 </p>
 
 <hr />
@@ -85,9 +90,25 @@ include('../templates/message.php');
         Name <span id="name-error" class="w3-text-red"></span>
     </label>
 
+    <input  
+        name="minute" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="minute" 
+        autocomplete="off"
+    />
+    <label for="minute" class="w3-text-gray">
+        Minute <span id="minute-error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_table('type_id', 'schedule_types', 'id', 'name', array('empty_key' => ''))?>
+    <label for="type_id" class="w3-text-gray">
+        Type <span id="type-id-error" class="w3-text-red"></span>
+    </label>
+
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Add Road
+        Add Schedule
     </button>
 </form>
 
@@ -101,6 +122,28 @@ include('../templates/message.php');
         name_error.innerHTML = "";
         if (name.value == "") {
             name_error.innerHTML = "(name is required)";
+            errors++;
+        }
+
+        let minute = document.getElementById("minute");
+        let minute_error = document.getElementById("minute-error");
+        minute_error.innerHTML = "";
+        if (minute.value == "") {
+            minute_error.innerHTML = "(minute is required)";
+            errors++;
+        }else if (minute.value.length < 2) {
+            minute_error.innerHTML = "(minute must be two numbers)";
+            errors++;
+        }else if (!/^[0-5][0-9]$/.test(minute.value)) {
+            minute_error.innerHTML = "(minute must be between 00 and 59)";
+            errors++;
+        }
+
+        let type_id = document.getElementById("name");
+        let type_id_error = document.getElementById("type-id-error");
+        type_id_error.innerHTML = "";
+        if (type_id.value == "") {
+            type_id_error.innerHTML = "(type is required)";
             errors++;
         }
 
