@@ -9,7 +9,7 @@ if(!isset($_GET['code']) || isset($_GET['error']))
 $token = github_access_token($_GET['code']);
 // debug_pre($token);
 
-if(!is_array($token) or !isset($token['access_token']))
+if(!is_array($token) || !isset($token['access_token']))
 {
     message_set('GitHub Error', 'There was an error authenticating your GitHub account.', 'red');
     header_redirect('/login');
@@ -18,7 +18,7 @@ if(!is_array($token) or !isset($token['access_token']))
 $emails = github_emails($token['access_token']);
 // debug_pre($emails);
 
-if(!is_array($emails) or !count($emails))
+if(!is_array($emails) || !count($emails))
 {
     message_set('GitHub Error', 'There was an error authenticating your GitHub account.', 'red');
     header_redirect('/login');

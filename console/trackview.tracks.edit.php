@@ -6,7 +6,7 @@ admin_check();
 if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']) || 
-    !tag_fetch($_GET['key']))
+    !track_fetch($_GET['key']))
 {
     message_set('Track Error', 'There was an error with the provided track.');
     header_redirect('/trackview/tracks');

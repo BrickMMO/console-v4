@@ -3,11 +3,11 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Track View');
+define('APP_NAME', 'Places');
 
-define('PAGE_TITLE','Edit Track');
+define('PAGE_TITLE','Edit Building');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/trackview/tracks');
+define('PAGE_SELECTED_SUB_PAGE', '/places/buildings');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -17,7 +17,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$track = track_fetch($_GET['key']);
+$building = building_fetch($_GET['key']);
 $squares = squares_fetch_all($_city['id']);
 $width = round(100/$_city['width'],2);
 
@@ -27,22 +27,22 @@ $width = round(100/$_city['width'],2);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/trackview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Track View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/trackview/dashboard">Track View</a> / 
-    <a href="/trackview/tracks">Tracks</a> / 
-    Track Squares
+    <a href="/places/dashboard">Places</a> / 
+    <a href="/places/buildings">Buildings</a> / 
+    Building Squares
 </p>
 
 <hr />
 
-<h2>Track Squares: <?=$track['name']?></h2>
+<h2>Building Squares: <?=$building['name']?></h2>
 
 <?php for($row = 0; $row < $_city['height']; $row ++): ?>
 
@@ -50,11 +50,11 @@ $width = round(100/$_city['width'],2);
 
     <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('track_id'=> $_GET['key']))?>" 
+        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('building_id'=> $_GET['key']))?>" 
             style="width: <?=$width?>%; height: 35px; cursor: pointer;"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
-            data-track="<?=(is_array($squares[$row][$col]['tracks']) && in_array($_GET['key'], $squares[$row][$col]['tracks'])) ? 'true' : 'false'?>"
+            data-building="<?=$squares[$row][$col]['building_id'] && $_GET['key'] == $squares[$row][$col]['building_id'] ? 'true' : 'false'?>"
             onclick="editSquareType(this);">
         </div>
 
@@ -70,33 +70,33 @@ function editSquareType(target)
 {
     let id = target.dataset.id;
     let type = target.dataset.type;
-    let track = target.dataset.track;
+    let building = target.dataset.building;
     let key = <?=$_GET['key']?>;
 
     if(type == "ground")
     {
 
-        if(track == "true")
+        if(building == "true")
         {
             target.classList.remove("w3-red");
             target.classList.add("w3-brown");
-            target.dataset.track = "false";
-            track = "false";
+            target.dataset.building = "false";
+            building = "false";
         }
         else
         {
             target.classList.remove("w3-brown");
             target.classList.add("w3-red");
-            target.dataset.track = "true";
-            track = "true";
+            target.dataset.building = "true";
+            building = "true";
         }        
         
-        fetch('/ajax/square/track',{
+        fetch('/ajax/square/building',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, track_id: key, track: track})
+            body: JSON.stringify({id: id, building_id: key, building: building})
         });
     }
 }

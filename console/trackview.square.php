@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
     $query = 'UPDATE squares SET
-        track_id = "'.addslashes($_POST['track_id']).'",
         track_rules = "'.addslashes($_POST['track_rules']).'"
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
@@ -54,8 +53,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
     }   
 
+    $query = 'DELETE FROM square_track
+        WHERE square_id = "'.$_GET['key'].'"';
+    mysqli_query($connect, $query);
+
+    foreach($_POST['track_id'] as $value)
+    {
+        $query = 'INSERT INTO square_track (
+                track_id,
+                square_id
+            ) VALUES (
+                "'.$value.'",
+                "'.$_GET['key'].'"
+            )';
+        mysqli_query($connect, $query);
+    }
+
     message_set('Square Success', 'Square has been updated.');
-    header_redirect('/trackview/square/'.$_GET['key']);
+    // header_redirect('/trackview/square/'.$_GET['key']);
+    header_redirect('/trackview/dashboard');
     
 }
 elseif(isset($_GET['delete']))
@@ -115,7 +131,7 @@ $square = square_fetch($_GET['key']);
     enctype="multipart/form-data"
 >
 
-    <?=form_select_table('track_id', 'tracks', 'id', 'name', array('selected' => $square['track_id'], 'empty_key' => 0, 'first' => true))?>
+    <?=form_select_table('track_id', 'tracks', 'id', 'name', array('multiple' => true, 'selected' => $square['tracks'], 'first' => true))?>
     <label for="track_id" class="w3-text-gray">
         Track <span id="track-id-error" class="w3-text-red"></span>
     </label>

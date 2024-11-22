@@ -3,18 +3,9 @@
 security_check();
 admin_check();
 
-// Fetch segments for the dropdown
-$segmentsStmt = "SELECT id, name FROM Segments ORDER BY name ASC";
-$result = mysqli_query($connect, $segmentsStmt);
-$segments = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $segments[] = $row;
-}
-// debug_pre($segments);
 
-
-// Add, Edit, Delete the broadcast
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) 
+{
     $segment_id = $_POST['segment_id'];
     $content = generateContent($segment_id);
 
@@ -37,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
 
     header_redirect('/radio/schedule');
     exit();
-} elseif (isset($_POST['edit'])) {
+} 
+elseif (isset($_POST['edit'])) 
+{
     debug_pre($_POST);
     $id = $_POST['id'];
     $timeInput = $_POST['hour'] . ':' . $_POST['minute'] . ' ' . $_POST['ampm'];
@@ -61,7 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {
 
     header_redirect('/radio/schedule');
     exit();
-} elseif (isset($_POST['delete'])) {
+} 
+elseif (isset($_POST['delete'])) 
+{
     $id = $_POST['id'];
 
     
@@ -96,145 +91,60 @@ require_once('../templates/main_header.php');
 require_once('../templates/message.php');
 
 
-// Fetching broadcast schedule from database
-$schedule = get_broadcast_list();
-// debug_pre($schedule);
+$query = 'SELECT schedules.*,
+    schedule_types.name AS type_name
+    FROM schedules
+    LEFT JOIN schedule_types
+    ON schedules.type_id = schedule_types.id
+    WHERE city_id = "'.$_city['id'].'"
+    ORDER BY minute';
+$result = mysqli_query($connect, $query);
 
 ?>
 
 <h1 class="w3-margin-top w3-margin-bottom">
-    <img src="https://cdn.brickmmo.com/icons@1.0.0/radio.png" alt="Radio Broadcast Icon" height="50" style="vertical-align: top" /> Radio Broadcast
+    <img src="https://cdn.brickmmo.com/icons@1.0.0/radio.png" alt="Radio Broadcast Icon" height="50" style="vertical-align: top" /> 
+    Radio
 </h1>
 <p><a href="/city/dashboard">Dashboard</a> / <a href="/radio/dashboard">Radio</a> / Schedule</p>
 <hr>
 
-<h2>Broadcasting Schedule</h2>
+<h2>Radio Schedule</h2>
+
 <table class="w3-table w3-striped w3-bordered">
     <thead>
         <tr>
-            <th>Time</th>
-            <th>Title</th>
-            <th>Actions</th>
+            <th>Minute</th>
+            <th>Type</th>
+            <th class="bm-table-icon"></th>
+            <th class="bm-table-icon"></th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($schedule as $item):?>
+        <?php foreach ($result as $record):?>
             <tr>
-                <td><?= htmlspecialchars($item['time']) ?></td>
-                <td><?= htmlspecialchars($item['title']) ?></td>
+                <td><?= htmlspecialchars($record['minute']) ?></td>
+                <td><?= htmlspecialchars($record['type_name']) ?></td>
                 <td>
-                    <button onclick="showEditForm(<?= $item['id'] ?>);" class="w3-button w3-teal"><i class="fa fa-edit"></i> Edit</button>
-                    <form action="/Radio/schedule" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit" name="delete" class="w3-button w3-red"><i class="fa fa-trash-alt"></i> Delete</button>
-                    </form>
+                    <a href="/radio/schedule/edit/<?=$record['id']?>">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
                 </td>
-            </tr>
-
-            <!-- Hidden Edit Form -->
-            <tr id="editForm-<?= $item['id'] ?>" style="display:none;">
-                <td colspan="3">
-                    <form action="/Radio/schedule" method="post">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <!-- <input type="hidden" name="segment_id" value="<?= $item['segment_id'] ?>"> -->
-
-                        <?php
-                        // Convert 24-hour format to 12-hour format with AM/PM
-                        $timeParts = explode(':', $item['time']);
-                        $hour = (int)$timeParts[0];
-                        $minute = $timeParts[1];
-                        $ampm = $hour >= 12 ? 'PM' : 'AM';
-                        $hour = $hour > 12 ? $hour - 12 : ($hour == 0 ? 12 : $hour);
-                        ?>
-
-                        <label for="hour-<?= $item['id'] ?>">Hour:</label>
-                        <select id="hour-<?= $item['id'] ?>" name="hour" required>
-                            <?php for ($i = 1; $i <= 12; $i++): ?>
-                                <option value="<?= $i ?>" <?= $i == $hour ? 'selected' : '' ?>><?= sprintf('%02d', $i) ?></option>
-                            <?php endfor; ?>
-                        </select>
-
-                        <label for="minute-<?= $item['id'] ?>">Minute:</label>
-                        <select id="minute-<?= $item['id'] ?>" name="minute" required>
-                            <?php for ($i = 0; $i < 60; $i += 5): ?>
-                                <option value="<?= sprintf('%02d', $i) ?>" <?= $minute == sprintf('%02d', $i) ? 'selected' : '' ?>><?= sprintf('%02d', $i) ?></option>
-                            <?php endfor; ?>
-                        </select>
-
-                        <label for="ampm-<?= $item['id'] ?>">AM/PM:</label>
-                        <select id="ampm-<?= $item['id'] ?>" name="ampm" required>
-                            <option value="AM" <?= $ampm == 'AM' ? 'selected' : '' ?>>AM</option>
-                            <option value="PM" <?= $ampm == 'PM' ? 'selected' : '' ?>>PM</option>
-                        </select>
-
-                        <label for="segment-<?= $item['id'] ?>">Title:</label>
-                        <select id="segment-<?= $item['id'] ?>" name="segment_id">
-                            <?php foreach ($segments as $segment): ?>
-                                <option value="<?= $segment['id'] ?>" <?= $segment['name'] == $item['title'] ? 'selected' : '' ?>><?= $segment['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <button type="submit" name="edit" class="w3-button w3-green">Save Changes</button>
-                        <button type="button" onclick="hideEditForm(<?= $item['id'] ?>);" class="w3-button w3-gray">Cancel</button>
-                    </form>
+                <td>
+                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule?', '/roadview/schedule/delete/<?=$record['id']?>');">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
 <hr>
-<a href="#" onclick="showAddBroadcastForm();" class="w3-button w3-white w3-border w3-margin-top">
-    <i class="fa-solid fa-plus fa-padding-right"></i> Add Broadcast
+
+<a href="/radio/schedule/add" class="w3-button w3-white w3-border">
+    <i class="fa-solid fa-plus fa-padding-right"></i> Add Schedule
 </a>
-
-<div id="addBroadcastForm" style="display: none;">
-    <h3>Add New Broadcast</h3>
-    <form action="/Radio/schedule" method="post">
-        <label for="hour">Hour:</label>
-        <select id="hour" name="hour" required>
-            <?php for ($i = 1; $i <= 12; $i++): ?>
-                <option value="<?= $i ?>"><?= sprintf('%02d', $i) ?></option>
-            <?php endfor; ?>
-        </select>
-
-        <label for="minute">Minute:</label>
-        <select id="minute" name="minute" required>
-            <?php for ($i = 0; $i < 60; $i += 5): // You can adjust the step value 
-            ?>
-                <option value="<?= sprintf('%02d', $i) ?>"><?= sprintf('%02d', $i) ?></option>
-            <?php endfor; ?>
-        </select>
-
-        <label for="ampm">AM/PM:</label>
-        <select id="ampm" name="ampm" required>
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-        </select>
-
-        <label for="segment_id">Segment:</label>
-        <select id="segment_id" name="segment_id">
-            <?php foreach ($segments as $segment): ?>
-                <option value="<?= $segment['id'] ?>"><?= htmlspecialchars($segment['name']) ?></option>
-            <?php endforeach; ?>
-        </select>
-
-        <input type="submit" name="add" value="Save Broadcast">
-    </form>
-</div>
-<script>
-    function showEditForm(id) {
-        document.getElementById('editForm-' + id).style.display = 'table-row';
-    }
-
-    function hideEditForm(id) {
-        document.getElementById('editForm-' + id).style.display = 'none';
-    }
-
-    function showAddBroadcastForm() {
-        var form = document.getElementById('addBroadcastForm');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
 
 <?php
 require_once('../templates/modal_city.php');

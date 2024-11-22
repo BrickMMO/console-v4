@@ -3,7 +3,7 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Bricksum');
+define('APP_NAME', 'Maps');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');

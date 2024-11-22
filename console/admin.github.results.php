@@ -73,7 +73,7 @@ $result = mysqli_query($connect, $query);
 
 </table>
 
-<?php foreach(explode(', ', $github_accounts) as $account): ?>
+<?php foreach(explode(',', $github_accounts) as $account): ?>
 
 <a
     href="/admin/github/import/<?=$account?>"

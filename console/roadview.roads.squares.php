@@ -3,37 +3,6 @@
 security_check();
 admin_check();
 
-if(
-    !isset($_GET['key']) || 
-    !is_numeric($_GET['key']) || 
-    !tag_fetch($_GET['key']))
-{
-    message_set('Road Error', 'There was an error with the provided road.');
-    header_redirect('/roadview/roads');
-}
-elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
-{
-
-    // Basic serverside validation
-    if (!validate_blank($_POST['name']))
-    {
-
-        message_set('Road Error', 'There was an error with the provided road.', 'red');
-        header_redirect('/admin/media/tags');
-    }
-    
-    $query = 'UPDATE roads SET
-        name = "'.addslashes($_POST['name']).'",
-        updated_at = NOW()
-        WHERE id = '.$_GET['key'].'
-        LIMIT 1';
-    mysqli_query($connect, $query);
-
-    message_set('Road Success', 'Your road has been edited.');
-    header_redirect('/roadview/roads');
-    
-}
-
 define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE','Edit Road');
@@ -81,11 +50,11 @@ $width = round(100/$_city['width'],2);
 
     <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-        <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('road_id'=> $_GET['key']))?>" 
+        <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('road_id'=> $_GET['key']))?>" 
             style="width: <?=$width?>%; height: 35px; cursor: pointer;"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
-            data-road-id="<?=$squares[$row][$col]['road_id'] == $_GET['key']?>"
+            data-road="<?=(is_array($squares[$row][$col]['roads']) && in_array($_GET['key'], $squares[$row][$col]['roads'])) ? 'true' : 'false'?>"
             onclick="editSquareType(this);">
         </div>
 
@@ -101,28 +70,25 @@ function editSquareType(target)
 {
     let id = target.dataset.id;
     let type = target.dataset.type;
-    let road_id = target.dataset.road_id;
+    let road = target.dataset.road;
     let key = <?=$_GET['key']?>;
-
-    console.log(road_id);
 
     if(type == "ground")
     {
 
-        if(road_id == key)
+        if(road == "true")
         {
-            target.classList.remove("w3-dark-grey");
+            target.classList.remove("w3-red");
             target.classList.add("w3-brown");
-
-            target.dataset.road_id = 0;
+            target.dataset.road = "false";
+            road = "false";
         }
         else
         {
             target.classList.remove("w3-brown");
-            target.classList.remove("w3-grey");
-            target.classList.add("w3-dark-grey");
-
-            target.dataset.road_id = key;
+            target.classList.add("w3-red");
+            target.dataset.road = "true";
+            road = "true";
         }        
         
         fetch('/ajax/square/road',{
@@ -130,7 +96,7 @@ function editSquareType(target)
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id, road_id: target.dataset.road_id})
+            body: JSON.stringify({id: id, road_id: key, road: road})
         });
     }
 }

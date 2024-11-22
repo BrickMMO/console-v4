@@ -17,8 +17,11 @@
     <!-- BrickMMO Icons -->
     <link rel="stylesheet" href="https://cdn.brickmmo.com/fonticons@1.0.0/fonticons.css" />
 
+    <!--
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+    -->
+    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
@@ -47,7 +50,7 @@
   </head>
   <body>
 
-  <div id="loading" class="w3-modal" style="z-index: 300; display; transition: 0.5s;">
+  <div id="loading-overlay" class="w3-modal" style="z-index: 300; display; transition: 0.5s;">
     <div class="w3-black w3-text-white w3-padding-16 w3-center" style="max-width: 200px; margin: auto;">
       <strong>
         <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
@@ -60,7 +63,7 @@
 
     function loading()
     {
-      let loadingOverlay = document.getElementById("loading");  
+      let loadingOverlay = document.getElementById("loading-overlay");  
       loadingOverlay.style.display = "block";
 
       setTimeout(function () {

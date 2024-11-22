@@ -6,25 +6,21 @@ admin_check();
 if (isset($_GET['delete'])) 
 {
 
-    $query = 'DELETE FROM roads 
+    $query = 'DELETE FROM crons 
         WHERE id = '.$_GET['delete'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM road_square 
-        WHERE road_id = '.$_GET['delete'];
-    mysqli_query($connect, $query);
-
-    message_set('Delete Success', 'Road has been deleted.');
-    header_redirect('/roadview/roads');
+    message_set('Delete Success', 'Cron has been deleted.');
+    header_redirect('/admin/crons/dashboard');
     
 }
 
-define('APP_NAME', 'Roadvie');
+define('APP_NAME', 'Cron');
 
-define('PAGE_TITLE', 'Roads');
-define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_TITLE', 'Dashboard');
+define('PAGE_SELECTED_SECTION', 'admin-settings');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/crons/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -34,22 +30,8 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'SELECT *,(
-        SELECT COUNT(*)
-        FROM squares
-        INNER JOIN road_square
-        ON squares.id = road_square.square_id
-        WHERE road_id = roads.id
-    ) AS squares,(
-        SELECT COUNT(*)
-        FROM squares
-        INNER JOIN road_square
-        ON squares.id = road_square.square_id
-        INNER JOIN square_images
-        ON square_images.square_id = squares.id
-        WHERE road_id = roads.id
-    ) AS images
-    FROM roads
+$query = 'SELECT *
+    FROM crons
     ORDER BY name';
 $result = mysqli_query($connect, $query);
 
@@ -63,23 +45,20 @@ $result = mysqli_query($connect, $query);
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Cron Jobs
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    Roads
+    Cron Jobs
 </p>
 
 <hr />
 
-<h2>Roads</h2>
-
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th class="bm-table-number">Images</th>
-        <th class="bm-table-number">Squares</th>
+        <th>URL</th>
+        <th class="bm-table-number">When</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -89,21 +68,21 @@ $result = mysqli_query($connect, $query);
             <td>
                 <?=$record['name']?>
             </td>
-            <td>                
-                <?=$record['images']?>/<?=$record['squares'] * 4?>
-            </td>
             <td>
-                <a href="/roadview/roads/squares/<?=$record['id']?>">
-                    <?=$record['squares']?>
+                <a href="<?=ENV_CONSOLE_DOMAIN?><?=$record['url']?>">
+                    <?=$record['url']?>
                 </a>
             </td>
             <td>
-                <a href="/roadview/roads/edit/<?=$record['id']?>">
+                <?=$record['when']?>
+            </td>
+            <td>
+                <a href="/admin/crons/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the road <?=$record['name']?>?', '/roadview/roads/delete/<?=$record['id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the cron job <?=$record['name']?>?', '/admin/crons/dashboard/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -113,10 +92,10 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/roadview/roads/add"
+    href="/admin/crons/add"
     class="w3-button w3-white w3-border"
 >
-    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Road
+    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Cron Job
 </a>
 
 <?php

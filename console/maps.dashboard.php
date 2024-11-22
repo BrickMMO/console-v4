@@ -17,7 +17,7 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$squares = squares_fetch_all($_city['id']);
+$squares = squares_fetch_all($_city['id'], array('roads' => true));
 $width = round(100/$_city['width'],2);
 
 ?>
@@ -45,7 +45,7 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo ($squares[$row][$col]['type'] == 'water') ? 'blue' : 'brown'; ?>" 
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true, 'tracks' => true, 'buildings' => true))?>" 
                 style="width: <?=$width?>%; height: 35px; cursor: pointer;"
                 onclick="location.href='/maps/square/<?=$squares[$row][$col]['id']?>';">
             </div>
@@ -68,6 +68,22 @@ $width = round(100/$_city['width'],2);
     class="w3-button w3-white w3-border w3-margin-top"
 >
     <i class="fa-solid fa-map fa-padding-right"></i> Edit Map Dimensions
+</a>
+
+<hr>
+
+<a
+    href="/maps/export"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-file-export fa-padding-right"></i> Export Seeder
+</a>
+
+<a
+    href="/maps/coords"
+    class="w3-button w3-white w3-border"
+>
+    <i class="fa-solid fa-map-pin fa-padding-right"></i> Simulate GPS Coords
 </a>
 
 <hr />

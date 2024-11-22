@@ -5,38 +5,41 @@ admin_check();
 
 if(
     !isset($_GET['key']) || 
-    !is_numeric($_GET['key']))
+    !is_numeric($_GET['key']) || 
+    !road_fetch($_GET['key']))
 {
-    message_set('Tag Error', 'There was an error with the provided QR code.');
-    header_redirect('/qr/dashboard');
+    message_set('Road Error', 'There was an error with the provided cron.');
+    header_redirect('/admin/crons/dashboard');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']) || !validate_blank($_POST['url']))
+    if (!validate_blank($_POST['name']))
     {
-        message_set('QR Code Error', 'There was an error with the provided QR code.', 'red');
-        header_redirect('/qr/add');
+
+        message_set('Road Error', 'There was an error with the provided road.', 'red');
+        header_redirect('/admin/crons/dashboard');
     }
     
-    $query = 'UPDATE qrs SET
-        name = "'.addslashes($_POST['name']).'",
-        url = "'.addslashes($_POST['url']).'",
-        updated_at = NOW()
+    $query = 'UPDATE crons SET
+        `name` = "'.addslashes($_POST['name']).'",
+        `when` = "'.addslashes($_POST['when']).'",
+        `url` = "'.addslashes($_POST['url']).'"
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('QR Success', 'QR code has been successfully updated.');
-    header_redirect('/qr/dashboard');
+    message_set('Cron Job Success', 'Your cron job has been edited.');
+    header_redirect('/admin/crons/dashboard');
     
 }
 
-define('APP_NAME', 'Events');
-define('PAGE_TITLE', 'Edit QR Code');
-define('PAGE_SELECTED_SECTION', 'community');
-define('PAGE_SELECTED_SUB_PAGE', '/qr/dashboard');
+define('APP_NAME', 'Cron Jobs');
+
+define('PAGE_TITLE','Edit Cron Job');
+define('PAGE_SELECTED_SECTION', 'admin-settings');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/crons/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -46,37 +49,30 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'SELECT *
-    FROM qrs
-    WHERE id = "'.$_GET['key'].'"
-    LIMIT 1';
-$result = mysqli_query($connect, $query);
-$qr = mysqli_fetch_assoc($result);
+$cron = cron_fetch($_GET['key']);
 
 ?>
 
+<!-- CONTENT -->
+
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/qr.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
         height="50"
         style="vertical-align: top"
     />
-    QR Codes
+    Cron Job
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/qr/dashboard">Qr Codes</a> / 
-    Add QR Code
+    <a href="/admin/crons/dashboard">Cron Jobs</a> / 
+    Edit Cron Job
 </p>
 
-<hr>
+<hr />
 
-<h2>Edit QR Code: <?=$qr['name']?></h2>
+<h2>Edit Cron Job: <?=$cron['name']?></h2>
 
-<!-- Display the QR code -->
-<img src="<?= $qr['image'] ?>" alt="" style="max-width: 200px;" class="w3-padding w3-border">
-
-<!-- Edit form -->
 <form
     method="post"
     novalidate
@@ -85,23 +81,35 @@ $qr = mysqli_fetch_assoc($result);
 
     <input  
         name="name" 
-        class="w3-input w3-border w3-margin-top" 
+        class="w3-input w3-border" 
         type="text" 
         id="name" 
         autocomplete="off"
-        value="<?=$qr['name']?>"
+        value="<?=$cron['name']?>"
     />
     <label for="name" class="w3-text-gray">
         Name <span id="name-error" class="w3-text-red"></span>
     </label>
 
     <input  
+        name="when" 
+        class="w3-input w3-border" 
+        type="text" 
+        id="when" 
+        autocomplete="off"
+        value="<?=$cron['when']?>"
+    />
+    <label for="when" class="w3-text-gray">
+        When <span id="when-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
         name="url" 
-        class="w3-input w3-border w3-margin-top" 
+        class="w3-input w3-border" 
         type="text" 
         id="url" 
         autocomplete="off"
-        value="<?=$qr['url']?>"
+        value="<?=$cron['url']?>"
     />
     <label for="url" class="w3-text-gray">
         URL <span id="url-error" class="w3-text-red"></span>
@@ -109,9 +117,8 @@ $qr = mysqli_fetch_assoc($result);
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>
-        Add QR Code
+        Edit Road
     </button>
-
 </form>
 
 <script>
@@ -127,22 +134,32 @@ $qr = mysqli_fetch_assoc($result);
             errors++;
         }
 
+        let when = document.getElementById("when");
+        let when_error = document.getElementById("when-error");
+        when_error.innerHTML = "";
+        if (when.value == "") {
+            when_error.innerHTML = "(when is required)";
+            errors++;
+        }        
+
         let url = document.getElementById("url");
         let url_error = document.getElementById("url-error");
         url_error.innerHTML = "";
         if (url.value == "") {
-            url_error.innerHTML = "(URL is required)";
+            url_error.innerHTML = "(url is required)";
             errors++;
-        }
+        }    
 
         if (errors) return false;
     }
 
 </script>
+    
 
 <?php
 
-include('../templates/main_footer.php');
-include('../templates/html_footer.php');
+include('../templates/modal_city.php');
 
-?>
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');

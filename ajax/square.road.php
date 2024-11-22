@@ -9,10 +9,23 @@ if(
     return;
 }
 
-$query = 'UPDATE squares SET
-    road_id = "'.addslashes($_POST['road_id']).'"
-    WHERE id = '.addslashes($_POST['id']).'
-    LIMIT 1';
-mysqli_query($connect, $query);
+if($_POST['road'] == "false")
+{
+    $query = 'DELETE FROM road_square
+        WHERE road_id = "'.addslashes($_POST['road_id']).'"
+        AND square_id = "'.$_POST['id'].'"';
+    mysqli_query($connect, $query);
+}
+else
+{
+    $query = 'INSERT INTO road_square (
+            road_id,
+            square_id
+        ) VALUES (
+            "'.addslashes($_POST['road_id']).'",
+            "'.addslashes($_POST['id']).'"
+        )';
+    mysqli_query($connect, $query);
+}
 
 $data = array('message' => 'Square has been updated.', 'error' => false);

@@ -60,7 +60,7 @@ include('../templates/message.php');
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     <a href="/trackview/dashboard">Track View</a> / 
-    <a href="/trackview/tracks">tracks</a> / 
+    <a href="/trackview/tracks">Tracks</a> / 
     Add Track
 </p>
 

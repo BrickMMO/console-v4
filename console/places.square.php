@@ -10,14 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // Basic serverside validation
     if (
-        !validate_blank($_POST['road_id']))
+        !validate_blank($_POST['building_id']))
     {
         message_set('Square Error', 'There was an error with your square information.', 'red');
         header_redirect('/maps/square/'.$_GET['key']);
     }
 
     $query = 'UPDATE squares SET
-        road_rules = "'.addslashes($_POST['road_rules']).'"
+        building_rules = "'.addslashes($_POST['building_rules']).'"
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
@@ -53,14 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
     }   
 
-    $query = 'DELETE FROM road_square
+    $query = 'DELETE FROM building_square
         WHERE square_id = "'.$_GET['key'].'"';
     mysqli_query($connect, $query);
 
-    foreach($_POST['road_id'] as $value)
+    foreach($_POST['building_id'] as $value)
     {
-        $query = 'INSERT INTO road_square (
-                road_id,
+        $query = 'INSERT INTO building_square (
+                building_id,
                 square_id
             ) VALUES (
                 "'.$value.'",
@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
     message_set('Square Success', 'Square has been updated.');
-    // header_redirect('/roadview/square/'.$_GET['key']);
-    header_redirect('/roadview/dashboard');
+    // header_redirect('/places/square/'.$_GET['key']);
+    header_redirect('/places/dashboard');
     
 }
 elseif(isset($_GET['delete']))
@@ -84,7 +84,7 @@ elseif(isset($_GET['delete']))
     mysqli_query($connect, $query);
     
     message_set('Square Image Success', 'Square image has been updated.');
-    header_redirect('/roadview/square/'.$_GET['key']);
+    header_redirect('/places/square/'.$_GET['key']);
 
 }
 
@@ -110,19 +110,19 @@ $square = square_fetch($_GET['key']);
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img
-        src="https://cdn.brickmmo.com/icons@1.0.0/roadview.png"
+        src="https://cdn.brickmmo.com/icons@1.0.0/places.png"
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Places
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/roadview/dashboard">Road View</a> / 
-    Modify Road Square
+    <a href="/places/dashboard">Places</a> / 
+    Modify Building Square
 </p>
 <hr />
-<h2>Modify Road Square</h2>
+<h2>Modify Building Square</h2>
 
 <form
     method="post"
@@ -131,20 +131,20 @@ $square = square_fetch($_GET['key']);
     enctype="multipart/form-data"
 >
 
-    <?=form_select_table('road_id', 'roads', 'id', 'name', array('multiple' => true, 'selected' => $square['roads'], 'first' => true))?>
-    <label for="road_id" class="w3-text-gray">
-        Road <span id="road-id-error" class="w3-text-red"></span>
+    <?=form_select_table('building_id', 'buildings', 'id', 'name', array('multiple' => true, 'selected' => $square['buildings'], 'first' => true))?>
+    <label for="building_id" class="w3-text-gray">
+        Building <span id="building-id-error" class="w3-text-red"></span>
     </label>
 
     <input  
-        name="road_rules" 
+        name="building_rules" 
         class="w3-input w3-border w3-margin-top" 
         type="text" 
-        id="road_rules" 
-        value="<?=$square['road_rules']?>"
+        id="building_rules" 
+        value="<?=$square['building_rules']?>"
     />
-    <label for="road_rules" class="w3-text-gray">
-        Road Rules <span id="road-rules-error" class="w3-text-red"></span>
+    <label for="building_rules" class="w3-text-gray">
+        Building Rules <span id="building-rules-error" class="w3-text-red"></span>
     </label>
 
     <?php foreach(DIRECTIONS as $direction): ?>
@@ -154,7 +154,7 @@ $square = square_fetch($_GET['key']);
                 <img src="<?=$square[$direction]?>" style="max-width:300px;" />
             </div>
             <div class="w3-margin-top">
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete this image?', '/roadview/square/delete/<?=$direction?>/<?=$_GET['key']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete this image?', '/places/square/delete/<?=$direction?>/<?=$_GET['key']?>');">
                     <i class="fa-solid fa-trash-can"></i> Delete Image
                 </a>
             </div>

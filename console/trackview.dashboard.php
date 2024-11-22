@@ -3,7 +3,7 @@
 security_check();
 admin_check();
 
-define('APP_NAME', 'Tracks');
+define('APP_NAME', 'Track View');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
@@ -34,7 +34,7 @@ $width = round(100/$_city['width'],2);
     Track View
 </h1>
 <p>
-<a href="/city/dashboard">Dashboard</a> / 
+    <a href="/city/dashboard">Dashboard</a> / 
     Track View
 </p>
 <hr>
@@ -45,12 +45,15 @@ $width = round(100/$_city['width'],2);
 
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
-            <div class="w3-cell w3-border w3-<?php echo square_colour($squares[$row][$col]['id'], array('tracks' => true)); ?>" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle;"
+            <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('tracks' => true))?> w3-text-white" 
+                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%;"
                 onclick="location.href='/trackview/square/<?=$squares[$row][$col]['id']?>';">
 
-                <?php if($squares[$row][$col]['images']< 4 and $squares[$row][$col]['track_id']): ?>
+                <?php if(count($squares[$row][$col]['tracks']) && $squares[$row][$col]['images'] < 4): ?>
                     <i class="fa-solid fa-triangle-exclamation"></i>
+                <?php endif; ?>
+                <?php if(count($squares[$row][$col]['tracks']) && !$squares[$row][$col]['track_rules']): ?>
+                    <i class="fa-solid fa-arrow-turn-up"></i>
                 <?php endif; ?>
 
             </div>
@@ -60,47 +63,6 @@ $width = round(100/$_city['width'],2);
     </div>
 
 <?php endfor; ?>
-
-<hr />
-
-<div
-    class="w3-row-padding"
-    style="margin-left: -16px; margin-right: -16px"
->
-    <div class="w3-half">
-        <div class="w3-card">
-            <header class="w3-container w3-grey w3-padding w3-text-white">
-                <i class="bm-brix"></i> Uptime Status
-            </header>
-            <div class="w3-container w3-padding">Uptime Status Summary</div>
-            <footer class="w3-container w3-border-top w3-padding">
-                <a
-                    href="/uptime/maps"
-                    class="w3-button w3-border w3-white"
-                >
-                    <i class="fa-regular fa-file-lines fa-padding-right"></i>
-                    Full Report
-                </a>
-            </footer>
-        </div>
-    </div>
-    <div class="w3-half">
-        <div class="w3-card">
-            <header class="w3-container w3-grey w3-padding w3-text-white">
-                <i class="bm-brix"></i> Stat Summary
-            </header>
-            <div class="w3-container w3-padding">App Statistics Summary</div>
-            <footer class="w3-container w3-border-top w3-padding">
-                <a
-                    href="/stats/maps"
-                    class="w3-button w3-border w3-white"
-                >
-                    <i class="fa-regular fa-chart-bar fa-padding-right"></i> Full Report
-                </a>
-            </footer>
-        </div>
-    </div>
-</div>
 
 <?php
 
