@@ -92,3 +92,10 @@ function generateContent($segmentId)
     // return $result;
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
+
+function radio_script($id)
+{
+
+    return 'SCRIPT FOR '.$id.' ';
+
+}

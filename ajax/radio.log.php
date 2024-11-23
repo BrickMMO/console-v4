@@ -1,112 +1,105 @@
 <?php
 
-$minute = (date('i') % 15);
-$minute_string = str_pad(date('i') % 15, 2, '0', STR_PAD_LEFT);
-$minute_start = floor(date('i') / 15) * 15;
-$minute_last = 0;
+if(!isset($_GET['key']))
+{
+    $data = array('message' => 'No city ID specified.', 'error' => false);
+    return;
+}
 
-/**
-echo 'Current Min: '.$minute.'<br>';
-echo 'Padded: '.$minute_string.'<br>';
-echo 'Start: '.$minute_start.'<br>';
-/**/
-
-$query = 'SELECT schedules.*,
-    schedule_types.name AS type_name
-    FROM schedules
-    INNER JOIN schedule_types
-    ON schedules.type_id = schedule_types.id
-    WHERE city_id = "'.$_city['id'].'"
-    ORDER BY minute <= "'.$minute_string.'", minute';
-$schedules = mysqli_query($connect, $query);
+$now = time();
+$now -= $now % 60;
 
 $counter = 0;
 $data = array();
 
-while($schedule = mysqli_fetch_assoc($schedules))
+for($i = 0; $i < 60; $i ++)
 {
 
-    /**/
-    echo '<hr>';
-    debug_pre($schedule);
-    /**/
+    $minute_play = date('i', $now);
+    $minute_lookup = str_pad($minute_play % 15, 2, '0', STR_PAD_LEFT);
+    $play = mktime(
+        date('h', $now),
+        $minute_play, 
+        0);
+
+    // echo 'Time: '.$now.'<br>';
+    // echo 'Date: '.date_to_format($now, 'FULL').'<br>';
+    // echo 'Minute: '.$minute_play.'<br>';
+    // echo 'Lookup: '.$minute_lookup.'<br>';
+    // echo 'Play: '.date_to_format($play, 'FULL').'<br>';
 
     $query = 'SELECT *
         FROM schedule_logs
-        WHERE play_at > "'.date_now().'"
-        AND schedule_id = "'.$schedule['id'].'"
-        ORDER BY play_at ASC';
-    $logs = mysqli_query($connect, $query);
+        WHERE city_id = "'.$_GET['key'].'"
+        AND play_at = "'.date_to_format($play, 'MYSQL').'"';
+    $result = mysqli_query($connect, $query);
 
-    echo $query.'<br>';
-    echo 'Rows: '.mysqli_num_rows($logs).'<br>';
-    echo 'Date: '.date('Y-m-d H:i:s').'<br>';
-
-    $minute_next = $schedule['minute'] + $minute_start;
-
-        if($minute_next < $minute_last) $minute_next += 15;
-        echo 'Last: '.$minute_last.'<br>';
-        echo 'Next: '.$minute_next.'<br>';
-
-        $play_at = date('Y-m-d H:i:00', strtotime(date('Y-m-d H:'.$minute_next.':00')));
-        echo 'Play: '.$play_at.'<br>';
-
-    if(!mysqli_num_rows($logs))
+    // echo 'Queued: '.mysqli_num_rows($result).'<br>';
+    // echo 'Query: '.$query.'<br>';
+    
+    // If a log does not exist for this play date
+    if(!mysqli_num_rows($result))
     {
 
-        $script = 'Testing a script...';
-        
-        
-
-        
-        
-
-        $query = 'INSERT INTO schedule_logs (
-                name,
-                script,
-                schedule_id,
-                city_id,
-                play_at,
-                created_at,
-                updated_at
-            ) VALUES (
-                "'.$schedule['type_name'].' at '.$schedule['minute'].'",
-                "'.$script.'",
-                "'.$schedule['id'].'",
-                "'.$schedule['city_id'].'",
-                "'.$play_at.'",
-                "'.date_now().'",
-                "'.date_now().'"
-            )';
-
-        echo $query.'<br>';
-
-        mysqli_query($connect, $query);
-
-        
-        
-        $id = mysqli_insert_id($connect);
-
-        $query = 'SELECT *
-            FROM schedule_logs
-            WHERE id = "'.$id.'"
+        $query = 'SELECT schedules.*,
+            schedule_types.name AS type_name
+            FROM schedules
+            LEFT JOIN schedule_types 
+            ON schedules.type_id = schedule_types.id
+            WHERE minute = "'.$minute_lookup.'"
+            AND city_id = "'.$_GET['key'].'"
             LIMIT 1';
         $result = mysqli_query($connect, $query);
 
-        $data[] = mysqli_fetch_assoc($result);
+        // echo 'Scheudle Exists: '.mysqli_num_rows($result).'<br>';
 
+        // If a schedule exists for this minute
+        if(mysqli_num_rows($result))
+        {
+
+            $schedule = mysqli_fetch_assoc($result);
+            $script = radio_script($schedule['id']);
+
+            $query = 'INSERT INTO schedule_logs (
+                    name,
+                    script,
+                    schedule_id,
+                    city_id,
+                    play_at,
+                    created_at,
+                    updated_at
+                ) VALUES (
+                    "'.$schedule['type_name'].' at '.$minute_play.'",
+                    "'.$script.'",
+                    "'.$schedule['id'].'",
+                    "'.$schedule['city_id'].'",
+                    "'.date_to_format($play, 'MYSQL').'",
+                    "'.date_now().'",
+                    "'.date_now().'"
+                )';
+            mysqli_query($connect, $query);
+
+            $query = 'SELECT *
+                FROM schedule_logs
+                WHERE id = "'.mysqli_insert_id($connect).'"
+                LIMIT 1';
+            $result = mysqli_query($connect, $query);
+
+            $data[] = mysqli_fetch_assoc($result);
+
+            $counter ++;
+
+        }
         
-
-        $counter ++;
-
     }
 
-    $minute_last = $minute_next;
+    $now += 60;
     
+
 }
 
 $data = array(
     'message' => $counter.' new radio logs have been scheduled.',
     'error' => false, 
-    'stores' => $data
+    'logs' => $data,
 );

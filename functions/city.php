@@ -6,6 +6,27 @@ function city_avatar($id, $absolute = false)
     return $city['image'] ? $city['image'] : ($absolute ? ENV_CONSOLE_DOMAIN : '').'/images/no_city.png';
 }
 
+function city_fetch_all()
+{
+
+    global $connect;
+
+    $query = 'SELECT *
+        FROM cities
+        ORDER BY name';
+    $result = mysqli_query($connect, $query);
+
+    $data = array();
+
+    while($record = mysqli_fetch_assoc($result))
+    {
+        $data[] = $record;
+    }
+    
+    return $data;
+
+}
+
 function city_fetch($identifier, $field = false)
 {
 
