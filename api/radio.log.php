@@ -1,10 +1,13 @@
 <?php
 
-if(!isset($_GET['key']))
+if(!isset($_GET['key']) || !is_numeric($_GET['key']))
 {
     $data = array('message' => 'No city ID specified.', 'error' => false);
     return;
 }
+
+// $query = 'TRUNCATE schedule_logs';
+// mysqli_query($connect, $query);
 
 $now = time();
 $now -= $now % 60;
@@ -12,7 +15,7 @@ $now -= $now % 60;
 $counter = 0;
 $data = array();
 
-for($i = 0; $i < 60; $i ++)
+for($i = 0; $i < 15; $i ++)
 {
 
     $minute_play = date('i', $now);
@@ -58,11 +61,9 @@ for($i = 0; $i < 60; $i ++)
         {
 
             $schedule = mysqli_fetch_assoc($result);
-            $script = radio_script($schedule['id']);
 
             $query = 'INSERT INTO schedule_logs (
                     name,
-                    script,
                     schedule_id,
                     city_id,
                     play_at,
@@ -70,7 +71,6 @@ for($i = 0; $i < 60; $i ++)
                     updated_at
                 ) VALUES (
                     "'.$schedule['type_name'].' at '.$minute_play.'",
-                    "'.$script.'",
                     "'.$schedule['id'].'",
                     "'.$schedule['city_id'].'",
                     "'.date_to_format($play, 'MYSQL').'",
@@ -85,7 +85,12 @@ for($i = 0; $i < 60; $i ++)
                 LIMIT 1';
             $result = mysqli_query($connect, $query);
 
-            $data[] = mysqli_fetch_assoc($result);
+            $log = mysqli_fetch_assoc($result);
+
+            radio_script($log['id'], $_GET['key']);
+            radio_mp3($log['id']);
+
+            $data[] = $log;
 
             $counter ++;
 
@@ -94,7 +99,6 @@ for($i = 0; $i < 60; $i ++)
     }
 
     $now += 60;
-    
 
 }
 

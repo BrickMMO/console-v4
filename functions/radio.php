@@ -66,7 +66,7 @@ function generateContent($segmentId)
     $row = mysqli_fetch_assoc($result);
     $segmentName = $row ? $row['name'] : 'Unknown Segment';
 
-    $apiKey = OPENAI_API_KEY;
+    $apiKey = OPENAI_SECRET;
     $data = [
         'model' => 'gpt-4o-mini',
         'messages' => [
@@ -89,13 +89,121 @@ function generateContent($segmentId)
     curl_close($ch);
 
     $result = json_decode($response, true);
-    // return $result;
+
+
+    $apiKey = OPENAI_SECRET;
+    $data = [
+        'model' => 'gpt-4o-mini',
+        'messages' => [
+            ['role' => 'system', 'content' => "Write a detailed script"],
+            ['role' => 'user', 'content' => "Write a detailed, engaging LEGO based script for a 5-minute radio segment on " . $segmentName]
+        ],
+        'max_tokens' => 1000,
+        'temperature' => 0,
+        "top_p" => 0,
+        "frequency_penalty" => 0,
+        "presence_penalty" => 0,
+    ];
+
+    $ch = curl_init('https://api.openai.com/v1/chat/completions');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $apiKey, 'Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($response, true);
+
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
 
-function radio_script($id)
+function radio_script($log_id, $city_id)
 {
 
-    return 'SCRIPT FOR '.$id.' ';
+    global $connect;
+
+    $log = schedule_log_fetch($log_id);
+    $schedule = schedule_fetch($log['schedule_id']);
+    $schedule_type = schedule_type_fetch($schedule['type_id']);
+    $length = schedule_length($schedule['id']);
+
+    // $schedule_type['filename'] = 'traffic.php';
+
+    require('../applications/radio_prompts/'.$schedule_type['filename']);
+
+    $data = [
+        'model' => 'gpt-4o-mini',
+        'messages' => [
+            ['role' => 'system', 'content' => 'Write a detailed script'],
+            ['role' => 'user', 'content' => $prompt]
+        ],
+        'max_tokens' => 1000,
+        'temperature' => 0,
+        "top_p" => 0,
+        "frequency_penalty" => 0,
+        "presence_penalty" => 0,
+    ];
+
+    $headers = [
+        'Authorization: Bearer '.OPENAI_SECRET,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init('https://api.openai.com/v1/chat/completions');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $query = 'UPDATE schedule_logs SET
+        script = "'.addslashes($response).'"
+        WHERE id = "'.$log_id.'"
+        LIMIT 1';
+    mysqli_query($connect, $query);
+
+}
+
+function radio_mp3($log_id)
+{
+
+    global $connect;
+
+    $log = schedule_log_fetch($log_id);
+
+    // debug_pre($log);
+    // echo gettype($log['script']);
+
+    $script = json_decode($log['script'], true);
+
+    // echo gettype($script);
+    // debug_pre($script);
+
+    $data = [
+        "model" => "tts-1",
+        "input" => $script['choices'][0]['message']['content'],
+        "voice" => "alloy",
+    ];
+
+    $headers = [
+        'Authorization: Bearer '.OPENAI_SECRET,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init('https://api.openai.com/v1/audio/speech');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $log_filename = $log_id.'.mp3';
+    $log_folder = '../public/radio_queue/';
+    $log_file = $myfile = fopen($log_folder.$log_filename, "w");
+    
+    fwrite($log_file, $response);
 
 }
