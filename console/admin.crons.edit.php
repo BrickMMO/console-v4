@@ -6,7 +6,7 @@ admin_check();
 if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']) || 
-    !road_fetch($_GET['key']))
+    !cron_fetch($_GET['key']))
 {
     message_set('Road Error', 'There was an error with the provided cron.');
     header_redirect('/admin/crons/dashboard');

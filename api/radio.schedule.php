@@ -7,7 +7,7 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
 }
 
 
-$query = 'SELECT *,
+$query = 'SELECT schedules.*,
     schedule_types.name AS type_name
     FROM schedules
     INNER JOIN schedule_types
