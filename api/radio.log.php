@@ -6,8 +6,8 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
     return;
 }
 
-// $query = 'TRUNCATE schedule_logs';
-// mysqli_query($connect, $query);
+$query = 'TRUNCATE schedule_logs';
+mysqli_query($connect, $query);
 
 $now = time();
 $now -= $now % 60;
@@ -15,7 +15,7 @@ $now -= $now % 60;
 $counter = 0;
 $data = array();
 
-for($i = 0; $i < 3; $i ++)
+for($i = 0; $i < 1; $i ++)
 {
 
     $minute_play = date('i', $now);

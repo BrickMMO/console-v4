@@ -60,13 +60,17 @@ foreach($files as $key => $file)
                 type,
                 google_id,
                 city_id,
-                user_id
+                user_id,
+                created_at,
+                updated_at
             ) VALUES (
                 "'.$file['name'].'",
                 "'.$file['type'].'",
                 "'.$file['google_id'].'",
                 "'.$_city['id'].'",
-                "'.$_user['id'].'"
+                "'.$_user['id'].'",
+                NOW(),
+                NOW()
             )';
         mysqli_query($connect, $query); 
 

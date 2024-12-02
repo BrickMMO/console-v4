@@ -1,5 +1,7 @@
 <?php
 
+$length = 1;
+
 $prompt = 'Write a script for a '.$length.' minute radio segment. 
 
 The radio station name is Lively Radio. 
@@ -38,22 +40,22 @@ $result = mysqli_query($connect, $query);
 
 while($road = mysqli_fetch_assoc($result))
 {
-    $prompt .= $road['name'].' is '.$road['squares'].' large and has '.$road['cars'].' on it.'.chr(13);
+    $prompt .= $road['name'].' is at '.round($road['cars']/$road['squares']*100).'% capacity.'.chr(13);
 }
 
 $prompt .= '
 
-Do not mention the size of the roads or the exact number of cars, just use this data to gauge which roads 
+Do not mention the size of the roads or the exact number of cars or percentages, just use this data to gauge which roads 
 should be included in the report and if traffic is good or bad. The report does not need to include every 
 street.
 
 Here is some other optional information:
 
 The city name is Smart City.
-On Diagon Alley is Dagobah sawmp.
+On Diagon Alley is Dagobah swamp.
 The Daily Bugle is on the corner of Second Ave and 39th Street.
 The Sanctum Sanctorum is on Blecker Street Street.
-Lifting bridge on Second Street is up and no traffic can get through.
+Lifting bridge on 39th Avenue is up and no traffic can get through.
 The train gate on Eriador Street is down and a train is passing through. 
 
 Please include at least three of the above details in the report. 

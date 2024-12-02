@@ -128,9 +128,11 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
-    // $schedule_type['filename'] = 'traffic.php';
+    $schedule_type['filename'] = 'traffic.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
+
+    debug_pre($prompt);
 
     $data = [
         'model' => 'gpt-4o-mini',
@@ -157,6 +159,8 @@ function radio_script($log_id, $city_id)
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     $response = curl_exec($ch);
     curl_close($ch);
+
+    debug_pre($response);
 
     $query = 'UPDATE schedule_logs SET
         script = "'.addslashes($response).'"
