@@ -6,9 +6,9 @@ admin_check();
 if(
     !isset($_GET['key']) || 
     !is_numeric($_GET['key']) || 
-    !tag_fetch($_GET['key']))
+    !media_fetch($_GET['key']))
 {
-    message_set('Tag Error', 'There was an error with the provided tag.');
+    message_set('Image Error', 'There was an error with the provided image.');
     header_redirect('/admin/media/images');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
@@ -17,8 +17,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-
-        message_set('Tag Error', 'There was an error with the provided image.', 'red');
+        message_set('Image Error', 'There was an error with the provided image.', 'red');
         header_redirect('/admin/media/images');
     }
     
@@ -53,9 +52,9 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 define('APP_NAME', 'Media');
 
-define('PAGE_TITLE','Edit Tag');
+define('PAGE_TITLE','Edit Image');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/media/tags');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/media/images');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -124,7 +123,7 @@ $media = media_fetch($_GET['key']);
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
-        <i class="fa-solid fa-tag fa-padding-right"></i>
+        <i class="fa-solid fa-image fa-padding-right"></i>
         Edit Image
     </button>
 </form>
