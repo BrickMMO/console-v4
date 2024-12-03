@@ -24,10 +24,27 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     $query = 'UPDATE media SET
         name = "'.addslashes($_POST['name']).'",
+        approved = "'.addslashes($_POST['approved']).'",
         updated_at = NOW()
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
+
+    $query = 'DELETE FROM media_tag
+        WHERE medium_id = "'.$_GET['key'].'"';
+    mysqli_query($connect, $query);
+
+    foreach($_POST['tag_id'] as $value)
+    {
+        $query = 'INSERT INTO media_tag (
+                tag_id,
+                medium_id
+            ) VALUES (
+                "'.$value.'",
+                "'.$_GET['key'].'"
+            )';
+        mysqli_query($connect, $query);
+    }
 
     message_set('Image Success', 'Your taimageg has been edited.');
     header_redirect('/admin/media/images');
@@ -96,7 +113,15 @@ $media = media_fetch($_GET['key']);
         Name <span id="name-error" class="w3-text-red"></span>
     </label>
 
-    
+    <?=form_select_table('tag_id', 'tags', 'id', 'name', array('multiple' => true, 'selected' => $media['tags'], 'size' => 10))?>
+    <label for="building_id" class="w3-text-gray">
+        Tags <span id="building-id-error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_array('approved', array(1 => 'Approved', 0 => 'Unapproved'), array('selected' => $media['approved']))?>
+    <label for="road_id" class="w3-text-gray">
+        Road <span id="road-id-error" class="w3-text-red"></span>
+    </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
         <i class="fa-solid fa-tag fa-padding-right"></i>

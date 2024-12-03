@@ -51,6 +51,7 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
+        <th>Tags</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -61,13 +62,20 @@ $result = mysqli_query($connect, $query);
                 <?=$record['name']?>
             </td>
             <td>
-                <a href="/admin/media/images/edit/<?=$record['id']?>">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
+                <?php foreach(media_tags($record['id']) as $tag):?>
+                    <span class="w3-tag w3-blue"><?=$tag['name']?></span>
+                <?php endforeach; ?>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the image <?=$record['name']?>?', '/admin/media/images/delete/<?=$record['id']?>');">
-                    <i class="fa-solid fa-trash-can"></i>
+                <?php if($record['approved'] == 1): ?>
+                    <i class="fa-solid fa-thumbs-up w3-text-green"></i>
+                <?php else: ?>
+                    <i class="fa-solid fa-thumbs-down w3-text-red"></i>
+                <?php endif; ?>
+            </td>
+            <td>
+                <a href="/admin/media/images/edit/<?=$record['id']?>">
+                    <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
         </tr>
