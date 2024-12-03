@@ -60,6 +60,7 @@ $download_count = mysqli_num_rows(mysqli_query($connect, $query));
 <p>
     Total Images: <span class="w3-tag w3-blue"><?=$image_count?></span> 
     Total Videos: <span class="w3-tag w3-blue"><?=$video_count?></span> 
+    Total Videos: <span class="w3-tag w3-blue"><?=$audio_count?></span> 
     Total Downloads: <span class="w3-tag w3-blue"><?=$download_count?></span>
 </p>
 <hr />
