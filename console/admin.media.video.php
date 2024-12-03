@@ -12,17 +12,17 @@ if (isset($_GET['approve']))
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    message_set('Approval Success', 'Image has been deleted.');
-    header_redirect('/admin/media/images');
+    message_set('Approval Success', 'Video has been deleted.');
+    header_redirect('/admin/media/video');
     
 }
 
 
 define('APP_NAME', 'Media');
 
-define('PAGE_TITLE', 'Images');
+define('PAGE_TITLE', 'Vdeo');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/media/images');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/media/video');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -43,7 +43,7 @@ $query = 'SELECT media.*,
     ON city_id = cities.id
     LEFT JOIN users 
     ON media.user_id = users.id
-    WHERE type = "image"
+    WHERE type = "video"
     ORDER BY name';
 $result = mysqli_query($connect, $query);
 
@@ -62,12 +62,12 @@ $result = mysqli_query($connect, $query);
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     <a href="/admin/media/dashboard">Media</a> / 
-    Images
+    Video
 </p>
 
 <hr />
 
-<h2>Images</h2>
+<h2>Video</h2>
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
@@ -95,13 +95,13 @@ $result = mysqli_query($connect, $query);
                 <?php if($record['approved'] == 1): ?>
                     <i class="fa-solid fa-thumbs-up w3-text-green"></i>
                 <?php else: ?>
-                    <a href="#" onclick="return confirmModal('Are you sure you want to approve the image <?=$record['name']?>?', '/admin/media/images/approve/<?=$record['id']?>');">
+                    <a href="#" onclick="return confirmModal('Are you sure you want to approve the video <?=$record['name']?>?', '/admin/media/video/approve/<?=$record['id']?>');">
                         <i class="fa-solid fa-thumbs-down w3-text-red"></i>
                     </a>
                 <?php endif; ?>
             </td>
             <td class="bm-table-icon">
-                <a href="/admin/media/images/edit/<?=$record['id']?>">
+                <a href="/admin/media/video/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
@@ -111,11 +111,11 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-  href="/action/google/import/image"
+  href="/action/google/import/video"
   class="w3-button w3-white w3-border" 
   onclick="loading();"
 >
-  <i class="fa-solid fa-file-import fa-padding-right"></i> Import Images from Google Drive
+  <i class="fa-solid fa-file-import fa-padding-right"></i> Import Video from Google Drive
 </a>
 
 <?php

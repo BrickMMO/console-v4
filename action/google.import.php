@@ -20,7 +20,7 @@ mysqli_query($connect, $query);
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 $google = json_decode($google, true);
 
-if($_GET['key'] == 'audio') $setting = 'GOOGLE_DRIVE_AUDIO';
+if($_GET['key'] == 'audio') $setting = 'G OOGLE_DRIVE_AUDIO';
 elseif($_GET['key'] == 'image') $setting = 'GOOGLE_DRIVE_IMAGE';
 elseif($_GET['key'] == 'video') $setting = 'GOOGLE_DRIVE_VIDEO';
 
@@ -42,7 +42,7 @@ catch(Exception $e)
     header_redirect('/admin/authentication/dashboard');
 }
 
-$images = 0;
+$media = 0;
 
 foreach($files as $key => $file)
 {
@@ -125,7 +125,7 @@ foreach($files as $key => $file)
 
         }
 
-        $images ++;
+        $media ++;
 
     }
 
@@ -134,7 +134,7 @@ foreach($files as $key => $file)
 message_set(
     'Import Success', 
     'Media from the BrickMMO Google Drive have been imported. '.
-    'Imported '.$images.' new images.'
+    'Imported '.$media.' new media.'
 );
 header_redirect(ENV_CONSOLE_DOMAIN.'/admin/media/'.$redirect);
 

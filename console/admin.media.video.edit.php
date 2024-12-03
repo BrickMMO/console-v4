@@ -8,8 +8,8 @@ if(
     !is_numeric($_GET['key']) || 
     !media_fetch($_GET['key']))
 {
-    message_set('Image Error', 'There was an error with the provided image.');
-    header_redirect('/admin/media/images');
+    message_set('Video Error', 'There was an error with the provided video.');
+    header_redirect('/admin/media/video');
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
@@ -17,8 +17,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     // Basic serverside validation
     if (!validate_blank($_POST['name']))
     {
-        message_set('Image Error', 'There was an error with the provided image.', 'red');
-        header_redirect('/admin/media/images');
+        message_set('Video Error', 'There was an error with the provided video.', 'red');
+        header_redirect('/admin/media/imvideoages');
     }
     
     $query = 'UPDATE media SET
@@ -45,16 +45,16 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
         mysqli_query($connect, $query);
     }
 
-    message_set('Image Success', 'Your image has been edited.');
-    header_redirect('/admin/media/images');
+    message_set('Video Success', 'Your video has been edited.');
+    header_redirect('/admin/media/video');
     
 }
 
 define('APP_NAME', 'Media');
 
-define('PAGE_TITLE','Edit Image');
+define('PAGE_TITLE','Edit Video');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/media/images');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/media/video');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -81,8 +81,8 @@ $media = media_fetch($_GET['key']);
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
     <a href="/admin/media/dashboard">Media</a> / 
-    <a href="/admin/media/images">Images</a> / 
-    Edit Media
+    <a href="/admin/media/video">Video</a> / 
+    Edit Video
 </p>
 
 <hr />
@@ -90,7 +90,12 @@ $media = media_fetch($_GET['key']);
 <h2>Edit Media: <?=$media['name']?></h2>
 
 <?php if($media['google_id']): ?>
-    <img src="https://lh3.googleusercontent.com/d/<?=$media['google_id']?>=w500-h500" class="w3-padding w3-border w3-margin-bottom">
+    <iframe src="https://drive.google.com/file/d/<?=$media['google_id']?>/preview" 
+        width="426" 
+        height="240" 
+        allow="autoplay"
+        style="border: none;"
+        class="w3-padding w3-border w3-margin-bottom"></iframe>
 <?php endif; ?>
 
 
@@ -123,8 +128,8 @@ $media = media_fetch($_GET['key']);
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
-        <i class="fa-solid fa-image fa-padding-right"></i>
-        Edit Image
+        <i class="fa-solid fa-video fa-padding-right"></i>
+        Edit Video
     </button>
 </form>
 
