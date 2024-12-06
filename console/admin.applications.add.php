@@ -6,37 +6,37 @@ admin_check();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Basic server-side validation
-    if (!validate_blank($_POST['project_name'])) {
-        message_set('Project Error', 'There was an error with the provided project.', 'red');
+    if (!validate_blank($_POST['name'])) {
+        message_set('Project Error', 'There was an error with the provided application.', 'red');
         header_redirect('/admin/applications/add');
     }
 
-    // Insert project into the database
-    $project_name = addslashes($_POST['project_name']);
-    $description = addslashes($_POST['description']);
-    
-    $query = 'INSERT INTO projects (
-                project_name,
-                description,
-                created_at,
-                updated_at
-              ) VALUES (
-                "'. $project_name . '",
-                "' . $description . '",
-                NOW(),
-                NOW()
-              )';
+    $query = 'INSERT INTO applications (
+            name,
+            description,
+            url,
+            github,
+            created_at,
+            updated_at
+        ) VALUES (
+            "'.addslashes($_POST['name']).'",
+            "'.addslashes($_POST['description']).'",
+            "'.addslashes($_POST['url']).'",
+            "'.addslashes($_POST['github']).'",
+            NOW(),
+            NOW()
+        )';
     mysqli_query($connect, $query);
 
     // Set success message and redirect
-    message_set('Project Success', 'Your project has been added successfully.');
+    message_set('Application Success', 'Your application has been added successfully.');
     header_redirect('/admin/applications/dashboard');
 }
 
 define('APP_NAME', 'Setting');
 define('PAGE_TITLE', 'Add Application');
-define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/applications/add');
+define('PAGE_SELECTED_SECTION', 'admin-settings');
+define('PAGE_SELECTED_SUB_PAGE', '/admin/applications/dashboard');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -70,22 +70,42 @@ include('../templates/message.php');
 
 <form method="post" novalidate id="main-form">
     
-    <!-- Project Name Input -->
     <input  
-        name="project_name" 
+        name="name" 
         class="w3-input w3-border" 
         type="text" 
-        id="project_name" 
+        id="name" 
         autocomplete="off"
     />
-    <label for="project_name" class="w3-text-gray">
-        Application Name <span id="name-error" class="w3-text-red"></span>
+    <label for="name" class="w3-text-gray">
+        Name <span id="name-error" class="w3-text-red"></span>
     </label>
 
-    <!-- Description Input -->
+    <input  
+        name="github" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="github" 
+        autocomplete="off"
+    />
+    <label for="github" class="w3-text-gray">
+        GitHub <span id="github-error" class="w3-text-red"></span>
+    </label>
+
+    <input  
+        name="url" 
+        class="w3-input w3-border w3-margin-top" 
+        type="text" 
+        id="url" 
+        autocomplete="off"
+    />
+    <label for="url" class="w3-text-gray">
+        URL <span id="url-error" class="w3-text-red"></span>
+    </label>
+
     <textarea  
         name="description" 
-        class="w3-input w3-border" 
+        class="w3-input w3-border w3-margin-top" 
         id="description"
         rows="4"
     ></textarea>
@@ -94,7 +114,7 @@ include('../templates/message.php');
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
-        <i class="fa-solid fa-project fa-padding-right"></i>
+        <i class="fa-solid fa-diagram-project fa-diagram-project"></i>
         Add Application
     </button>
 </form>
@@ -105,20 +125,11 @@ include('../templates/message.php');
         let errors = 0;
 
         // Validate Project Name
-        let projectName = document.getElementById("project_name");
+        let name = document.getElementById("name");
         let nameError = document.getElementById("name-error");
         nameError.innerHTML = "";
-        if (projectName.value == "") {
-            nameError.innerHTML = "(Project Name is required)";
-            errors++;
-        }
-
-        // Validate Description
-        let description = document.getElementById("description");
-        let descriptionError = document.getElementById("description-error");
-        descriptionError.innerHTML = "";
-        if (description.value == "") {
-            descriptionError.innerHTML = "(Description is required)";
+        if (name.value == "") {
+            nameError.innerHTML = "(Name is required)";
             errors++;
         }
 

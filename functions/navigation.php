@@ -254,6 +254,10 @@ function navigation_array($selected = false)
                                     'url' => '/radio/schedule',
                                     'colour' => 'red'
                                 ],[
+                                    'title' => 'Types',
+                                    'url' => '/radio/types',
+                                    'colour' => 'red'
+                                ],[
                                     'br' => '---'
                                 ],[
                                     'title' => 'Visit Radio App',

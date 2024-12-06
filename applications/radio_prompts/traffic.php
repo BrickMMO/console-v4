@@ -55,6 +55,7 @@ The city name is Smart City.
 On Diagon Alley is Dagobah swamp.
 The Daily Bugle is on the corner of Second Ave and 39th Street.
 The Sanctum Sanctorum is on Blecker Street Street.
+
 Lifting bridge on 39th Avenue is up and no traffic can get through.
 The train gate on Eriador Street is down and a train is passing through. 
 

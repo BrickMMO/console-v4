@@ -1,6 +1,6 @@
 <?php
 
-function project_fetch($identifier)
+function application_fetch($identifier)
 {
 
     if(!$identifier) return false;
@@ -8,9 +8,9 @@ function project_fetch($identifier)
     global $connect;
 
     $query = 'SELECT *
-        FROM projects
+        FROM applications
         WHERE id = "'.addslashes($identifier).'"
-        OR project_name = "'.addslashes($identifier).'"
+        OR name = "'.addslashes($identifier).'"
         LIMIT 1';
     $result = mysqli_query($connect, $query);
 

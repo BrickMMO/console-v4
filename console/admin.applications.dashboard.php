@@ -4,12 +4,12 @@ security_check();
 admin_check();
 
 if (isset($_GET['delete'])) {
-    $query = 'DELETE FROM projects 
+    $query = 'DELETE FROM applications 
         WHERE id = '.$_GET['delete'].'
         LIMIT 1';
     mysqli_query($connect, $query);
     
-    message_set('Delete Success', 'application has been deleted.');
+    message_set('Delete Success', 'Application has been deleted.');
     header_redirect('/admin/applications/dashboard');
 }
 
@@ -25,32 +25,21 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 include('../templates/message.php');
 
-// Query to fetch all projects and related details
-$query = 'SELECT p.id AS project_id, 
-        p.project_name, 
-        (
-            SELECT COUNT(DISTINCT ts.user_id) 
-            FROM timesheets ts
-            JOIN tasks t ON ts.task_id = t.id
-            WHERE t.project_id = p.id 
-            AND ts.date >= CURDATE() - INTERVAL 1 DAY
-        ) AS active_users, 
-        (
-            SELECT SUM(ts.hours_worked) 
-            FROM timesheets ts
-            JOIN tasks t ON ts.task_id = t.id
-            WHERE t.project_id = p.id
-            AND ts.date >= CURDATE() - INTERVAL 1 DAY
-        ) AS active_hours,
-        (
-            SELECT MAX(ts.date) 
-            FROM timesheets ts
-            WHERE ts.project_id = p.id
-        ) AS last_update
-    FROM 
-        projects p
-    ORDER BY p.project_name';
-
+$query = 'SELECT *,(
+        SELECT COUNT(DISTINCT user_id) 
+        FROM timesheets
+        WHERE application_id = applications.id
+    ) AS users,(
+        SELECT SUM(hours)
+        FROM timesheets
+        WHERE application_id = applications.id
+    ) AS hours,(
+        SELECT MAX(date) 
+        FROM timesheets
+        WHERE application_id = applications.id
+    ) AS last_update
+    FROM applications
+    ORDER BY name';
 $result = mysqli_query($connect, $query);
 
 ?>
@@ -65,9 +54,10 @@ $result = mysqli_query($connect, $query);
     />
     Application
 </h1>
+
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/applications/dashboard">Applications</a> 
+    Applications
 </p>
 
 <hr />
@@ -77,9 +67,9 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th class="bm-table-number">Active Users</th>
-        <th class="bm-table-number">Active Hours</th>
-        <th class="bm-table-number">Last Updated</th>
+        <th>Last Updated</th>
+        <th class="bm-table-number">Users</th>
+        <th class="bm-table-number">Hours</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -87,24 +77,24 @@ $result = mysqli_query($connect, $query);
     <?php while($record = mysqli_fetch_assoc($result)): ?>
         <tr>
             <td>
-                <?=$record['project_name']?>
-            </td>
-            <td>
-                <?=$record['active_users']?>
-            </td>
-            <td>
-                <?=$record['active_hours']?>
+                <?=$record['name']?>
             </td>
             <td>
                 <?=$record['last_update']?>
             </td>
+            <td class="bm-table-number">
+                <?=$record['users']?>
+            </td>
+            <td class="bm-table-number">
+                <?=$record['hours']?>
+            </td>
             <td>
-                <a href="/setting/applications/edit/<?=$record['project_id']?>">
+                <a href="/admin/applications/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the application <?=$record['project_name']?>?', '/admin/applications/dashboard/delete/<?=$record['project_id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the application <?=$record['name']?>?', '/admin/applications/dashboard/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -114,7 +104,7 @@ $result = mysqli_query($connect, $query);
 </table>
 
 <a
-    href="/setting/applications/add"
+    href="/admin/applications/add"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-project fa-padding-right"></i> Add New Application
