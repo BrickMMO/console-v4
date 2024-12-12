@@ -20,7 +20,7 @@ mysqli_query($connect, $query);
 $google = setting_fetch('GOOGLE_ACCESS_TOKEN');
 $google = json_decode($google, true);
 
-if($_GET['key'] == 'audio') $setting = 'G OOGLE_DRIVE_AUDIO';
+if($_GET['key'] == 'audio') $setting = 'GOOGLE_DRIVE_AUDIO';
 elseif($_GET['key'] == 'image') $setting = 'GOOGLE_DRIVE_IMAGE';
 elseif($_GET['key'] == 'video') $setting = 'GOOGLE_DRIVE_VIDEO';
 
