@@ -74,7 +74,7 @@ $result = mysqli_query($connect, $query);
             <td>
                 <?=$record['name']?>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <a href="/places/buildings/squares/<?=$record['id']?>">
                     <?=$record['squares']?>
                 </a>

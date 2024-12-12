@@ -89,10 +89,10 @@ $result = mysqli_query($connect, $query);
             <td>
                 <?=$record['name']?>
             </td>
-            <td>                
+            <td class="bm-table-number">
                 <?=$record['images']?>/<?=$record['squares'] * 4?>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <a href="/trackview/tracks/squares/<?=$record['id']?>">
                     <?=$record['squares']?>
                 </a>

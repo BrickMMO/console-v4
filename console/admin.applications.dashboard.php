@@ -52,7 +52,7 @@ $result = mysqli_query($connect, $query);
         height="50"
         style="vertical-align: top"
     />
-    Application
+    Applications
 </h1>
 
 <p>
@@ -67,7 +67,6 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th>Last Updated</th>
         <th class="bm-table-number">Users</th>
         <th class="bm-table-number">Hours</th>
         <th class="bm-table-icon"></th>
@@ -78,9 +77,16 @@ $result = mysqli_query($connect, $query);
         <tr>
             <td>
                 <?=$record['name']?>
-            </td>
-            <td>
-                <?=$record['last_update']?>
+                <small>
+                    <?php if($record['url']): ?>
+                        <br>
+                        <a href="<?=$record['url']?>"><?=$record['url']?></a>
+                    <?php endif; ?>
+                    <?php if($record['github']): ?>
+                        <br>
+                        <a href="https://github.com/codeadaca/<?=$record['github']?>">https://github.com/codeadaca/<?=$record['github']?></a>
+                    <?php endif; ?>
+                </small>
             </td>
             <td class="bm-table-number">
                 <?=$record['users']?>

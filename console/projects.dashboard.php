@@ -87,13 +87,13 @@ $result = mysqli_query($connect, $query);
             <td>
                 <?=$record['name']?>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <?=$record['images']?>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <?=$record['videos']?>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <?=$record['videos']?>
             </td>
             <td>

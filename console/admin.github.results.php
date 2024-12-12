@@ -62,7 +62,7 @@ $result = mysqli_query($connect, $query);
                     <i class="fa-brands fa-github" aria-hidden="true"></i> /<?=$record['owner']?>/<?=$record['name']?>
                 </a>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <?=$record['error_count']?>
             </td>
             <td>

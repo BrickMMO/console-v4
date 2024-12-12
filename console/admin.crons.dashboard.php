@@ -73,7 +73,7 @@ $result = mysqli_query($connect, $query);
                     <?=$record['url']?>
                 </a>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <?=$record['when']?>
             </td>
             <td>
