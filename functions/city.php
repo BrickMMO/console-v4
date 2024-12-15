@@ -75,7 +75,15 @@ function city_seeder($identifier)
 
     global $connect;
 
-    $data = '// **************************************************'.chr(13).
+    $data = '<?php
+
+use App\Models\Road;
+use App\Models\Track;
+use App\Models\Building;
+use App\Models\Square;
+use App\Models\SqureImage;
+
+// **************************************************'.chr(13).
         '// Roads'.chr(13);
 
     $query = 'SELECT *
