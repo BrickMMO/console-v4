@@ -35,6 +35,7 @@ We will install this application using MAMP in a method that does not prevent yo
 ```
 127.0.0.1 local.account.brickmmo.com 
 127.0.0.1 local.console.brickmmo.com
+127.0.0.1 local.api.brickmmo.com
 ```
 
 > [!NOTE]
