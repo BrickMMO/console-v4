@@ -67,6 +67,11 @@ ServerName local.account.brickmmo.com
 DocumentRoot "/Users/thomasa/Desktop/BrickMMO/console-v4/public" 
 ServerName local.console.brickmmo.com
 </VirtualHost>
+
+<VirtualHost *:7777>
+DocumentRoot "/Users/thomasa/Desktop/BrickMMO/console-v4/public" 
+ServerName local.api.brickmmo.com
+</VirtualHost>
 ```
 
 This is line 614 in my file.
