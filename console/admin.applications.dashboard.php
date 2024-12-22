@@ -84,7 +84,7 @@ $result = mysqli_query($connect, $query);
                     <?php endif; ?>
                     <?php if($record['github']): ?>
                         <br>
-                        <a href="https://github.com/codeadaca/<?=$record['github']?>">https://github.com/codeadaca/<?=$record['github']?></a>
+                        <a href="https://github.com/BrickMMO/<?=$record['github']?>">https://github.com/BrickMMO/<?=$record['github']?></a>
                     <?php endif; ?>
                 </small>
             </td>
