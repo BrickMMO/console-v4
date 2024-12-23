@@ -71,6 +71,7 @@ $result = mysqli_query($connect, $query);
         <th class="bm-table-number">Hours</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
+        <th class="bm-table-icon"></th>
     </tr>
 
     <?php while($record = mysqli_fetch_assoc($result)): ?>
@@ -93,6 +94,11 @@ $result = mysqli_query($connect, $query);
             </td>
             <td class="bm-table-number">
                 <?=$record['hours']?>
+            </td>
+            <td>
+                <a href="/admin/applications/image/<?=$record['id']?>">
+                    <i class="fa-solid fa-image"></i>
+                </a>
             </td>
             <td>
                 <a href="/admin/applications/edit/<?=$record['id']?>">
