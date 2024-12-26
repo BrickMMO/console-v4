@@ -66,6 +66,7 @@ $result = mysqli_query($connect, $query);
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
+        <th class="bm-table-image"></th>
         <th>Name</th>
         <th class="bm-table-number">Users</th>
         <th class="bm-table-number">Hours</th>
@@ -76,6 +77,11 @@ $result = mysqli_query($connect, $query);
 
     <?php while($record = mysqli_fetch_assoc($result)): ?>
         <tr>
+            <td class="bm-table-image">
+                <?php if($record['image']): ?>
+                    <img src="<?=$record['image']?>" width="100">
+                <?php endif; ?>
+            </td>
             <td>
                 <?=$record['name']?>
                 <small>
