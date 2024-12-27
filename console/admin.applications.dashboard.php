@@ -30,7 +30,7 @@ $query = 'SELECT *,(
         FROM timesheets
         WHERE application_id = applications.id
     ) AS users,(
-        SELECT SUM(hours)
+        SELECT IFNULL(SUM(hours),0)
         FROM timesheets
         WHERE application_id = applications.id
     ) AS hours,(

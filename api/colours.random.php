@@ -29,7 +29,7 @@ if(mysqli_num_rows($result) === 0) {
 
     if ($result) {
 
-        header("Content-type: JSON");
+        header("Content-Type: application/json; charset=UTF-8");
 
         $colour = array(
             'id' => $colourObject['id'],
@@ -57,7 +57,7 @@ if(mysqli_num_rows($result) === 0) {
 else{
     if ($result) {
 
-        header("Content-type: JSON");
+        header("Content-Type: application/json; charset=UTF-8");
 
         $colourObject = mysqli_fetch_assoc($result);
 

@@ -219,8 +219,9 @@ for($i = 0; $i < count($final_parts); $i += 2)
 if(PAGE_TYPE == 'ajax') 
 {
 
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST');
+    header("Access-Control-Allow-Headers: X-Requested-With");
 
     $_POST = json_decode(file_get_contents('php://input'), true);
     include('../ajax/'.PAGE_FILE);
