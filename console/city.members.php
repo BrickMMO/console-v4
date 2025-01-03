@@ -127,8 +127,8 @@ $result = mysqli_query($connect, $query);
     
 <?php
 
-include('templates/modal_city.php');
+include('../templates/modal_city.php');
 
-include('templates/main_footer.php');
-include('templates/debug.php');
-include('templates/html_footer.php');
+include('../templates/main_footer.php');
+include('../templates/debug.php');
+include('../templates/html_footer.php');
