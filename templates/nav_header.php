@@ -180,15 +180,16 @@
 
     }
 
-    /*
-    document.addEventListener('click', function(){
+    document.addEventListener('click', function(e){
 
-        close_avatar_options();
-        close_sidebar();
-        close_all_modals();
+        if(e.target.className == "w3-overlay" || e.target.className == "w3-modal")
+        {
+            close_avatar_options();
+            close_sidebar();
+            close_all_modals();
+        }
 
     });
-    */
 
     function close_all_modals()
     {
