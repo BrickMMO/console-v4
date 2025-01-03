@@ -36,7 +36,7 @@ include('../templates/message.php');
 
 <hr>
 
-<img src="https://www.lego.com/cdn/cs/set/assets/blt13be82b8c836289b/10334_alt1.png?format=webply&fit=bounds&quality=60&width=800&height=800&dpr=2" alt="Radio-Image" width="300px" style="margin-bottom: 20px;">
+<img src="https://www.lego.com/cdn/cs/set/assets/blt13be82b8c836289b/10334_alt1.png?format=webply&fit=bounds&quality=60&width=800&height=800&dpr=2" alt="Radio-Image" width="300px" style="margin-bottom: 20px">
 
 <div class="btn" style=" margin-left: 10px; font-size: 20px; ">
     <button class="w3-button w3-teal" id="playRadio" onclick="playRadio()">

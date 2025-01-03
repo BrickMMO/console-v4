@@ -51,7 +51,7 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
 <div class="w3-row">
     <div class="w3-col w3-center s12 m12 l12" style="border:9px solid black; background-color:#D9D9D9">
         <div class="w3-margin-top w3-row-padding"
-            style="display: flex; align-items:flex-end; justify-content:center;">
+            style="display: flex; align-items:flex-end; justify-content:center">
             <div class="w3-col w3-center s2 m2 l2">
                 <img src="/images/panel_<?= strtolower($power_lever['value']) ?>.png" alt="Panel Dial" width="100px">
                 <span class="w3-text-black">
@@ -60,7 +60,7 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             </div>
             <div class="w3-col w3-center s3 m3 l3">
                 <img id="dial-B" src="/images/panel_dial.png" alt="Panel Dial" width="100px"
-                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['b'][0]['value'] ?>* 2.7deg));">
+                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['b'][0]['value'] ?>* 2.7deg))">
                 <div class="w3-light-grey w3-tiny w3-margin-top">
                     <div id="progress-B" class="w3-container w3-orange w3-text-white w3-center"
                         style="width:<?= $cartridge_data[$current_cartridge['value']]['b'][0]['value'] ?>%">
@@ -73,7 +73,7 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             </div>
             <div class="w3-col w3-center s3 m3 l3">
                 <img id="dial-C" src="/images/panel_dial.png" alt="Panel Dial" width="100px"
-                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['c'][0]['value'] ?>* 2.7deg));">
+                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['c'][0]['value'] ?>* 2.7deg))">
                 <div class="w3-light-grey w3-tiny w3-margin-top">
                     <div id="progress-C" class="w3-container w3-orange w3-text-white w3-center"
                         style="width:<?= $cartridge_data[$current_cartridge['value']]['c'][0]['value'] ?>%">
@@ -86,7 +86,7 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             </div>
             <div class="w3-col w3-center s3 m3 l3">
                 <img id="dial-D" src="/images/panel_dial.png" alt="Panel Dial" width="100px"
-                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['d'][0]['value'] ?>* 2.7deg));">
+                    style="transform: rotate(calc(<?= $cartridge_data[$current_cartridge['value']]['d'][0]['value'] ?>* 2.7deg))">
                 <div class="w3-light-grey w3-tiny w3-margin-top">
                     <div id="progress-D" class="w3-container w3-orange w3-text-white w3-center"
                         style="width:<?= $cartridge_data[$current_cartridge['value']]['d'][0]['value'] ?>%">
@@ -103,7 +103,7 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             <div class="w3-col w3-center s3 m3 l3">
                 <select id="cartridge-select"
                     class="w3-<?= strtolower($current_cartridge['value']) ?>"
-                    style="border:15px solid black; width:100%; height:90px;">
+                    style="border:15px solid black; width:100%; height:90px">
                     <?php foreach ($cartridge_data as $cartridge => $data): ?>
                         <option class="w3-<?= strtolower($cartridge) ?>" value="<?= $cartridge ?>" <?= $current_cartridge['value'] == $cartridge ? 'selected' : '' ?>>
                             <?= $cartridge ?>
@@ -117,8 +117,8 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             <div class="w3-col w3-center s3 m3 l3">
                 <div id="switch-S2"
                     class="w3-circle <?= $cartridge_data[$current_cartridge['value']]['2'][0]['value'] == "OFF" ? "w3-red" : "w3-green" ?> w3-border w3-border-black"
-                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto;">
-                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px;">
+                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto">
+                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px">
                         <span class="switch-text"><?= $cartridge_data[$current_cartridge['value']]['2'][0]['value'] ?></span>
                     </div>
                 </div>
@@ -129,8 +129,8 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             <div class="w3-col w3-center s3 m3 l3">
                 <div id="switch-S3"
                     class="w3-circle <?= $cartridge_data[$current_cartridge['value']]['3'][0]['value'] == "OFF" ? "w3-red" : "w3-green" ?> w3-border w3-border-black"
-                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto;">
-                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px;">
+                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto">
+                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px">
                         <span class="switch-text"><?= $cartridge_data[$current_cartridge['value']]['3'][0]['value'] ?></span>
                     </div>
                 </div>
@@ -141,8 +141,8 @@ list($power_lever, $current_cartridge, $cartridge_data) = panels_group_data_by_c
             <div class="w3-col w3-center s3 m3 l3">
                 <div id="switch-S4"
                     class="w3-circle <?= $cartridge_data[$current_cartridge['value']]['4'][0]['value'] == "OFF" ? "w3-red" : "w3-green" ?> w3-border w3-border-black"
-                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto;">
-                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px;">
+                    style="display: flex; align-items:center; justify-content: center; height: 80px; width: 80px; margin: auto">
+                    <div class="w3-circle w3-white w3-border w3-border-black" style="line-height: 50px;height: 50px;width: 50px">
                         <span class="switch-text"><?= $cartridge_data[$current_cartridge['value']]['4'][0]['value'] ?></span>
                     </div>
                 </div>

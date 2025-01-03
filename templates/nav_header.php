@@ -118,9 +118,9 @@
   style="z-index: 200; opacity: 0; display: none"
 >
 
-    <div class="w3-card-4 w3-border" style="max-width: 300px; position: fixed; top: 68px; right: 10px; z-index: 120;" id="">
+    <div class="w3-card-4 w3-border" style="max-width: 300px; position: fixed; top: 68px; right: 10px; z-index: 120" id="">
         
-        <img src="<?=user_avatar($_user['id']);?>" alt="Alps" style="max-width: 100%;">
+        <img src="<?=user_avatar($_user['id']);?>" alt="Alps" style="max-width: 100%">
 
         <div class="w3-container w3-white">
 

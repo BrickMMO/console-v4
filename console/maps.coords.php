@@ -47,7 +47,7 @@ $width = round(100/$_city['width'],2);
     <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
         <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('coords' => true))?>" 
-            style="width: <?=$width?>%; height: 35px; cursor: pointer;"
+            style="width: <?=$width?>%; height: 35px; cursor: pointer"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
             data-coord="<?=(count($squares[$row][$col]['coords'])) ? 'true' : 'false'?>"

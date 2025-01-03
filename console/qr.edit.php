@@ -74,7 +74,7 @@ $qr = mysqli_fetch_assoc($result);
 <h2>Edit QR Code: <?=$qr['name']?></h2>
 
 <!-- Display the QR code -->
-<img src="<?= $qr['image'] ?>" alt="" style="max-width: 200px;" class="w3-padding w3-border">
+<img src="<?= $qr['image'] ?>" alt="" style="max-width: 200px" class="w3-padding w3-border">
 
 <!-- Edit form -->
 <form

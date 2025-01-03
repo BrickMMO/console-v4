@@ -46,7 +46,7 @@ $width = round(100/$_city['width'],2);
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
             <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('tracks' => true))?> w3-text-white" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%;"
+                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%"
                 onclick="location.href='/trackview/square/<?=$squares[$row][$col]['id']?>';">
 
                 <?php if(count($squares[$row][$col]['tracks']) && $squares[$row][$col]['images'] < 4): ?>

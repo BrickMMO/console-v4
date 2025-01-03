@@ -45,13 +45,13 @@ function google_list_files($access_token, $folder_name, $folder_id, $files = arr
         {
             echo '<strong>Files in folder: '.$folder_name.':</strong>
                 <br>
-                <div style="padding:10px;">';
+                <div style="padding:10px">';
         }
 
         foreach($results->getFiles() as $file) 
         {
 
-            if($output) echo '<div style="padding:10px;">';
+            if($output) echo '<div style="padding:10px">';
 
             // printf("%s (%s) - %s<br>", $file->getName(), $file->getId(), $file->getMimeType());
             // application/vnd.google-apps.folder

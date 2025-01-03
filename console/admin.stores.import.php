@@ -66,10 +66,10 @@ $stores_last_import = setting_fetch('STORES_LAST_IMPORT');
 <hr />
 
 <div class="w3-light-grey w3-margin-bottom">
-    <div class="w3-container w3-green w3-padding w3-center" style="width:0%; min-width: 50px;" id="progress">0%</div>
+    <div class="w3-container w3-green w3-padding w3-center" style="width:0%; min-width: 50px" id="progress">0%</div>
 </div>
 
-<div class="w3-container w3-border w3-padding-16 w3-margin-bottom" id="loading" style="max-height: 500px; overflow: scroll;">
+<div class="w3-container w3-border w3-padding-16 w3-margin-bottom" id="loading" style="max-height: 500px; overflow: scroll">
     <h3>
         <i class="fa-solid fa-spinner fa-spin"></i>
         Loading...

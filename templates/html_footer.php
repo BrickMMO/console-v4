@@ -1,6 +1,6 @@
 
     
-<div id="confirm" class="w3-modal" style="z-index: 200; opacity: 0; border: 1px solid red; display: none">
+<div id="confirm" class="w3-modal" style="z-index: 200; opacity: 0; border: display: none">
   <div class="w3-modal-content w3-card-4">
     <div class="w3-container">
       <p id="confirm-content">Please confirm...</p>

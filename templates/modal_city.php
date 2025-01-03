@@ -16,7 +16,7 @@ $result = mysqli_query($connect, $query);
 <div
   id="city"
   class="w3-modal"
-  style="z-index: 200; opacity: 0; border: 1px solid red; display: none"
+  style="z-index: 200; opacity: 0; border: display: none"
 >
   <div class="w3-modal-content w3-card-4">
     <header class="w3-bar w3-border-bottom w3-padding w3-white">

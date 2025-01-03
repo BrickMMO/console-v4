@@ -94,7 +94,7 @@ $media = media_fetch($_GET['key']);
         width="426" 
         height="100" 
         allow="autoplay"
-        style="border: none;"
+        style="border: none"
         class="w3-padding w3-border w3-margin-bottom"></iframe>
 <?php endif; ?>
 
