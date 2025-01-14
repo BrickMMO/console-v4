@@ -4,7 +4,6 @@ security_check();
 admin_check();
 
 define('APP_NAME', 'Events');
-
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'community');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/dashboard');
