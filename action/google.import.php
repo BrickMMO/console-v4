@@ -42,7 +42,7 @@ catch(Exception $e)
     header_redirect('/admin/authentication/dashboard');
 }
 
-$images = 0;
+$media = 0;
 
 foreach($files as $key => $file)
 {
@@ -60,13 +60,17 @@ foreach($files as $key => $file)
                 type,
                 google_id,
                 city_id,
-                user_id
+                user_id,
+                created_at,
+                updated_at
             ) VALUES (
                 "'.$file['name'].'",
                 "'.$file['type'].'",
                 "'.$file['google_id'].'",
                 "'.$_city['id'].'",
-                "'.$_user['id'].'"
+                "'.$_user['id'].'",
+                NOW(),
+                NOW()
             )';
         mysqli_query($connect, $query); 
 
@@ -121,7 +125,7 @@ foreach($files as $key => $file)
 
         }
 
-        $images ++;
+        $media ++;
 
     }
 
@@ -130,7 +134,7 @@ foreach($files as $key => $file)
 message_set(
     'Import Success', 
     'Media from the BrickMMO Google Drive have been imported. '.
-    'Imported '.$images.' new images.'
+    'Imported '.$media.' new media.'
 );
 header_redirect(ENV_CONSOLE_DOMAIN.'/admin/media/'.$redirect);
 

@@ -15,7 +15,6 @@ function form_select_table($name, $table, $key, $value, $data = array())
     $html .= '" id="'.$name.'" class="w3-input w3-border'.(isset($data['first']) ? '' : ' w3-margin-top').'"';
     if(isset($data['multiple'])) $html .= ' multiple size="5"';
     $html .= '>';
-    if(isset($data['multiple']) || true) $html .= ' TEST ';
 
     if(isset($data['empty_key']) || isset($data['empty_value']) )
     {
@@ -40,6 +39,33 @@ function form_select_table($name, $table, $key, $value, $data = array())
     }
 
     $html .= '</select>';
+
+    return $html;
+
+}
+
+function form_select_array($name, $options, $data = array())
+{
+
+    $html = '<select name="'.$name.'" id="'.$name.'" class="w3-input w3-border'.(isset($data['first']) ? '' : ' w3-margin-top').'">';
+
+    if(isset($data['empty_key']) || isset($data['empty_value']) )
+    {
+        $html .= '<option value="'.(isset($data['empty_key']) ? $data['empty_key'] : '').'">
+                '.(isset($data['empty_value']) ? $data['empty_value'] : '').'
+            </option>';
+    }
+
+    foreach($options as $value => $option)
+    {
+        $html .= '<option value="'.$value.'"';
+        if(isset($data['selected']) && $data['selected'] == $value) $html .= ' selected';
+        $html .= '>'.$option.'</option>';
+    }
+
+    $html .= '</select>';
+
+    return $html;
 
     return $html;
 

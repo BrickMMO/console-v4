@@ -39,10 +39,13 @@ else $_city = false;
  */
 if(is_numeric(strpos($_SERVER['HTTP_HOST'], 'account'))) $domain = 'account';
 elseif(is_numeric(strpos($_SERVER['HTTP_HOST'], 'console'))) $domain = 'console';
+elseif(is_numeric(strpos($_SERVER['HTTP_HOST'], 'api'))) $domain = 'api';
 else
 {
+
     include('404.php');
     exit;
+    
 }
 
 /**
@@ -50,6 +53,7 @@ else
  */ 
 if(strpos($_SERVER['REQUEST_URI'], '?'))
 {
+
     $url = $_SERVER['REQUEST_URI'];
     $url = explode('?', $url);
     $url[1] = str_replace(array('/', '%2F'), urlencode('-SLASH-'), $url[1]);
@@ -57,6 +61,7 @@ if(strpos($_SERVER['REQUEST_URI'], '?'))
     $url = implode('/', $url);
     debug_pre($url);
     header_redirect($url);
+
 }
 
 /**
@@ -69,7 +74,9 @@ $parts = array_filter(explode("/", trim($_SERVER['REQUEST_URI'], "/")));
  */
 if(!count($parts))
 {
+
     header_redirect(ENV_CONSOLE_DOMAIN.'/city/dashboard');
+
 }
 
 /**
@@ -85,21 +92,6 @@ if($parts[0] == 'ajax')
 }
 
 /**
- * If the request is an API request. 
- */
-elseif($parts[0] == 'api')
-{
-
-    define('PAGE_TYPE', 'api');
-    array_shift($parts);
-    $folder = 'api/';
-
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, POST');
-    header("Access-Control-Allow-Headers: X-Requested-With");
-}
-
-/**
  * If the request is a action request. 
  */
 elseif($parts[0] == 'action')
@@ -108,6 +100,21 @@ elseif($parts[0] == 'action')
     define('PAGE_TYPE', 'action');
     array_shift($parts);
     $folder = 'action/';
+
+}
+
+/**
+ * If the request is an API request. 
+ */
+elseif($domain == 'api')
+{
+
+    define('PAGE_TYPE', 'api');
+    $folder = 'api/';
+
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST');
+    header("Access-Control-Allow-Headers: X-Requested-With");
 
 }
 
@@ -149,8 +156,10 @@ if($final_file) define('PAGE_FILE', $final_file);
  */
 if(!defined('PAGE_FILE'))
 {
+
     include('404.php');
     exit;
+
 }
 
 /**
@@ -163,7 +172,9 @@ if(!defined('PAGE_FILE'))
   */
 if(count($final_parts) == 1)
 {
+
     $_GET['key'] = array_shift($final_parts);
+
 }
 
 /**
@@ -189,6 +200,7 @@ elseif(count($final_parts) % 2 == 1)
  */
 for($i = 0; $i < count($final_parts); $i += 2)
 {
+
     /**
      * Slashed return from the Google API were breaking the .htaccess, so slashes in 
      * the URL paramaters are replaced with "-SLASH-" and switched back to slashes 
@@ -197,6 +209,7 @@ for($i = 0; $i < count($final_parts); $i += 2)
     $_GET[$final_parts[$i]] = isset($final_parts[$i+1]) ? 
         urldecode(str_replace('-SLASH-', '/', $final_parts[$i+1])) : 
         true;
+
 }
 
 
@@ -205,10 +218,16 @@ for($i = 0; $i < count($final_parts); $i += 2)
  */
 if(PAGE_TYPE == 'ajax') 
 {
+
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, POST');
+    header("Access-Control-Allow-Headers: X-Requested-With");
+
     $_POST = json_decode(file_get_contents('php://input'), true);
     include('../ajax/'.PAGE_FILE);
     echo json_encode($data);
     exit;
+    
 }
 
 /**
@@ -216,9 +235,11 @@ if(PAGE_TYPE == 'ajax')
  */
 elseif(PAGE_TYPE == 'api') 
 {
+
     include('../api/'.PAGE_FILE);
     echo json_encode($data);
     exit;
+
 }
 
 /**
@@ -226,8 +247,10 @@ elseif(PAGE_TYPE == 'api')
  */
 elseif(PAGE_TYPE == 'action') 
 {
+
     include('../action/'.PAGE_FILE);
     exit;
+
 }
 
 /**
@@ -235,6 +258,8 @@ elseif(PAGE_TYPE == 'action')
  */
 else
 {
+
     include('../'.$folder.'/'.PAGE_FILE);
+
 }
 

@@ -151,7 +151,7 @@ $square = square_fetch($_GET['key']);
 
         <?php if(isset($square[$direction])): ?>
             <div class="w3-margin-top">
-                <img src="<?=$square[$direction]?>" style="max-width:300px;" />
+                <img src="<?=$square[$direction]?>" style="max-width:300px" />
             </div>
             <div class="w3-margin-top">
                 <a href="#" onclick="return confirmModal('Are you sure you want to delete this image?', '/trackview/square/delete/<?=$direction?>/<?=$_GET['key']?>');">

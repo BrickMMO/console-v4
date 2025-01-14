@@ -51,7 +51,7 @@ $width = round(100/$_city['width'],2);
     <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
         <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('road_id'=> $_GET['key']))?>" 
-            style="width: <?=$width?>%; height: 35px; cursor: pointer;"
+            style="width: <?=$width?>%; height: 35px; cursor: pointer"
             data-id="<?=$squares[$row][$col]['id']?>"
             data-type="<?=$squares[$row][$col]['type']?>"
             data-road="<?=(is_array($squares[$row][$col]['roads']) && in_array($_GET['key'], $squares[$row][$col]['roads'])) ? 'true' : 'false'?>"

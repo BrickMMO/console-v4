@@ -35,6 +35,7 @@ We will install this application using MAMP in a method that does not prevent yo
 ```
 127.0.0.1 local.account.brickmmo.com 
 127.0.0.1 local.console.brickmmo.com
+127.0.0.1 local.api.brickmmo.com
 ```
 
 > [!NOTE]
@@ -66,6 +67,11 @@ ServerName local.account.brickmmo.com
 DocumentRoot "/Users/thomasa/Desktop/BrickMMO/console-v4/public" 
 ServerName local.console.brickmmo.com
 </VirtualHost>
+
+<VirtualHost *:7777>
+DocumentRoot "/Users/thomasa/Desktop/BrickMMO/console-v4/public" 
+ServerName local.api.brickmmo.com
+</VirtualHost>
 ```
 
 This is line 614 in my file.
@@ -93,3 +99,22 @@ ENV_REDIRECT=true
 ## Database
 
 ## PHP Version
+
+---
+
+## Project Stack
+
+This project uses vanilla [PHP](https://php.net) and [W3.CSS](https://www.w3schools.com/w3css).
+
+<img src="https://console.codeadam.ca/api/image/w3css" width="60"> <img src="https://console.codeadam.ca/api/image/php" width="60">
+
+---
+
+## Repo Resources
+
+* [BrickMMO](https://www.brickmmo.com/)
+* [BrickMMO Console](https://console.brickmmo.com/)
+
+<a href="https://brickmmo.com">
+<img src="https://cdn.brickmmo.com/images@1.0.0/brickmmo-logo-coloured-horizontal.png" width="200">
+</a>

@@ -15,4 +15,7 @@ $query = 'UPDATE squares SET
     LIMIT 1';
 mysqli_query($connect, $query);
 
-$data = array('message' => 'Square has been updated.', 'error' => false);
+$data = array(
+    'message' => 'Square has been updated.', 
+    'error' => false
+);

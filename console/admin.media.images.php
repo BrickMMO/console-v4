@@ -3,9 +3,24 @@
 security_check();
 admin_check();
 
+if (isset($_GET['approve'])) 
+{
+
+    $query = 'UPDATE media SET
+        approved = 1
+        WHERE id = '.$_GET['approve'].'
+        LIMIT 1';
+    mysqli_query($connect, $query);
+
+    message_set('Approval Success', 'Image has been deleted.');
+    header_redirect('/admin/media/images');
+    
+}
+
+
 define('APP_NAME', 'Media');
 
-define('PAGE_TITLE', 'Tags');
+define('PAGE_TITLE', 'Images');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/admin/media/images');
 
@@ -17,12 +32,18 @@ include('../templates/main_header.php');
 
 include('../templates/message.php');
 
-$query = 'SELECT media.*
+$query = 'SELECT media.*,
+    (
+        SELECT COUNT(*)
+        FROM media_downloads
+        WHERE media_downloads.media_id = media.id
+    ) AS downloads
     FROM media
     LEFT JOIN cities 
     ON city_id = cities.id
     LEFT JOIN users 
     ON media.user_id = users.id
+    WHERE type = "image"
     ORDER BY name';
 $result = mysqli_query($connect, $query);
 
@@ -51,6 +72,8 @@ $result = mysqli_query($connect, $query);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
+        <th>Tags</th>
+        <th class="bm-table-number"><i class="fa-solid fa-download"></i></th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
     </tr>
@@ -61,13 +84,25 @@ $result = mysqli_query($connect, $query);
                 <?=$record['name']?>
             </td>
             <td>
+                <?php foreach(media_tags($record['id']) as $tag):?>
+                    <span class="w3-tag w3-blue"><?=$tag['name']?></span>
+                <?php endforeach; ?>
+            </td>
+            <td class="bm-table-number">
+                <?=$record['downloads']?>
+            </td>
+            <td class="bm-table-icon">
+                <?php if($record['approved'] == 1): ?>
+                    <i class="fa-solid fa-thumbs-up w3-text-green"></i>
+                <?php else: ?>
+                    <a href="#" onclick="return confirmModal('Are you sure you want to approve the image <?=$record['name']?>?', '/admin/media/images/approve/<?=$record['id']?>');">
+                        <i class="fa-solid fa-thumbs-down w3-text-red"></i>
+                    </a>
+                <?php endif; ?>
+            </td>
+            <td class="bm-table-icon">
                 <a href="/admin/media/images/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
-                </a>
-            </td>
-            <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the image <?=$record['name']?>?', '/admin/media/images/delete/<?=$record['id']?>');">
-                    <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
         </tr>

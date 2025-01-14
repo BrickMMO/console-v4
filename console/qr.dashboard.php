@@ -100,7 +100,7 @@ $log_count = mysqli_num_rows(mysqli_query($connect, $query));
                     Redirect URL: <a href="https://qr.brickmmo.com/<?=$record['hash'] ?>">https://qr.brickmmo.com/<?=$record['hash'] ?></a>
                 </small>
             </td>
-            <td>
+            <td class="bm-table-number">
                 <a href="/qr/logs/<?=$record['id']?>"><?=$record['scans']?></a>
             </td>
             <td>

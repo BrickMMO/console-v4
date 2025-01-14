@@ -12,7 +12,7 @@ if(isset($_GET['key'])) {
 
     if($result){
 
-        header("Content-type: JSON");
+        header("Content-Type: application/json; charset=UTF-8");
 
         $i = 0;
 
