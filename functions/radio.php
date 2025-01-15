@@ -56,6 +56,8 @@ function get_broadcast_list()
 // Function to call ChatGPT API
 function generateContent($segmentId)
 {
+
+    die('generateContent');
     global $connect;
 
     $query = "SELECT name FROM Segments WHERE id = ?";
@@ -115,6 +117,10 @@ function generateContent($segmentId)
 
     $result = json_decode($response, true);
 
+    echo 'hi!';
+    debug_pre($response);
+    die();
+
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
 
@@ -157,10 +163,12 @@ function radio_script($log_id, $city_id)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
     $response = curl_exec($ch);
     curl_close($ch);
 
-    debug_pre($response);
+
+
 
     $query = 'UPDATE schedule_logs SET
         script = "'.addslashes($response).'"
@@ -185,6 +193,7 @@ function radio_mp3($log_id)
     // echo gettype($script);
     // debug_pre($script);
 
+
     $data = [
         "model" => "tts-1",
         "input" => $script['choices'][0]['message']['content'],
@@ -201,6 +210,7 @@ function radio_mp3($log_id)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
     $response = curl_exec($ch);
     curl_close($ch);
 

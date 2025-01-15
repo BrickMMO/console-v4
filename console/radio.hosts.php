@@ -24,7 +24,7 @@ define('APP_NAME', 'Events');
 
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/radio/hosts');
+define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -56,7 +56,7 @@ $hosts_count = mysqli_num_rows($result);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/admin/radio/dashboard">Radio</a> / 
+    <a href="/radio/dashboard">Radio</a> / 
     Hosts
 </p>
 
@@ -87,7 +87,7 @@ $hosts_count = mysqli_num_rows($result);
                 <?=$record['prompt']?>
             </td>
             <td>
-                <?=$record['city']?>
+                <?=$record['city_id']?>
             </td>
             <td>
                 <?=$record['schedule_count']?>
@@ -107,6 +107,8 @@ $hosts_count = mysqli_num_rows($result);
 
 </table>
 
+<hr>
+
 <a
     href="/admin/radio/hosts/add"
     class="w3-button w3-white w3-border"
@@ -115,9 +117,8 @@ $hosts_count = mysqli_num_rows($result);
 </a>
 
 <?php
-
-include('../templates/modal_city.php');
-
-include('../templates/main_footer.php');
-include('../templates/debug.php');
-include('../templates/html_footer.php');
+require_once('../templates/modal_city.php');
+require_once('../templates/main_footer.php');
+require_once('../templates/debug.php');
+require_once('../templates/html_footer.php');
+?>

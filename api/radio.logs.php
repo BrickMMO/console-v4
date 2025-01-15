@@ -1,4 +1,8 @@
 <?php
+
+// NOT IN USE!!!
+die();
+
 global $connect;
 $current_time = date('Y-m-d H:i:s');
 $query = "SELECT content FROM `broadcast_logs` WHERE broadcast_time <= '$current_time'";
