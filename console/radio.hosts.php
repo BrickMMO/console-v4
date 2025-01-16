@@ -16,12 +16,11 @@ if (isset($_GET['delete']))
     mysqli_query($connect, $query);
 
     message_set('Delete Success', 'Host has been deleted.');
-    header_redirect('/admin/radio/hosts');
+    header_redirect('/radio/hosts');
     
 }
 
 define('APP_NAME', 'Events');
-
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');
@@ -31,7 +30,6 @@ include('../templates/nav_header.php');
 include('../templates/nav_slideout.php');
 include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
-
 include('../templates/message.php');
 
 $query = 'SELECT hosts.*, COUNT(schedules.id) AS schedule_count
@@ -93,12 +91,12 @@ $hosts_count = mysqli_num_rows($result);
                 <?=$record['schedule_count']?>
             </td>
             <td>
-                <a href="/admin/radio/hosts/edit/<?=$record['id']?>">
+                <a href="/radio/hosts/edit/<?=$record['id']?>">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
             </td>
             <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the host <?=$record['name']?>?', '/admin/radio/hosts/delete/<?=$record['id']?>');">
+                <a href="#" onclick="return confirmModal('Are you sure you want to delete the host <?=$record['name']?>?', '/radio/hosts/delete/<?=$record['id']?>');">
                     <i class="fa-solid fa-trash-can"></i>
                 </a>
             </td>
@@ -110,7 +108,7 @@ $hosts_count = mysqli_num_rows($result);
 <hr>
 
 <a
-    href="/admin/radio/hosts/add"
+    href="/radio/hosts/add"
     class="w3-button w3-white w3-border"
 >
     <i class="fa-solid fa-tag fa-padding-right"></i> Add New Host

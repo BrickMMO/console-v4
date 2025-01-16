@@ -3,45 +3,53 @@
 security_check();
 admin_check();
 
-if (isset($_GET['delete'])) 
+if(
+    !isset($_GET['key']) || 
+    !is_numeric($_GET['key']) || 
+    !host_fetch($_GET['key']))
+{
+    message_set('Host Error', 'There was annnn error with the provided host.', 'red');
+    header_redirect('/radio/hosts');
+}
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
-    $query = 'DELETE FROM hosts 
-        WHERE id = '.$_GET['delete'].'
+    // Basic serverside validation
+    if (!validate_blank($_POST['name']))
+    {
+
+        message_set('Host Error', 'There was an error with the provided host.', 'red');
+        header_redirect('/radio/hosts');
+    }
+
+    $query = 'UPDATE hosts SET
+        name = "'.addslashes($_POST['name']).'",
+        gender = "'.addslashes($_POST['gender']).'",
+        prompt = "'.addslashes($_POST['prompt']).'",
+        updated_at = NOW()
+        WHERE id = '.$_GET['key'].'
         LIMIT 1';
     mysqli_query($connect, $query);
 
-    $query = 'DELETE FROM schedules
-        WHERE host_id = '.$_GET['delete'];
-    mysqli_query($connect, $query);
+    message_set('Host Success', 'The host has been edited.');
+    header_redirect('/radio/hosts');
 
-    message_set('Delete Success', 'Host has been deleted.');
-    header_redirect('/admin/radio/hosts');
-    
 }
 
-define('APP_NAME', 'Events');
 
+define('APP_NAME', 'Events');
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
-define('PAGE_SELECTED_SUB_PAGE', '/admin/radio/hosts');
+define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
 include('../templates/nav_slideout.php');
 include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
-
 include('../templates/message.php');
 
-$query = 'SELECT hosts.*, COUNT(schedules.id) AS schedule_count
-FROM hosts
-LEFT JOIN schedules ON hosts.id = schedules.host_id
-GROUP BY hosts.id
-ORDER BY hosts.id;';
-$result = mysqli_query($connect, $query);
-
-$hosts_count = mysqli_num_rows($result);
+$host = host_fetch($_GET['key']);
 
 ?>
 
@@ -49,75 +57,83 @@ $hosts_count = mysqli_num_rows($result);
 <!-- CONTENT -->
 
 <h1 class="w3-margin-top w3-margin-bottom">
-    <!-- <img
+ <!-- <img
        src=
     /> -->
     Radio
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    <a href="/admin/radio/dashboard">Radio</a> / 
-    Hosts
+    <a href="/radio/dashboard">Radio</a> / 
+    <a href="/radio/hosts">Hosts</a> / 
+    Edit Host
 </p>
 
 <hr />
 
-<h2>Radio Hosts</h2>
+<h2>Edit Host: <?=$host['name']?></h2>
 
-<table class="w3-table w3-bordered w3-striped w3-margin-bottom">
-    <tr>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Prompt</th>
-        <th>City</th>
-        <th class="bm-table-number">Schedules</th>
-        <th class="bm-table-icon"></th>
-        <th class="bm-table-icon"></th>
-    </tr>
-
-    <?php while($record = mysqli_fetch_assoc($result)): ?>
-        <tr>
-            <td>
-                <?=$record['name']?>
-            </td>
-            <td>
-                <?=$record['gender']?>
-            </td>
-            <td>
-                <?=$record['prompt']?>
-            </td>
-            <td>
-                <?=$record['city']?>
-            </td>
-            <td>
-                <?=$record['schedule_count']?>
-            </td>
-            <td>
-                <a href="/admin/radio/hosts/edit/<?=$record['id']?>">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
-            </td>
-            <td>
-                <a href="#" onclick="return confirmModal('Are you sure you want to delete the host <?=$record['name']?>?', '/admin/radio/hosts/delete/<?=$record['id']?>');">
-                    <i class="fa-solid fa-trash-can"></i>
-                </a>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-
-</table>
-
-<a
-    href="/admin/radio/hosts/add"
-    class="w3-button w3-white w3-border"
+<form
+    method="post"
+    novalidate
+    id="main-form"
 >
-    <i class="fa-solid fa-tag fa-padding-right"></i> Add New Host
-</a>
 
+    <input  
+        name="name" 
+        class="w3-input w3-border" 
+        type="text" 
+        id="name" 
+        autocomplete="off"
+        value="<?=$host['name']?>"
+    />
+    <label for="name" class="w3-text-gray">
+        Name <span id="name-error" class="w3-text-red"></span>
+    </label>
+
+
+    <select 
+    name="gender"
+    class="w3-input w3-border"
+    id="gender" 
+    autocomplete="off"
+    >
+    <!-- <option value="" disabled selected>Please select</option> -->
+        <?php
+        $values = array('male','female');
+        foreach($values as $value){
+            echo '<option value="' . $value . '"';
+            if (($host['gender']) === $value) {
+                echo ' selected'; 
+            }
+            echo '>' . $value . '</option>';
+        }
+
+        ?>
+    </select>
+    <label for="gender" class="w3-text-gray">
+    Gender<span id="gender-error" class="w3-text-red"></span>
+    </label>
+
+        
+        <textarea  
+            name="prompt" 
+            class="w3-input w3-border" 
+            id="prompt" 
+            autocomplete="off"
+        ><?= $host['prompt'] ?></textarea>
+        <label for="prompt" class="w3-text-gray">
+            Prompt <span id="prompt-error" class="w3-text-red"></span>
+        </label>
+
+        <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
+        <i class="fa-solid fa-tag fa-padding-right"></i>
+        Edit Host
+    </button>
+        
 <?php
 
 include('../templates/modal_city.php');
-
 include('../templates/main_footer.php');
 include('../templates/debug.php');
 include('../templates/html_footer.php');
