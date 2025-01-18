@@ -15,7 +15,10 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']))
+    if (!validate_blank($_POST['name']) ||
+        !validate_blank($_POST['gender']) ||
+        !validate_blank($_POST['prompt'])
+    )
     {
 
         message_set('Host Error', 'There was an error with the provided host.', 'red');
@@ -37,7 +40,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 
-define('APP_NAME', 'Events');
+define('APP_NAME', 'Radio');
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');
@@ -81,7 +84,7 @@ $host = host_fetch($_GET['key']);
 
     <input  
         name="name" 
-        class="w3-input w3-border" 
+        class="w3-input w3-border w3-margin-top"
         type="text" 
         id="name" 
         autocomplete="off"
@@ -94,7 +97,7 @@ $host = host_fetch($_GET['key']);
 
     <select 
     name="gender"
-    class="w3-input w3-border"
+    class="w3-input w3-border w3-margin-top"
     id="gender" 
     autocomplete="off"
     >
@@ -118,7 +121,7 @@ $host = host_fetch($_GET['key']);
         
         <textarea  
             name="prompt" 
-            class="w3-input w3-border" 
+            class="w3-input w3-border w3-margin-top"
             id="prompt" 
             autocomplete="off"
         ><?= $host['prompt'] ?></textarea>

@@ -78,7 +78,7 @@ elseif (isset($_POST['delete']))
     exit();
 }
 
-define('APP_NAME', 'Events');
+define('APP_NAME', 'Radio');
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'community');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
@@ -92,11 +92,14 @@ require_once('../templates/message.php');
 
 
 $query = 'SELECT schedules.*,
-    schedule_types.name AS type_name
+    schedule_types.name AS type_name,
+    hosts.name AS host_name
     FROM schedules
     LEFT JOIN schedule_types
     ON schedules.type_id = schedule_types.id
-    WHERE city_id = "'.$_city['id'].'"
+    LEFT JOIN hosts
+    ON schedules.host_id = hosts.id
+    WHERE schedules.city_id = "'.$_city['id'].'"
     ORDER BY minute';
 $result = mysqli_query($connect, $query);
 
@@ -116,6 +119,7 @@ $result = mysqli_query($connect, $query);
         <tr>
             <th>Minute</th>
             <th>Type</th>
+            <th>Host</th>
             <th class="bm-table-icon"></th>
             <th class="bm-table-icon"></th>
         </tr>
@@ -125,13 +129,14 @@ $result = mysqli_query($connect, $query);
             <tr>
                 <td><?= htmlspecialchars($record['minute']) ?></td>
                 <td><?= htmlspecialchars($record['type_name']) ?></td>
+                <td><?= htmlspecialchars($record['host_name']) ?></td>
                 <td>
                     <a href="/radio/schedule/edit/<?=$record['id']?>">
                         <i class="fa-solid fa-pencil"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule?', '/roadview/schedule/delete/<?=$record['id']?>');">
+                    <a href="#" onclick="return confirmModal('Are you sure you want to delete the schedule?', '/radio/schedule/delete/<?=$record['id']?>');">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
                 </td>

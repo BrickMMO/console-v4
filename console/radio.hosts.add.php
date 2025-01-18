@@ -6,7 +6,9 @@ admin_check();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
 
-    if (!validate_blank($_POST['name']))
+    if (!validate_blank($_POST['name']) ||
+    !validate_blank($_POST['gender']) ||
+    !validate_blank($_POST['prompt']))
     {
         message_set('Host Error', 'There was an error with the provided host.', 'red');
         header_redirect('/radio/hosts/add');
@@ -34,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
 }
 
-define('APP_NAME', 'Events');
+define('APP_NAME', 'Radio');
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');
@@ -76,7 +78,7 @@ include('../templates/message.php');
 
     <input  
         name="name" 
-        class="w3-input w3-border" 
+        class="w3-input w3-border w3-margin-top"
         type="text" 
         id="name" 
         autocomplete="off"
@@ -88,7 +90,7 @@ include('../templates/message.php');
 
         <select 
         name="gender"
-        class="w3-input w3-border"
+        class="w3-input w3-border w3-margin-top"
         id="gender" 
         autocomplete="off"
         >
@@ -108,7 +110,7 @@ include('../templates/message.php');
         
         <textarea  
             name="prompt" 
-            class="w3-input w3-border" 
+            class="w3-input w3-border w3-margin-top"
             id="prompt" 
             autocomplete="off"
         ></textarea>
@@ -141,7 +143,7 @@ include('../templates/message.php');
         let gender = document.getElementById("gender");
         let gender_error = document.getElementById("gender-error");
         gender_error.innerHTML = "";
-        if (gander.value == "" || gander.value == "Please select") {
+        if (gender.value == "" || gender.value == "Please select") {
             gender_error.innerHTML = "(gender is required)";
             errors++;
         }

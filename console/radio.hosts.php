@@ -20,7 +20,7 @@ if (isset($_GET['delete']))
     
 }
 
-define('APP_NAME', 'Events');
+define('APP_NAME', 'Radio');
 define('PAGE_TITLE', 'Host');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/hosts');

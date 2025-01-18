@@ -6,10 +6,22 @@ $prompt = 'Write a script for a '.$length.' minute radio segment.
 
 The radio station name is Lively Radio. 
 
-There is one host for the radio station. 
-His name is Emit and he is the main character from the LEGO movie.
+There is one host for the radio station.'; 
 
-Only include the words the host will say, no instructions, no speaker names, no music or sounds.
+$query='SELECT `name`, `prompt`
+        FROM hosts
+        WHERE city_id = "'.$_GET['key'].'"
+        ';
+
+$result = mysqli_query($connect, $query);
+
+// prompt and $prompt: does it matter?
+while($hosts = mysqli_fetch_assoc($result))
+{
+    $prompt .= 'His/Her name is' .$hosts['name'].'. Gender is' .$hosts['gender'].'. Personal traits:' .$hosts['prompt'].'. The person is the main character from the LEGO movie.';
+}
+
+$prompt .='Only include the words the host will say, no instructions, no speaker names, no music or sounds. Please generate a personalized voice based on the gender and personal traits.
 
 The topic of this segment is traffic. 
 
