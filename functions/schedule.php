@@ -38,20 +38,22 @@ function schedule_type_fetch($id)
 
 function schedule_log_fetch($id)
 {
-
     if(!$id) return false;
 
     global $connect;
 
-    $query = 'SELECT *
+    $query = 'SELECT schedule_logs.*,
+        schedules.host_id,
+        hosts.voice AS voice
         FROM schedule_logs
-        WHERE id = "'.addslashes($id).'"
+        LEFT JOIN schedules ON schedules.id = schedule_logs.schedule_id
+        LEFT JOIN hosts ON hosts.id = schedules.host_id
+        WHERE schedule_logs.id = "'.addslashes($id).'"
         LIMIT 1';
     $result = mysqli_query($connect, $query);
 
     if(mysqli_num_rows($result)) return mysqli_fetch_assoc($result);
     else return false;
-
 }
 
 function schedule_length($id)

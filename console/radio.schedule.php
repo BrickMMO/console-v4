@@ -79,8 +79,8 @@ elseif (isset($_POST['delete']))
 }
 
 define('APP_NAME', 'Radio');
-define('PAGE_TITLE', 'Dashboard');
-define('PAGE_SELECTED_SECTION', 'community');
+define('PAGE_TITLE', 'Schedule');
+define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
 
 require_once('../templates/html_header.php');

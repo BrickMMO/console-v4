@@ -65,7 +65,7 @@ $hosts_count = mysqli_num_rows($result);
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
         <th>Name</th>
-        <th>Gender</th>
+        <th>Voice</th>
         <th>Prompt</th>
         <th>City</th>
         <th class="bm-table-number">Schedules</th>
@@ -79,7 +79,7 @@ $hosts_count = mysqli_num_rows($result);
                 <?=$record['name']?>
             </td>
             <td>
-                <?=$record['gender']?>
+                <?=$record['voice']?>
             </td>
             <td>
                 <?=$record['prompt']?>

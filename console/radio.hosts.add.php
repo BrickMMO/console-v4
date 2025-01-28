@@ -7,8 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     if (!validate_blank($_POST['name']) ||
-    !validate_blank($_POST['gender']) ||
-    !validate_blank($_POST['prompt']))
+    !validate_blank($_POST['prompt']) ||
+    !validate_blank($_POST['voice'])
+    )
     {
         message_set('Host Error', 'There was an error with the provided host.', 'red');
         header_redirect('/radio/hosts/add');
@@ -16,14 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     
     $query = 'INSERT INTO hosts (
             `name`,
-            `gender`,
+            `voice`,
             `prompt`,
             `city_id`,
             `created_at`,
             `updated_at`
         ) VALUES (
             "'.addslashes($_POST['name']).'",
-            "'.addslashes($_POST['gender']).'",
+            "'.addslashes($_POST['voice']).'",
             "'.addslashes($_POST['prompt']).'",
             "'.$_city['id'].'",
             NOW(),
@@ -84,27 +85,31 @@ include('../templates/message.php');
         autocomplete="off"
     />
     <label for="name" class="w3-text-gray">
-        Name <span id="name-error" class="w3-text-red"></span>
+        Name <span id="name_error" class="w3-text-red"></span>
     </label>
 
 
-        <select 
-        name="gender"
+        
+    <!-- Flora: added on 2025.1.20
+    $voice = ["alloy" "ash", "coral", "echo", "fable", "onyx", "nova", "sage", "shimmer"]; -->
+
+    <select 
+        name="voice"
         class="w3-input w3-border w3-margin-top"
-        id="gender" 
+        id="voice" 
         autocomplete="off"
         >
         <option value="" disabled selected>Please select</option>
             <?php
-            $values = array('male','female');
+            $values = array('alloy','nova', 'shimmer', 'echo', 'onyx', 'fable');
             foreach($values as $value){
                 echo '<option value="' . $value . '">' . $value . '</option>';
             }
 
             ?>
         </select>
-        <label for="gender" class="w3-text-gray">
-        Gender<span id="gender-error" class="w3-text-red"></span>
+        <label for="voice" class="w3-text-gray">
+        Voice<span id="voice_error" class="w3-text-red"></span>
     </label>
 
         
@@ -115,8 +120,10 @@ include('../templates/message.php');
             autocomplete="off"
         ></textarea>
         <label for="prompt" class="w3-text-gray">
-            Prompt <span id="prompt-error" class="w3-text-red"></span>
+            Prompt <span id="prompt_error" class="w3-text-red"></span>
         </label>
+
+
 
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
@@ -132,25 +139,27 @@ include('../templates/message.php');
 
         // name validation
         let name = document.getElementById("name");
-        let name_error = document.getElementById("name-error");
+        let name_error = document.getElementById("name_error");
         name_error.innerHTML = "";
         if (name.value == "") {
             name_error.innerHTML = "(name is required)";
             errors++;
         }
-    
-        // gender validation
-        let gender = document.getElementById("gender");
-        let gender_error = document.getElementById("gender-error");
-        gender_error.innerHTML = "";
-        if (gender.value == "" || gender.value == "Please select") {
-            gender_error.innerHTML = "(gender is required)";
+
+
+        // voice validation
+        let voice = document.getElementById("voice");
+        let voice_error = document.getElementById("voice_error");
+        voice_error.innerHTML = "";
+        if (voice.value == "" || voice.value == "Please select") {
+            voice_error.innerHTML = "(voice is required)";
             errors++;
         }
 
+
         // prompt validation
         let prompt = document.getElementById("prompt");
-        let prompt_error = document.getElementById("prompt-error");
+        let prompt_error = document.getElementById("prompt_error");
         prompt_error.innerHTML = "";
         if (prompt.value == "") {
             prompt_error.innerHTML = "(Prompt is required to create a personalized radio voice.)";

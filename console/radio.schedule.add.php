@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 define('APP_NAME', 'Radio');
 define('PAGE_TITLE', 'Add Schedule');
-define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/roads');
+define('PAGE_SELECTED_SECTION', 'admin-content');
+define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');

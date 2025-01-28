@@ -56,7 +56,6 @@ function get_broadcast_list()
 // Function to call ChatGPT API
 function generateContent($segmentId)
 {
-
     die('generateContent');
     global $connect;
 
@@ -134,7 +133,7 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
-    $schedule_type['filename'] = 'colour.php';
+    $schedule_type['filename'] = 'bricksum.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
 
@@ -167,9 +166,6 @@ function radio_script($log_id, $city_id)
     $response = curl_exec($ch);
     curl_close($ch);
 
-
-
-
     $query = 'UPDATE schedule_logs SET
         script = "'.addslashes($response).'"
         WHERE id = "'.$log_id.'"
@@ -184,12 +180,19 @@ function radio_mp3($log_id)
     global $connect;
 
     $log = schedule_log_fetch($log_id);
-
+    // $voice = schedule_log_fetch($log['voice']);
     // debug_pre($log);
     // echo gettype($log['script']);
 
-    $script = json_decode($log['script'], true);
+    // echo gettype($log['voice']);
+    // string - correct
+ 
+    // ash - correct
+    // debug_pre($voice);
 
+
+    $script = json_decode($log['script'], true);
+    
     // echo gettype($script);
     // debug_pre($script);
 
@@ -197,9 +200,12 @@ function radio_mp3($log_id)
     $data = [
         "model" => "tts-1",
         "input" => $script['choices'][0]['message']['content'],
-        "voice" => "alloy",
+        "voice" => $log['voice'],
     ];
 
+    debug_pre($data);
+
+    // https://platform.openai.com/docs/guides/text-to-speech
     $headers = [
         'Authorization: Bearer '.OPENAI_SECRET,
         'Content-Type: application/json',
@@ -221,3 +227,4 @@ function radio_mp3($log_id)
     fwrite($log_file, $response);
 
 }
+

@@ -1,6 +1,7 @@
 <?php
 
 $length = 1;
+$filename = basename(__FILE__);
 
 $prompt = 'Write a script for a '.$length.' minute radio segment. 
 
@@ -8,20 +9,10 @@ The radio station name is Lively Radio.
 
 There is one host for the radio station.'; 
 
-$query='SELECT `name`, `prompt`
-        FROM hosts
-        WHERE city_id = "'.$_GET['key'].'"
-        ';
+// HOST information $_city
+$prompt .= host_prompt($_GET['key'], $filename);
 
-$result = mysqli_query($connect, $query);
-
-// prompt and $prompt: does it matter?
-while($hosts = mysqli_fetch_assoc($result))
-{
-    $prompt .= 'His/Her name is' .$hosts['name'].'. Gender is' .$hosts['gender'].'. Personal traits:' .$hosts['prompt'].'. The person is the main character from the LEGO movie.';
-}
-
-$prompt .='Only include the words the host will say, no instructions, no speaker names, no music or sounds. Please generate a personalized voice based on the gender and personal traits.
+$prompt .='Only include the words the host will say, no instructions, no music or sounds.
 
 The topic of this segment is traffic. 
 

@@ -1,3 +1,5 @@
 <?php
 
-include('clock.php');
+include('brix.php');
+
+// no table

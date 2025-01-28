@@ -16,7 +16,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // Basic serverside validation
     if (!validate_blank($_POST['name']) ||
-        !validate_blank($_POST['gender']) ||
+        !validate_blank($_POST['voice']) ||
         !validate_blank($_POST['prompt'])
     )
     {
@@ -27,7 +27,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     $query = 'UPDATE hosts SET
         name = "'.addslashes($_POST['name']).'",
-        gender = "'.addslashes($_POST['gender']).'",
+        voice = "'.addslashes($_POST['voice']).'",
         prompt = "'.addslashes($_POST['prompt']).'",
         updated_at = NOW()
         WHERE id = '.$_GET['key'].'
@@ -91,31 +91,35 @@ $host = host_fetch($_GET['key']);
         value="<?=$host['name']?>"
     />
     <label for="name" class="w3-text-gray">
-        Name <span id="name-error" class="w3-text-red"></span>
+        Name <span id="name_error" class="w3-text-red"></span>
     </label>
 
-
     <select 
-    name="gender"
-    class="w3-input w3-border w3-margin-top"
-    id="gender" 
-    autocomplete="off"
-    >
-    <!-- <option value="" disabled selected>Please select</option> -->
-        <?php
-        $values = array('male','female');
-        foreach($values as $value){
-            echo '<option value="' . $value . '"';
-            if (($host['gender']) === $value) {
-                echo ' selected'; 
-            }
-            echo '>' . $value . '</option>';
-        }
+        name="voice"
+        class="w3-input w3-border w3-margin-top"
+        id="voice" 
+        autocomplete="off"
+        >
 
-        ?>
-    </select>
-    <label for="gender" class="w3-text-gray">
-    Gender<span id="gender-error" class="w3-text-red"></span>
+        <!-- 
+        array('alloy','ash','coral','echo','fable','onyx','nova','sage','shimmer');
+        array('alloy','nova', 'shimmer', 'echo', 'onyx', 'fable');
+
+        -->
+            <?php
+            $values = array('alloy','ash','coral','echo','fable','onyx','nova','sage','shimmer');
+            foreach($values as $value){
+                echo '<option value="' . $value . '"';
+                if (($host['voice']) === $value) {
+                    echo ' selected'; 
+                }
+                echo '>' . $value . '</option>';
+            }
+
+            ?>
+        </select>
+        <label for="voice" class="w3-text-gray">
+        Voice<span id="voice_error" class="w3-text-red"></span>
     </label>
 
         
@@ -126,7 +130,7 @@ $host = host_fetch($_GET['key']);
             autocomplete="off"
         ><?= $host['prompt'] ?></textarea>
         <label for="prompt" class="w3-text-gray">
-            Prompt <span id="prompt-error" class="w3-text-red"></span>
+            Prompt <span id="prompt_error" class="w3-text-red"></span>
         </label>
 
         <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
