@@ -131,20 +131,9 @@ $square = square_fetch($_GET['key']);
     enctype="multipart/form-data"
 >
 
-    <?=form_select_table('building_id', 'buildings', 'id', 'name', array('multiple' => true, 'selected' => $square['buildings'], 'first' => true))?>
+    <?=form_select_table('building_id', 'buildings', 'id', 'name', array('selected' => $square['building_id'], 'first' => true))?>
     <label for="building_id" class="w3-text-gray">
         Building <span id="building-id-error" class="w3-text-red"></span>
-    </label>
-
-    <input  
-        name="building_rules" 
-        class="w3-input w3-border w3-margin-top" 
-        type="text" 
-        id="building_rules" 
-        value="<?=$square['building_rules']?>"
-    />
-    <label for="building_rules" class="w3-text-gray">
-        Building Rules <span id="building-rules-error" class="w3-text-red"></span>
     </label>
 
     <?php foreach(DIRECTIONS as $direction): ?>
