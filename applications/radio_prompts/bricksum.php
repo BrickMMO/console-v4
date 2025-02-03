@@ -11,8 +11,17 @@ There is one host for the radio station.';
 // get host
 $prompt .= host_prompt($_GET['key'], $filename);
 
-$prompt .=' Only include the words the host will say, no instructions, no music or sounds. Please generate an audio on BrickMMO LEGO city overview.
+$prompt .=' Only include the words the host will say, no instructions, no music or sounds. Please generate an audio based on the topic: brixsum.
 ';
 
-$prompt .='It includes a variety of exciting features:clock, colour, commercial, crypto, events, news, panel, places, store and traffic.
+// get SMART city
+$query='SELECT `value`
+    FROM settings
+    WHERE name = "BRICKSUM_WORDLIST"';
+
+$result = mysqli_query($connect, $query);
+$bricksum = mysqli_fetch_assoc($result);
+
+
+$prompt .='It includes a variety of exciting features:' . $bricksum['value'] . '.
 ';

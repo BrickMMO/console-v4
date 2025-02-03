@@ -70,7 +70,7 @@ include('../templates/message.php');
 
 <hr />
 
-<h2>Add Road</h2>
+<h2>Add Schedule</h2>
 
 <form
     method="post"

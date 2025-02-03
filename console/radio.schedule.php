@@ -58,8 +58,7 @@ elseif (isset($_POST['edit']))
 elseif (isset($_POST['delete'])) 
 {
     $id = $_POST['id'];
-
-    
+  
     // Delete from BroadcastLogs on the schedule
     $deleteLogsQuery = "DELETE FROM Broadcast_logs WHERE segment_id = (SELECT segment_id FROM Schedules WHERE id = ?)";
     $deleteLogsStmt = mysqli_prepare($connect, $deleteLogsQuery);

@@ -133,7 +133,7 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
-    $schedule_type['filename'] = 'bricksum.php';
+    $schedule_type['filename'] = 'store.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
 
