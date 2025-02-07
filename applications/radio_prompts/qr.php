@@ -1,7 +1,8 @@
 <?php
 
-$length = 1;
 $filename = basename(__FILE__);
+
+$length = radio_length($filename);
 
 $prompt = 'Write a script for a '.$length.' minute radio segment. 
 

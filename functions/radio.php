@@ -133,7 +133,7 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
-    $schedule_type['filename'] = 'store.php';
+    $schedule_type['filename'] = 'city.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
 
@@ -228,3 +228,15 @@ function radio_mp3($log_id)
 
 }
 
+
+function radio_length($filename) {
+
+    global $connect;
+
+    $query = sprintf("SELECT `length` FROM `schedule_types` WHERE `filename` = '%s'", $filename);
+
+    $result = mysqli_query($connect, $query);
+    $length = mysqli_fetch_assoc($result);
+
+    return $length['length'];
+}

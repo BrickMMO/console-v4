@@ -101,7 +101,7 @@ include('../templates/message.php');
         >
         <option value="" disabled selected>Please select</option>
             <?php
-            $values = array('alloy','nova', 'shimmer', 'echo', 'onyx', 'fable');
+            $values = array('alloy','ash','coral','nova', 'shimmer', 'echo', 'onyx', 'fable');
             foreach($values as $value){
                 echo '<option value="' . $value . '">' . $value . '</option>';
             }
