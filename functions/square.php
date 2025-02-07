@@ -31,6 +31,7 @@ function square_fetch($identifier)
     $square['roads'] = square_roads($square['id'], true);
     $square['tracks'] = square_tracks($square['id'], true);
     $square['coords'] = square_coords($square['id'], true);
+    $square['buildings'] = square_buildings($square['id'], true);
     
     return $square;
 
@@ -194,6 +195,39 @@ function square_coords($id, $array = false)
     $coords = array_filter($coords);
 
     return $coords;
+
+}
+
+function square_buildings($id, $array = false)
+{
+
+    global $connect;
+
+    $query = 'SELECT *
+        FROM squares
+        WHERE building_id = "'.$id.'"';
+    $result = mysqli_query($connect, $query);
+
+    $buildings = array();
+
+    if($array) 
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $buildings[] = $record['building_id'];
+        }
+    }
+    else
+    {
+        while($record = mysqli_fetch_assoc($result))
+        {
+            $buildings[] = $record;
+        }
+    }
+    
+    $buildings = array_filter($buildings);
+
+    return $buildings;
 
 }
 
