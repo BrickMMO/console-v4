@@ -3,10 +3,12 @@
 security_check();
 admin_check();
 
+/*
 debug_pre(explode(',', setting_fetch('GITHUB_ACCOUNTS')));
 echo $_GET['key'];
 echo 'IN: '.in_array($_GET['key'], explode(',', setting_fetch('GITHUB_ACCOUNTS')));
 die();
+*/
 
 if (!isset($_GET['key']) || !in_array($_GET['key'], explode(',', setting_fetch('GITHUB_ACCOUNTS'))))
 {
