@@ -3,78 +3,16 @@
 security_check();
 admin_check();
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) 
+if (isset($_GET['delete'])) 
 {
-    $segment_id = $_POST['segment_id'];
-    $content = generateContent($segment_id);
 
-    $timeInput = $_POST['hour'] . ':' . $_POST['minute'] . ' ' . $_POST['ampm'];
-    $broadcast_time = date("Y-m-d H:i:s", strtotime($timeInput));
+    $query = 'DELETE FROM schedules
+        WHERE id = '.$_GET['delete'];
+    mysqli_query($connect, $query);
 
-    // Insert into Schedule
-    $scheduleQuery = "INSERT INTO Schedules (time, segment_id) VALUES (?, ?)";
-    $stmt = mysqli_prepare($connect, $scheduleQuery);
-    mysqli_stmt_bind_param($stmt, 'si', $broadcast_time, $segment_id);
-    mysqli_stmt_execute($stmt);
-
-    // Insert into BroadcastLogs
-    $logsQuery = "INSERT INTO Broadcast_logs (content, broadcast_time, segment_id) VALUES (?, ?, ?)";
-    $logStmt = mysqli_prepare($connect, $logsQuery);
-    mysqli_stmt_bind_param($logStmt, 'sss', $content, $broadcast_time, $segment_id);
-    mysqli_stmt_execute($logStmt);
-
-    message_set('Log Added', 'Broadcast Log added successfully!', 'green', true);
-
+    message_set('Delete Success', 'Schedule has been deleted.');
     header_redirect('/radio/schedule');
-    exit();
-} 
-elseif (isset($_POST['edit'])) 
-{
-    debug_pre($_POST);
-    $id = $_POST['id'];
-    $timeInput = $_POST['hour'] . ':' . $_POST['minute'] . ' ' . $_POST['ampm'];
-    $time = date("Y-m-d H:i:s", strtotime($timeInput));
-    $segment_name = $_POST['title'];
-    $segment_id = $_POST['segment_id'];
-
-    // Update Schedule
-    $updateScheduleQuery = "UPDATE Schedules SET time = ?, segment_id = ? WHERE id = ?";
-    $updateStmt = mysqli_prepare($connect, $updateScheduleQuery);
-    mysqli_stmt_bind_param($updateStmt, 'sii', $time, $segment_id, $id);
-    mysqli_stmt_execute($updateStmt);
-
-    // Update BroadcastLogs content that should change
-    $updateLogsQuery = "UPDATE Broadcast_logs SET broadcast_time = ? WHERE segment_id = ?";
-    $updateLogsStmt = mysqli_prepare($connect, $updateLogsQuery);
-    mysqli_stmt_bind_param($updateLogsStmt, 'si', $time, $segment_id);
-    mysqli_stmt_execute($updateLogsStmt);
-
-    message_set('Log Edited', 'Broadcast Log added successfully!', 'green', true);
-
-    header_redirect('/radio/schedule');
-    exit();
-} 
-elseif (isset($_POST['delete'])) 
-{
-    $id = $_POST['id'];
-  
-    // Delete from BroadcastLogs on the schedule
-    $deleteLogsQuery = "DELETE FROM Broadcast_logs WHERE segment_id = (SELECT segment_id FROM Schedules WHERE id = ?)";
-    $deleteLogsStmt = mysqli_prepare($connect, $deleteLogsQuery);
-    mysqli_stmt_bind_param($deleteLogsStmt, 'i', $id);
-    mysqli_stmt_execute($deleteLogsStmt);
     
-    // Delete from Schedule
-    $deleteScheduleQuery = "DELETE FROM Schedules WHERE id = ?";
-    $deleteStmt = mysqli_prepare($connect, $deleteScheduleQuery);
-    mysqli_stmt_bind_param($deleteStmt, 'i', $id);
-    mysqli_stmt_execute($deleteStmt);
-
-    message_set('Log Deleted', 'Broadcast Log deleted successfully!', 'red', true);
-
-    header_redirect('/radio/schedule');
-    exit();
 }
 
 define('APP_NAME', 'Radio');
@@ -82,13 +20,12 @@ define('PAGE_TITLE', 'Schedule');
 define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
 
-require_once('../templates/html_header.php');
-require_once('../templates/nav_header.php');
-require_once('../templates/nav_slideout.php');
-require_once('../templates/nav_sidebar.php');
-require_once('../templates/main_header.php');
-require_once('../templates/message.php');
-
+include('../templates/html_header.php');
+include('../templates/nav_header.php');
+include('../templates/nav_slideout.php');
+include('../templates/nav_sidebar.php');
+include('../templates/main_header.php');
+include('../templates/message.php');
 
 $query = 'SELECT schedules.*,
     schedule_types.name AS type_name,
@@ -102,13 +39,15 @@ $query = 'SELECT schedules.*,
     ORDER BY minute';
 $result = mysqli_query($connect, $query);
 
+
 ?>
 
 <h1 class="w3-margin-top w3-margin-bottom">
     <img src="https://cdn.brickmmo.com/icons@1.0.0/radio.png" alt="Radio Broadcast Icon" height="50" style="vertical-align: top" /> 
     Radio
 </h1>
-<p><a href="/city/dashboard">Dashboard</a> / <a href="/radio/dashboard">Radio</a> / Schedule</p>
+<p><a href="/city/dashboard">Dashboard</a> / 
+<a href="/radio/dashboard">Radio</a> / Schedule</p>
 <hr>
 
 <h2>Radio Schedule</h2>
@@ -124,7 +63,7 @@ $result = mysqli_query($connect, $query);
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($result as $record):?>
+    <?php while($record = mysqli_fetch_assoc($result)): ?>
             <tr>
                 <td><?= htmlspecialchars($record['minute']) ?></td>
                 <td><?= htmlspecialchars($record['type_name']) ?></td>
@@ -140,7 +79,7 @@ $result = mysqli_query($connect, $query);
                     </a>
                 </td>
             </tr>
-        <?php endforeach; ?>
+            <?php endwhile; ?>
     </tbody>
 </table>
 

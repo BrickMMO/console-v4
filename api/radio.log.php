@@ -17,7 +17,6 @@ $data = array();
 
 for($i = 0; $i < 1; $i ++)
 {
-
     $minute_play = date('i', $now);
     $minute_lookup = str_pad($minute_play % 15, 2, '0', STR_PAD_LEFT);
     $play = mktime(
