@@ -6,8 +6,8 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
     return;
 }
 
-$query = 'TRUNCATE schedule_logs';
-mysqli_query($connect, $query);
+// $query = 'TRUNCATE schedule_logs';
+// mysqli_query($connect, $query);
 
 $now = time();
 $now -= $now % 60;

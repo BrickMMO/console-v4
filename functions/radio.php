@@ -128,7 +128,7 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
-    $schedule_type['filename'] = 'traffic.php';
+    // $schedule_type['filename'] = 'traffic.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
 
@@ -205,6 +205,12 @@ function radio_mp3($log_id)
     curl_close($ch);
 
     $log_filename = $log_id.'.mp3';
+
+    if(!file_exists('../public/radio_queue/'))
+    {
+        mkdir('../public/radio_queue/');
+    }
+
     $log_folder = '../public/radio_queue/';
     $log_file = $myfile = fopen($log_folder.$log_filename, "w");
     
