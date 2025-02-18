@@ -79,7 +79,15 @@ $hosts_count = mysqli_num_rows($result);
                 <?=$record['name']?>
             </td>
             <td>
-                <?=$record['voice']?>
+                <?=$record['voice']?> 
+                <audio id="audio_<?=$record['id']?>">
+                    <source src="https://cdn.openai.com/API/docs/audio/<?=$record['voice']?>.wav" type="audio/wav">
+                </audio>
+
+                <button class="w3-transparent w3-border-0" onclick="toggleAudio('audio_<?=$record['id']?>')">
+                    <i id="play_<?=$record['id']?>" class='fa-solid fa-circle-play' style='color:#ff5b00; font-size:18px'></i>
+                    <i id="pause_<?=$record['id']?>" class='fa-solid fa-circle-pause' style='color:#ff5b00;display:none;font-size:18px'></i>
+                </button>
             </td>
             <td>
                 <?=$record['prompt']?>
@@ -114,9 +122,30 @@ $hosts_count = mysqli_num_rows($result);
     <i class="fa-solid fa-tag fa-padding-right"></i> Add New Host
 </a>
 
+
+<script>
+    function toggleAudio(audioId) {
+        const audio = document.getElementById(audioId);
+        const playIcon = document.getElementById(`play_${audioId.replace('audio_', '')}`);
+        const pauseIcon = document.getElementById(`pause_${audioId.replace('audio_', '')}`);
+
+        if (audio.paused) {
+            audio.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'inline';
+        } else {
+            audio.pause(); 
+            pauseIcon.style.display = 'none'; 
+            playIcon.style.display = 'inline'; 
+        }
+    }
+    
+</script>
 <?php
 require_once('../templates/modal_city.php');
 require_once('../templates/main_footer.php');
 require_once('../templates/debug.php');
 require_once('../templates/html_footer.php');
 ?>
+
+

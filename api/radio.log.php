@@ -15,7 +15,7 @@ $now -= $now % 60;
 $counter = 0;
 $data = array();
 
-for($i = 0; $i < 1; $i ++)
+for($i = 0; $i < 2; $i ++)
 {
     $minute_play = date('i', $now);
     $minute_lookup = str_pad($minute_play % 15, 2, '0', STR_PAD_LEFT);
@@ -82,6 +82,7 @@ for($i = 0; $i < 1; $i ++)
                 FROM schedule_logs
                 WHERE id = "'.mysqli_insert_id($connect).'"
                 LIMIT 1';
+                // 
             $result = mysqli_query($connect, $query);
 
             $log = mysqli_fetch_assoc($result);
@@ -90,9 +91,7 @@ for($i = 0; $i < 1; $i ++)
             radio_mp3($log['id']);
 
             $data[] = $log;
-
             $counter ++;
-
         }
         
     }
