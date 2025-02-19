@@ -56,6 +56,7 @@ function get_broadcast_list()
 // Function to call ChatGPT API
 function generateContent($segmentId)
 {
+    die('generateContent');
     global $connect;
 
     $query = "SELECT name FROM Segments WHERE id = ?";
@@ -115,6 +116,10 @@ function generateContent($segmentId)
 
     $result = json_decode($response, true);
 
+    echo 'hi!';
+    debug_pre($response);
+    die();
+
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
 
@@ -128,6 +133,7 @@ function radio_script($log_id, $city_id)
     $schedule_type = schedule_type_fetch($schedule['type_id']);
     $length = schedule_length($schedule['id']);
 
+    // $schedule_type['filename'] = 'city.php';
     // $schedule_type['filename'] = 'traffic.php';
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
@@ -157,10 +163,9 @@ function radio_script($log_id, $city_id)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
     $response = curl_exec($ch);
     curl_close($ch);
-
-    debug_pre($response);
 
     $query = 'UPDATE schedule_logs SET
         script = "'.addslashes($response).'"
@@ -176,21 +181,32 @@ function radio_mp3($log_id)
     global $connect;
 
     $log = schedule_log_fetch($log_id);
-
+    // $voice = schedule_log_fetch($log['voice']);
     // debug_pre($log);
     // echo gettype($log['script']);
 
-    $script = json_decode($log['script'], true);
+    // echo gettype($log['voice']);
+    // string - correct
+ 
+    // ash - correct
+    // debug_pre($voice);
 
+
+    $script = json_decode($log['script'], true);
+    
     // echo gettype($script);
     // debug_pre($script);
+
 
     $data = [
         "model" => "tts-1",
         "input" => $script['choices'][0]['message']['content'],
-        "voice" => "alloy",
+        "voice" => $log['voice'],
     ];
 
+    debug_pre($data);
+
+    // https://platform.openai.com/docs/guides/text-to-speech
     $headers = [
         'Authorization: Bearer '.OPENAI_SECRET,
         'Content-Type: application/json',
@@ -201,6 +217,7 @@ function radio_mp3($log_id)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
     $response = curl_exec($ch);
     curl_close($ch);
 
@@ -216,4 +233,17 @@ function radio_mp3($log_id)
     
     fwrite($log_file, $response);
 
+}
+
+
+function radio_length($filename) {
+
+    global $connect;
+
+    $query = sprintf("SELECT `length` FROM `schedule_types` WHERE `filename` = '%s'", $filename);
+
+    $result = mysqli_query($connect, $query);
+    $length = mysqli_fetch_assoc($result);
+
+    return $length['length'];
 }
