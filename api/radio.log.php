@@ -15,7 +15,7 @@ $now -= $now % 60;
 $counter = 0;
 $data = array();
 
-for($i = 0; $i < 1; $i ++)
+for($i = 0; $i < 2; $i ++)
 {
 
     $minute_play = date('i', $now);
