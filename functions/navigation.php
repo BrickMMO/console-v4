@@ -137,6 +137,10 @@ function navigation_array($selected = false)
                                     'url' => '/roadview/roads',
                                     'colour' => 'red',
                                 ],[
+                                    'title' => 'Roads Quick Edit',
+                                    'url' => '/roadview/quick',
+                                    'colour' => 'red',
+                                ],[ 
                                     'br' => '---',
                                 ],[
                                     'title' => 'Maps',

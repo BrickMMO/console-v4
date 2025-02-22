@@ -7,7 +7,7 @@ define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/dashboard');
+define('PAGE_SELECTED_SUB_PAGE', '/roadview/quick');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -46,14 +46,16 @@ $width = round(100/$_city['width'],2);
         <?php for($col = 0; $col < $_city['width']; $col ++): ?>
 
             <div class="w3-cell w3-border w3-<?=square_colour($squares[$row][$col]['id'], array('roads' => true))?> w3-text-white" 
-                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%"
-                onclick="location.href='/roadview/square/<?=$squares[$row][$col]['id']?>';">
+                style="width: <?=$width?>%; height: 35px; cursor: pointer; text-align: center; vertical-align: middle; font-size: 60%">
 
-                <?php if(count($squares[$row][$col]['roads']) && $squares[$row][$col]['images'] < 4): ?>
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                <?php endif; ?>
-                <?php if(count($squares[$row][$col]['roads']) && !$squares[$row][$col]['road_rules']): ?>
-                    <i class="fa-solid fa-arrow-turn-up"></i>
+                <?php if(count($squares[$row][$col]['roads'])): ?>
+                    <input 
+                        type="text" 
+                        value="<?=$squares[$row][$col]['road_rules']?>" 
+                        style="width: 100%; height: 100%; text-align: center;"
+                        name="road_rules[<?=$squares[$row][$col]['id']?>]"
+                        data-id="<?=$squares[$row][$col]['id']?>"
+                        onblur="editSquareRoadRules(this);">
                 <?php endif; ?>
 
             </div>
@@ -63,6 +65,25 @@ $width = round(100/$_city['width'],2);
     </div>
 
 <?php endfor; ?>
+
+<script>
+
+    function editSquareRoadRules(target)
+    {
+        let id = target.dataset.id;
+        let road_rules = target.value;
+        
+        fetch('/ajax/square/road/rules',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({id: id, road_rules: road_rules})
+        });
+        
+    }
+
+</script>
 
 <a
     href="/roadview/quick"
