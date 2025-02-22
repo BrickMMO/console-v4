@@ -56,7 +56,9 @@ function get_broadcast_list()
 // Function to call ChatGPT API
 function generateContent($segmentId)
 {
-    die('generateContent');
+
+    // die('generateContent');
+
     global $connect;
 
     $query = "SELECT name FROM Segments WHERE id = ?";
@@ -116,9 +118,7 @@ function generateContent($segmentId)
 
     $result = json_decode($response, true);
 
-    echo 'hi!';
     debug_pre($response);
-    die();
 
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
@@ -138,7 +138,7 @@ function radio_script($log_id, $city_id)
 
     require('../applications/radio_prompts/'.$schedule_type['filename']);
 
-    debug_pre($prompt);
+    // debug_pre($prompt);
 
     $data = [
         'model' => 'gpt-4o-mini',
@@ -240,7 +240,9 @@ function radio_length($filename) {
 
     global $connect;
 
-    $query = sprintf("SELECT `length` FROM `schedule_types` WHERE `filename` = '%s'", $filename);
+    $query = sprintf("SELECT `length` 
+        FROM `schedule_types` 
+        WHERE `filename` = '%s'", $filename);
 
     $result = mysqli_query($connect, $query);
     $length = mysqli_fetch_assoc($result);

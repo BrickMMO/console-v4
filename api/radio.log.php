@@ -4,7 +4,11 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
 {
     $data = array('message' => 'No city ID specified.', 'error' => false);
     return;
+
 }
+
+set_time_limit(1);
+ini_set('max_execution_time', 1);
 
 // $query = 'TRUNCATE schedule_logs';
 // mysqli_query($connect, $query);
@@ -15,7 +19,9 @@ $now -= $now % 60;
 $counter = 0;
 $data = array();
 
-for($i = 0; $i < 2; $i ++)
+$created = 0;
+
+for($i = 0; $i < 4; $i ++)
 {
     $minute_play = date('i', $now);
     $minute_lookup = str_pad($minute_play % 15, 2, '0', STR_PAD_LEFT);
@@ -24,11 +30,11 @@ for($i = 0; $i < 2; $i ++)
         $minute_play, 
         0);
 
-    // echo 'Time: '.$now.'<br>';
-    // echo 'Date: '.date_to_format($now, 'FULL').'<br>';
-    // echo 'Minute: '.$minute_play.'<br>';
-    // echo 'Lookup: '.$minute_lookup.'<br>';
-    // echo 'Play: '.date_to_format($play, 'FULL').'<br>';
+    echo 'Time: '.$now.'<br>';
+    echo 'Date: '.date_to_format($now, 'FULL').'<br>';
+    echo 'Minute: '.$minute_play.'<br>';
+    echo 'Lookup: '.$minute_lookup.'<br>';
+    echo 'Play: '.date_to_format($play, 'FULL').'<br>';
 
     $query = 'SELECT *
         FROM schedule_logs
@@ -36,8 +42,8 @@ for($i = 0; $i < 2; $i ++)
         AND play_at = "'.date_to_format($play, 'MYSQL').'"';
     $result = mysqli_query($connect, $query);
 
-    // echo 'Queued: '.mysqli_num_rows($result).'<br>';
-    // echo 'Query: '.$query.'<br>';
+    echo 'Queued: '.mysqli_num_rows($result).'<br>';
+    echo 'Query: '.$query.'<br>';
     
     // If a log does not exist for this play date
     if(!mysqli_num_rows($result))
@@ -56,8 +62,10 @@ for($i = 0; $i < 2; $i ++)
         // echo 'Scheudle Exists: '.mysqli_num_rows($result).'<br>';
 
         // If a schedule exists for this minute
-        if(mysqli_num_rows($result))
+        if(mysqli_num_rows($result) && $created < 1)
         {
+
+            $created ++;
 
             $schedule = mysqli_fetch_assoc($result);
 
@@ -95,8 +103,19 @@ for($i = 0; $i < 2; $i ++)
         }
         
     }
+    else
+    {
+
+        $log = mysqli_fetch_assoc($result);
+        debug_pre($log);
+
+    }
 
     $now += 60;
+
+    echo '<hr>';
+
+    ob_flush();
 
 }
 

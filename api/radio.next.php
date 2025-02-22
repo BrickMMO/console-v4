@@ -18,7 +18,6 @@ $query = 'SELECT id,
     AND city_id = "'.$_GET['key'].'"
     ORDER BY play_at DESC
     LIMIT 1';
-    // 
 $result = mysqli_query($connect, $query);
 
 $log = mysqli_fetch_assoc($result);
