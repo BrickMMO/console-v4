@@ -35,7 +35,8 @@ $width = round(100/$_city['width'],2);
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Road View
+    <a href="/roadview/dashboard">Road View</a> / 
+    Road Quick Edit
 </p>
 <hr>
 

@@ -27,11 +27,6 @@ function navigation_array($selected = false)
                                 ],[
                                     'br' => '---',
                                 ],[
-                                    'title' => 'Maps',
-                                    'url' => '/maps/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-maps',
-                                ],[
                                     'title' => 'Places',
                                     'url' => '/places/dashboard',
                                     'colour' => 'red',
@@ -87,11 +82,6 @@ function navigation_array($selected = false)
                                     'url' => '/maps/dashboard',
                                     'colour' => 'red',
                                     'icon' => 'bm-maps',
-                                ],[
-                                    'title' => 'Places',
-                                    'url' => '/places/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-places',
                                 ],[
                                     'title' => 'Road View',
                                     'url' => '/roadview/dashboard',
@@ -153,11 +143,6 @@ function navigation_array($selected = false)
                                     'colour' => 'red',
                                     'icon' => 'bm-places',
                                 ],[
-                                    'title' => 'Road View',
-                                    'url' => '/roadview/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-roadview',
-                                ],[
                                     'title' => 'Track View',
                                     'url' => '/trackview/dashboard',
                                     'colour' => 'red',
@@ -197,6 +182,10 @@ function navigation_array($selected = false)
                                     'url' => '/trackview/tracks',
                                     'colour' => 'red',
                                 ],[
+                                    'title' => 'Tracks Quick Edit',
+                                    'url' => '/trackview/quick',
+                                    'colour' => 'red',
+                                ],[
                                     'br' => '---',
                                 ],[
                                     'title' => 'Maps',
@@ -213,11 +202,6 @@ function navigation_array($selected = false)
                                     'url' => '/roadview/dashboard',
                                     'colour' => 'red',
                                     'icon' => 'bm-roadview',
-                                ],[
-                                    'title' => 'Track View',
-                                    'url' => '/trackview/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-trackview',
                                 ],[
                                     'br' => '---',
                                 ],[

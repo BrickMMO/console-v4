@@ -64,13 +64,6 @@ $width = round(100/$_city['width'],2);
 
 <?php endfor; ?>
 
-<a
-    href="/roadview/quick"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Roads Quick Edit
-</a>
-
 <?php
 
 include('../templates/modal_city.php');

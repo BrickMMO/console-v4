@@ -7,7 +7,7 @@ define('APP_NAME', 'Road View');
 
 define('PAGE_TITLE', 'Dashboard');
 define('PAGE_SELECTED_SECTION', 'geography');
-define('PAGE_SELECTED_SUB_PAGE', '/roadview/quick');
+define('PAGE_SELECTED_SUB_PAGE', '/trackview/quick');
 
 include('../templates/html_header.php');
 include('../templates/nav_header.php');
@@ -31,11 +31,12 @@ $width = round(100/$_city['width'],2);
         height="50"
         style="vertical-align: top"
     />
-    Road View
+    Track Quick Edit
 </h1>
 <p>
     <a href="/city/dashboard">Dashboard</a> / 
-    Road View
+    <a href="/trackview/dashboard">Track View</a> / 
+    Track Quick Edit
 </p>
 <hr>
 
@@ -84,13 +85,6 @@ $width = round(100/$_city['width'],2);
     }
 
 </script>
-
-<a
-    href="/roadview/quick"
-    class="w3-button w3-white w3-border w3-margin-top"
->
-    <i class="fa-solid fa-pen-to-square fa-padding-right"></i> Roads Quick Edit
-</a>
 
 <?php
 
