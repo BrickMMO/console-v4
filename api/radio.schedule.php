@@ -6,7 +6,6 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
     return;
 }
 
-
 $query = 'SELECT schedules.*,
     schedule_types.name AS type_name,
     hosts.name AS host_name
