@@ -94,6 +94,7 @@ function generateContent($segmentId)
     $result = json_decode($response, true);
 
 
+    /*
     $apiKey = OPENAI_SECRET;
     $data = [
         'model' => 'gpt-4o-mini',
@@ -119,7 +120,8 @@ function generateContent($segmentId)
     $result = json_decode($response, true);
 
     debug_pre($response);
-
+    */
+    
     return $result['choices'][0]['message']['content'] ?? 'Default content due to API failure.';
 }
 
