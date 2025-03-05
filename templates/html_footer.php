@@ -10,7 +10,7 @@
       <i class="fa-solid fa-chevron-right fa-padding-right"></i>
         Continue
       </a>
-      <button class="w3-button w3-white w3-border" onclick="close_modal('confirm');">
+      <button class="w3-button w3-white w3-border" onclick="closeModal('confirm');">
         Cancel
       </button>
     </footer>
@@ -28,7 +28,7 @@
     confirmContent.innerHTML = text;
     confirmUrl.href = url;
 
-    open_modal('confirm');
+    openModal('confirm');
     return false;
 
   }

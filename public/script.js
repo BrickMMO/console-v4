@@ -1,4 +1,4 @@
-function open_modal(id) {
+function openModal(id) {
   let modal = document.getElementById(id);
 
   modal.style.display = "block";
@@ -9,7 +9,7 @@ function open_modal(id) {
   }, 0);
 }
 
-function close_modal(id) {
+function closeModal(id) {
   let modal = document.getElementById(id);
 
   modal.style.transition = "0.5s";
