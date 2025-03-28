@@ -16,7 +16,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // Basic serverside validation
     if (!validate_blank($_POST['minute']) || 
-        !validate_blank($_POST['type_id']))
+        !validate_blank($_POST['type_id']) ||
+        !validate_blank($_POST['host_id']))
     {
 
         message_set('Schedule Error', 'There was an error with the provided schedule.', 'red');
@@ -26,6 +27,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
     $query = 'UPDATE schedules SET
         minute = "'.addslashes($_POST['minute']).'",
         type_id = "'.addslashes($_POST['type_id']).'",
+        host_id = "'.addslashes($_POST['host_id']).'",
         updated_at = NOW()
         WHERE id = '.$_GET['key'].'
         LIMIT 1';
@@ -37,9 +39,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 define('APP_NAME', 'Radio');
-
 define('PAGE_TITLE','Edit Schedule');
-define('PAGE_SELECTED_SECTION', 'geography');
+define('PAGE_SELECTED_SECTION', 'admin-content');
 define('PAGE_SELECTED_SUB_PAGE', '/radio/schedule');
 
 include('../templates/html_header.php');
@@ -90,12 +91,17 @@ $schedule = schedule_fetch($_GET['key']);
         value="<?=$schedule['minute']?>"
     />
     <label for="minute" class="w3-text-gray">
-        Minute <span id="minute-error" class="w3-text-red"></span>
+        Minute <span id="minute_error" class="w3-text-red"></span>
     </label>
 
     <?=form_select_table('type_id', 'schedule_types', 'id', 'name', array('selected' => $schedule['type_id'], 'empty_key' => ''))?>
     <label for="type_id" class="w3-text-gray">
-        Type <span id="type-id-error" class="w3-text-red"></span>
+        Type <span id="type_id_error" class="w3-text-red"></span>
+    </label>
+
+    <?=form_select_table('host_id', 'hosts', 'id', 'name', array('selected' => $schedule['host_id'], 'empty_key' => ''))?>
+    <label for="host_id" class="w3-text-gray">
+        Host <span id="host_id_error" class="w3-text-red"></span>
     </label>
 
     <button class="w3-block w3-btn w3-orange w3-text-white w3-margin-top" onclick="return validateMainForm();">
@@ -110,7 +116,7 @@ $schedule = schedule_fetch($_GET['key']);
         let errors = 0;
 
         let minute = document.getElementById("minute");
-        let minute_error = document.getElementById("minute-error");
+        let minute_error = document.getElementById("minute_error");
         minute_error.innerHTML = "";
         if (minute.value == "") {
             minute_error.innerHTML = "(minute is required)";
@@ -123,11 +129,19 @@ $schedule = schedule_fetch($_GET['key']);
             errors++;
         }
 
-        let type_id = document.getElementById("name");
-        let type_id_error = document.getElementById("type-id-error");
+        let type_id = document.getElementById("type_id");
+        let type_id_error = document.getElementById("type_id_error");
         type_id_error.innerHTML = "";
         if (type_id.value == "") {
             type_id_error.innerHTML = "(type is required)";
+            errors++;
+        }
+
+        let host_id = document.getElementById("host_id");
+        let host_id_error = document.getElementById("host_id_error");
+        host_id_error.innerHTML = "";
+        if (host_id.value == "") {
+            host_id_error.innerHTML = "(host is required)";
             errors++;
         }
 

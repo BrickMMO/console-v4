@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             mysqli_query($connect, $query);
 
             $image = Wideimage::load($_FILES[$key]['tmp_name']);
-            $image = $image->resize(1920, 1080, 'outside');
-            $image = $image->crop('center', 'center', 1920, 1080);
+            $image = $image->resize(960, 1280, 'outside');
+            $image = $image->crop('center', 'center', 960, 1280);
             $image = 'data:image/jpeg;base64, '.base64_encode($image->asString('jpg'));
         
             $query = 'INSERT INTO square_images (
@@ -122,7 +122,7 @@ $square = square_fetch($_GET['key']);
     Modify Road Square
 </p>
 <hr />
-<h2>Modify Road Square</h2>
+<h2>Modify Road Square (<?=$square['x']?>,<?=$square['y']?></h2>
 
 <form
     method="post"

@@ -6,13 +6,15 @@ if(!isset($_GET['key']) || !is_numeric($_GET['key']))
     return;
 }
 
-
 $query = 'SELECT schedules.*,
-    schedule_types.name AS type_name
+    schedule_types.name AS type_name,
+    hosts.name AS host_name
     FROM schedules
-    INNER JOIN schedule_types
+    LEFT JOIN schedule_types
     ON schedules.type_id = schedule_types.id
-    WHERE city_id = "'.$_GET['key'].'"
+    LEFT JOIN hosts
+    ON schedules.host_id =hosts.id
+    WHERE schedules.city_id = "'.$_GET['key'].'"
     ORDER BY minute';
 $result = mysqli_query($connect, $query);
 

@@ -27,11 +27,6 @@ function navigation_array($selected = false)
                                 ],[
                                     'br' => '---',
                                 ],[
-                                    'title' => 'Maps',
-                                    'url' => '/maps/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-maps',
-                                ],[
                                     'title' => 'Places',
                                     'url' => '/places/dashboard',
                                     'colour' => 'red',
@@ -88,11 +83,6 @@ function navigation_array($selected = false)
                                     'colour' => 'red',
                                     'icon' => 'bm-maps',
                                 ],[
-                                    'title' => 'Places',
-                                    'url' => '/places/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-places',
-                                ],[
                                     'title' => 'Road View',
                                     'url' => '/roadview/dashboard',
                                     'colour' => 'red',
@@ -137,6 +127,10 @@ function navigation_array($selected = false)
                                     'url' => '/roadview/roads',
                                     'colour' => 'red',
                                 ],[
+                                    'title' => 'Roads Quick Edit',
+                                    'url' => '/roadview/quick',
+                                    'colour' => 'red',
+                                ],[ 
                                     'br' => '---',
                                 ],[
                                     'title' => 'Maps',
@@ -148,11 +142,6 @@ function navigation_array($selected = false)
                                     'url' => '/places/dashboard',
                                     'colour' => 'red',
                                     'icon' => 'bm-places',
-                                ],[
-                                    'title' => 'Road View',
-                                    'url' => '/roadview/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-roadview',
                                 ],[
                                     'title' => 'Track View',
                                     'url' => '/trackview/dashboard',
@@ -193,6 +182,10 @@ function navigation_array($selected = false)
                                     'url' => '/trackview/tracks',
                                     'colour' => 'red',
                                 ],[
+                                    'title' => 'Tracks Quick Edit',
+                                    'url' => '/trackview/quick',
+                                    'colour' => 'red',
+                                ],[
                                     'br' => '---',
                                 ],[
                                     'title' => 'Maps',
@@ -209,11 +202,6 @@ function navigation_array($selected = false)
                                     'url' => '/roadview/dashboard',
                                     'colour' => 'red',
                                     'icon' => 'bm-roadview',
-                                ],[
-                                    'title' => 'Track View',
-                                    'url' => '/trackview/dashboard',
-                                    'colour' => 'red',
-                                    'icon' => 'bm-trackview',
                                 ],[
                                     'br' => '---',
                                 ],[
@@ -327,6 +315,10 @@ function navigation_array($selected = false)
                                 ],[
                                     'title' => 'Types',
                                     'url' => '/radio/types',
+                                    'colour' => 'red',
+                                ],[
+                                    'title' => 'Hosts',
+                                    'url' => '/radio/hosts',
                                     'colour' => 'red',
                                 ],[
                                     'br' => '---',

@@ -1,15 +1,19 @@
 <?php
 
-$length = 1;
+$filename = basename(__FILE__);
+
+$length = radio_length($filename);
 
 $prompt = 'Write a script for a '.$length.' minute radio segment. 
 
 The radio station name is Lively Radio. 
 
-There is one host for the radio station. 
-His name is Emit and he is the main character from the LEGO movie.
+There is one host for the radio station.'; 
 
-Only include the words the host will say, no instructions, no speaker names, no music or sounds.
+// HOST information $_city
+$prompt .= host_prompt($_GET['key'], $filename);
+
+$prompt .='Only include the words the host will say, no instructions, no music or sounds.
 
 The topic of this segment is traffic. 
 

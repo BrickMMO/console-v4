@@ -340,10 +340,16 @@ function github_scan_repo($account, $repo)
             $error_comments[] = 'README.md does not appear to have resources';
         }
 
-        if(!strpos($content, 'code-block.png') && !strpos($content, 'brickmmo-logo-coloured-horizontal.png'))
+        if(!strpos($content, 'codeadam-logo-coloured-horizontal.png') && !strpos($content, 'brickmmo-logo-coloured-horizontal.png'))
         {
             $errors['error_readme_contents'] = 0;
             $error_comments[] = 'README.md does not appear to have a footer image';
+        }
+
+        if(strpos($content, 'code-block.png'))
+        {
+            $errors['error_readme_contents'] = 0;
+            $error_comments[] = 'README.md appears to have an outdated footer image';
         }
 
     }
