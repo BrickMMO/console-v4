@@ -99,6 +99,10 @@ ENV_REDIRECT=true
 
 ## Database
 
+```
+php artisan migrate:fresh --seed
+```
+
 ## PHP Version
 
 ---
