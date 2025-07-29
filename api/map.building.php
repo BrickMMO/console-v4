@@ -24,21 +24,41 @@ $building_id = $_GET['building_id'];
 
 $query = 'SELECT * 
     FROM buildings 
-    WHERE id = "'.$building_id.'" 
-    AND city_id = "'.$city_id.'" 
+    WHERE id = "'.$building_id.'"
+    AND city_id = "'.$city_id.'"
     LIMIT 1';
 $result = mysqli_query($connect, $query);
 
 if(!mysqli_num_rows($result)) 
 {
+
     $data = array('message' => 'No building found.', 'error' => true);
     return;
 }
 
 $building = mysqli_fetch_assoc($result);
 
+$query = 'SELECT * 
+    FROM roads 
+    WHERE id = "'.$building['road_id'].'" 
+    AND city_id = "'.$city_id.'" 
+    LIMIT 1';
+$result = mysqli_query($connect, $query);
+
+$road = mysqli_fetch_assoc($result);
+
+$query = 'SELECT * 
+    FROM cities 
+    WHERE id = "'.$city_id.'" 
+    LIMIT 1';
+$result = mysqli_query($connect, $query);
+
+$city = mysqli_fetch_assoc($result);
+
 $data = [
     'message' => 'Buildings retrieved successfully.',
     'error' => false,
-    'buildings' => $building,
+    'building' => $building,
+    'road' => $road,
+    'city' => $city,
 ];

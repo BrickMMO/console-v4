@@ -40,11 +40,7 @@ if(!mysqli_num_rows($result))
 
 while ($building = mysqli_fetch_assoc($result)) 
 {
-    $buildingArray[] = [
-        'id' => $building['id'],
-        'name' => $building['name'],
-        'set' => $building['set']
-    ];
+    $buildingArray[] = $building;
 }
 
 $data = [
