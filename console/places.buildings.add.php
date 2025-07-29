@@ -7,8 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']) || 
-        !validate_blank($_POST['set']))
+    if (!validate_blank($_POST['name']))
     {
         message_set('Building Error', 'There was an error with the provided building.', 'red');
         header_redirect('/places/buildings/add');

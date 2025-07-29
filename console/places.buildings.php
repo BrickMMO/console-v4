@@ -63,6 +63,7 @@ $result = mysqli_query($connect, $query);
 
 <table class="w3-table w3-bordered w3-striped w3-margin-bottom">
     <tr>
+        <th class="bm-table-icon"></th>
         <th>Name</th>
         <th class="bm-table-number">Squares</th>
         <th class="bm-table-number">Driveway</th>
@@ -72,6 +73,9 @@ $result = mysqli_query($connect, $query);
 
     <?php while($record = mysqli_fetch_assoc($result)): ?>
         <tr>
+            <td>
+                <div style="width: 20px; height: 20px; background-color: <?=$record['colour']?>;"></div>
+            </td>
             <td>
                 <?=$record['name']?>
             </td>
