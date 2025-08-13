@@ -255,6 +255,9 @@ function github_scan_repo($account, $repo)
     curl_close($ch);
 
 
+    // debug_pre($protection);
+    // die();
+
     /*
     // Fetch pages information
     $url = 'https://api.github.com/repos/'.$_GET['account'].'/'.$_GET['repo'].'/pages';
@@ -396,7 +399,7 @@ function github_scan_repo($account, $repo)
     // error_protected: boolean default:0
     $errors['error_protected'] = 1;
 
-    if(!isset($protection['restrictions'])) 
+    if(isset($protection['required_pull_request_reviews']['enabled']))
     {
         $errors['error_protected'] = 0;
         $error_comments[] = 'Main branch is not protected';

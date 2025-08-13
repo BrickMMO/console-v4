@@ -98,15 +98,19 @@ include('../templates/message.php');
     Last scan: <span class="w3-tag w3-blue"><?=(new DateTime($record['updated_at']))->format("D, M j g:i A")?></span>
 </p>
 
-<hr />
+<?php if(strlen($record['error_comments']) > 0): ?>
 
-<h3>Repo Errors</h3>
+    <hr />
 
-<ul class="w3-margin-bottom">
-    <?php foreach(explode(chr(13), $record['error_comments']) as $error): ?>
-        <li><?=$error?></li>
-    <?php endforeach; ?>
-</ul>
+    <h3>Repo Errors</h3>
+
+    <ul class="w3-margin-bottom">
+        <?php foreach(explode(chr(13), $record['error_comments']) as $error): ?>
+            <li><?=$error?></li>
+        <?php endforeach; ?>
+    </ul>
+
+<?php endif; ?>
 
 <hr />
 
