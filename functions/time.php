@@ -45,7 +45,7 @@ function time_adjust($datetime)
     if(isset($_SESSION['timezone']))
     {
         $datetime = new DateTime($datetime);
-        $datetime->modify('+ '.$_SESSION['timezone']['offset'].' minutes');
+        @$datetime->modify('+ '.$_SESSION['timezone']['offset'].' minutes');
     }
 
     return $datetime->format('Y-m-d H:i:s');
