@@ -14,6 +14,7 @@ $city_id = isset($_GET['city_id']) ? intval($_GET['city_id']) : null;
         buildings.name,
         buildings.set,
         buildings.colour,
+        buildings.square_id,
         buildings.number,
         (
              SELECT COUNT(DISTINCT road_square.road_id)
@@ -71,6 +72,7 @@ $squareArray = [];
             $newSquare['building']['set'] = $square['set'];
             $newSquare['building']['colour'] = $square['colour'];
             $newSquare['building']['number'] = $square['number'];
+            $newSquare['building']['square_id'] = $square['square_id'];
         }
 
         $squareArray[] = $newSquare;
