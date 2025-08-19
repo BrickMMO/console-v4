@@ -6,12 +6,13 @@ if (headers_sent()) {
 }
 
 // Get the building ID from the URL path
-$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+// $id = isset($_GET['id']) ? intval($_GET['id']) : null;
+$name = isset($_GET['name']) ? $_GET['name'] : null;
 
-if ($id) {
-    // Query for a specific building
-    // URL: http://local.api.brickmmo.com:7777/map/building/id/{IDNumber}
-    $query = "SELECT * FROM buildings WHERE id = $id LIMIT 1";
+if ($name) {
+    // Query for a specific building by name
+    $building_name = mysqli_real_escape_string($connect, $name);
+    $query = "SELECT * FROM buildings WHERE name LIKE '$building_name%' OR name LIKE '% $building_name%'" ;
 } else {
     // Query for all buildings if no ID is provided
     // URL: http://local.api.brickmmo.com:7777/map/building
@@ -34,7 +35,7 @@ if ($result) {
     }
 
     $data = [
-        'message' => 'Buildings retrieved by id successfully.',
+        'message' => 'Buildings retrieved by name successfully.',
         'error' => false,
         'buildings' => $buildingArray
     ];
