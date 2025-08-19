@@ -1,27 +1,38 @@
 <?php
 
-// Ensure only one response is sent
-if (headers_sent()) {
-    exit();
+/*
+ *
+ * API endpoint to retrieve the details for a specified building
+ * URL: https://api.brickmmo.com/map/building/city_id/{city_id}/building_id/{building_id}
+ * 
+ */
+
+// Check for required parameters
+if(!isset($_GET['city_id']) || !is_numeric($_GET['city_id']))
+{
+    $data = array('message' => 'No city ID specified.', 'error' => true);
+    return;
+}
+elseif(!isset($_GET['building_id']) || !is_numeric($_GET['building_id']))
+{
+    $data = array('message' => 'No building ID specified.', 'error' => true);
+    return;
 }
 
-// Get the building ID from the URL path
-$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+$city_id = $_GET['city_id'];
+$building_id = $_GET['building_id'];
 
-if ($id) {
-    // Query for a specific building
-    // URL: http://local.api.brickmmo.com:7777/map/building/id/{IDNumber}
-    $query = "SELECT * FROM buildings WHERE id = $id LIMIT 1";
-} else {
-    // Query for all buildings if no ID is provided
-    // URL: http://local.api.brickmmo.com:7777/map/building
-    $query = "SELECT * FROM buildings ORDER BY name";
-}
-
+$query = 'SELECT * 
+    FROM buildings 
+    WHERE id = "'.$building_id.'"
+    AND city_id = "'.$city_id.'"
+    LIMIT 1';
 $result = mysqli_query($connect, $query);
 
-$buildingArray = [];
+if(!mysqli_num_rows($result)) 
+{
 
+<<<<<<< HEAD
 if ($result) {
     while ($building = mysqli_fetch_assoc($result)) {
         $buildingArray[] = [
@@ -44,10 +55,35 @@ if ($result) {
         'error' => true,
         'buildings' => null
     ];
+=======
+    $data = array('message' => 'No building found.', 'error' => true);
+    return;
+>>>>>>> 687186ce63c12151ad5a0841fe40a7d52d448298
 }
 
-// Set JSON header and output response once
-header('Content-Type: application/json');
-echo json_encode($data);
-exit(); // Prevents any additional output
-?>
+$building = mysqli_fetch_assoc($result);
+
+$query = 'SELECT * 
+    FROM roads 
+    WHERE id = "'.$building['road_id'].'" 
+    AND city_id = "'.$city_id.'" 
+    LIMIT 1';
+$result = mysqli_query($connect, $query);
+
+$road = mysqli_fetch_assoc($result);
+
+$query = 'SELECT * 
+    FROM cities 
+    WHERE id = "'.$city_id.'" 
+    LIMIT 1';
+$result = mysqli_query($connect, $query);
+
+$city = mysqli_fetch_assoc($result);
+
+$data = [
+    'message' => 'Buildings retrieved successfully.',
+    'error' => false,
+    'building' => $building,
+    'road' => $road,
+    'city' => $city,
+];

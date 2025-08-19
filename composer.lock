@@ -1442,6 +1442,7 @@
         },
         {
             "name": "sendgrid/sendgrid",
+<<<<<<< HEAD
             "version": "8.1.2",
             "source": {
                 "type": "git",
@@ -1452,6 +1453,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/6700d2cf50df38915fa2d9a03affbca58c48599f",
                 "reference": "6700d2cf50df38915fa2d9a03affbca58c48599f",
+=======
+            "version": "8.1.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sendgrid/sendgrid-php.git",
+                "reference": "1ed29bffffaec0216dc1330bb437d3b305428a11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/1ed29bffffaec0216dc1330bb437d3b305428a11",
+                "reference": "1ed29bffffaec0216dc1330bb437d3b305428a11",
+>>>>>>> 687186ce63c12151ad5a0841fe40a7d52d448298
                 "shasum": ""
             },
             "require": {
@@ -1501,9 +1514,16 @@
                 "twilio sendgrid"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/sendgrid/sendgrid-php/tree/8.1.2"
             },
             "time": "2024-04-18T11:09:09+00:00"
+=======
+                "issues": "https://github.com/sendgrid/sendgrid-php/issues",
+                "source": "https://github.com/sendgrid/sendgrid-php/tree/8.1.11"
+            },
+            "time": "2025-02-22T09:34:11+00:00"
+>>>>>>> 687186ce63c12151ad5a0841fe40a7d52d448298
         },
         {
             "name": "smottt/wideimage",

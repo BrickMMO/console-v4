@@ -32,11 +32,15 @@ include('../templates/nav_sidebar.php');
 include('../templates/main_header.php');
 include('../templates/message.php');
 
-$query = 'SELECT hosts.*, COUNT(schedules.id) AS schedule_count
-FROM hosts
-LEFT JOIN schedules ON hosts.id = schedules.host_id
-GROUP BY hosts.id
-ORDER BY hosts.id;';
+$query = 'SELECT *,
+    (
+        SELECT COUNT(*)
+        FROM schedules
+        WHERE schedules.host_id = hosts.id
+    ) AS schedule_count
+    FROM hosts
+    WHERE city_id = "'.$_city['id'].'"
+    ORDER BY name;';
 $result = mysqli_query($connect, $query);
 
 $hosts_count = mysqli_num_rows($result);
@@ -66,8 +70,7 @@ $hosts_count = mysqli_num_rows($result);
     <tr>
         <th>Name</th>
         <th>Voice</th>
-        <th>Prompt</th>
-        <th>City</th>
+        <th>Sample</th>
         <th class="bm-table-number">Schedules</th>
         <th class="bm-table-icon"></th>
         <th class="bm-table-icon"></th>
@@ -80,20 +83,11 @@ $hosts_count = mysqli_num_rows($result);
             </td>
             <td>
                 <?=$record['voice']?> 
-                <audio id="audio_<?=$record['id']?>">
+            </td>
+            <td>
+                <audio id="audio_<?=$record['id']?>" controls>
                     <source src="https://cdn.openai.com/API/docs/audio/<?=$record['voice']?>.wav" type="audio/wav">
                 </audio>
-
-                <button class="w3-transparent w3-border-0" onclick="toggleAudio('audio_<?=$record['id']?>')">
-                    <i id="play_<?=$record['id']?>" class='fa-solid fa-circle-play' style='color:#ff5b00; font-size:18px'></i>
-                    <i id="pause_<?=$record['id']?>" class='fa-solid fa-circle-pause' style='color:#ff5b00;display:none;font-size:18px'></i>
-                </button>
-            </td>
-            <td>
-                <?=$record['prompt']?>
-            </td>
-            <td>
-                <?=$record['city_id']?>
             </td>
             <td>
                 <?=$record['schedule_count']?>

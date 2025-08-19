@@ -7,8 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     // Basic serverside validation
-    if (!validate_blank($_POST['name']) || 
-        !validate_blank($_POST['set']))
+    if (!validate_blank($_POST['name']))
     {
         message_set('Building Error', 'There was an error with the provided building.', 'red');
         header_redirect('/places/buildings/add');
@@ -107,7 +106,7 @@ include('../templates/message.php');
 
     <input  
         name="colour" 
-        class="w3-input w3-border" 
+        class="w3-input w3-border w3-margin-top" 
         type="text" 
         id="colour" 
         autocomplete="off"
@@ -120,7 +119,7 @@ include('../templates/message.php');
         name="number" 
         class="w3-input w3-border w3-margin-top" 
         type="text" 
-        id="set" 
+        id="number" 
         autocomplete="off"
     />
     <label for="number" class="w3-text-gray">
@@ -148,6 +147,20 @@ include('../templates/message.php');
         name_error.innerHTML = "";
         if (name.value == "") {
             name_error.innerHTML = "(name is required)";
+            errors++;
+        }
+        let road = document.getElementById("road_id");
+        let road_error = document.getElementById("road-id-error");
+        road_error.innerHTML = "";
+        if (road.value == "") {
+            road_error.innerHTML = "(road is required)";
+            errors++;
+        }
+        let number = document.getElementById("number");
+        let number_error = document.getElementById("number-error");
+        number_error.innerHTML = "";
+        if (number.value == "") {
+            number_error.innerHTML = "(number is required)";
             errors++;
         }
 
