@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.brickmmo.com/exceptions@1.0.0/fontawesome.css" />
 
     <!-- BrickMMO Icons -->
-    <link rel="stylesheet" href="https://cdn.brickmmo.com/fonticons@1.0.0/fonticons.css" />
+    <link rel="stylesheet" href="https://cdn.brickmmo.com/glyphs@1.0.0/icons.css" />
 
     <!--
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
