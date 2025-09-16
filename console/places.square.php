@@ -16,12 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         header_redirect('/maps/square/'.$_GET['key']);
     }
 
-    $query = 'UPDATE squares SET
-        building_rules = "'.addslashes($_POST['building_rules']).'"
-        WHERE id = '.$_GET['key'].'
-        LIMIT 1';
-    mysqli_query($connect, $query);
-
     foreach($_FILES as $key => $value)
     {
         if(in_array($value['type'], FILE_TYPES_IMAGES))
@@ -52,22 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             mysqli_query($connect, $query);
         }
     }   
-
-    $query = 'DELETE FROM building_square
-        WHERE square_id = "'.$_GET['key'].'"';
-    mysqli_query($connect, $query);
-
-    foreach($_POST['building_id'] as $value)
-    {
-        $query = 'INSERT INTO building_square (
-                building_id,
-                square_id
-            ) VALUES (
-                "'.$value.'",
-                "'.$_GET['key'].'"
-            )';
-        mysqli_query($connect, $query);
-    }
 
     message_set('Square Success', 'Square has been updated.');
     // header_redirect('/places/square/'.$_GET['key']);
@@ -130,11 +108,6 @@ $square = square_fetch($_GET['key']);
     id="main-form"
     enctype="multipart/form-data"
 >
-
-    <?=form_select_table('building_id', 'buildings', 'id', 'name', array('selected' => $square['building_id'], 'first' => true))?>
-    <label for="building_id" class="w3-text-gray">
-        Building <span id="building-id-error" class="w3-text-red"></span>
-    </label>
 
     <?php foreach(DIRECTIONS as $direction): ?>
 
